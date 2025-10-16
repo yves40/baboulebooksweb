@@ -17,6 +17,8 @@ npx create-next-app@latest babweb --js --tailwind --turbopack --eslint --app --s
 # Add .gitignore file in the top dir
 # Pousser une première version dans GIT
 # From the top directory
+# The TOP !!!!
+# The TOP !!!!
 git init
 git commit -m "Initial"
 git remote add origin https://github.com/yves40/baboulebooksweb.git
