@@ -27,10 +27,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
-      <body className="flex min-h-full flex-col" >
-        {/* <Navbar></Navbar> */}
+      <body className="body__container">
+        <Navbar></Navbar>
         <Header></Header>
-        <main>
+        <main className="page__container">
           {children}
         </main>
         <Footer></Footer>
@@ -38,3 +38,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+ 
