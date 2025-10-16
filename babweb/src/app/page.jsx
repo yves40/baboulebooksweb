@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 export default function Home() {
+ console.log(`Home sweet home`); 
   return (
     <div>
         <h1 className="text-4xl mb-6">Baboule</h1>
