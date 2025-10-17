@@ -5,11 +5,10 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export default function middleware(req) {
+export async function middleware(req) {
 
-/*
-  const authCheckUrl = new URL(`${req.nextUrl.origin}/api/auth/validateSession`, req.url);
-  const authResponse = await fetch(authCheckUrl, 
+  const sessionCheck = new URL(`${req.nextUrl.origin}/api/security/checkSession`, req.url);
+  const authResponse = await fetch(sessionCheck, 
     {
       headers: {
         cookie: (await cookies()).toString()
@@ -19,9 +18,8 @@ export default function middleware(req) {
     }
   );
   const { authorized } = await authResponse.json();
-  */
- console.log(`Middleware called`); 
-  if (false) {
+  console.log(`Middleware called, user session checked as:}`); 
+  if (!authorized) {
     return NextResponse.redirect(`${req.nextUrl.origin}/signin`, req.url);
   }
   else {
