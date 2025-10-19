@@ -1,15 +1,19 @@
 "use client"
 
 import Link from "next/link"
-import { useContext } from "react"
-import { getAppContext } from "@/app/appContext"
+import { useContext } from "react";
+import { AppContext } from "@/app/appContext"
+
 
 
 function Footer() {
-  const appData = getAppContext();  
+
+  const appctx = useContext(AppContext);
+  const errors = appctx.getErrors404();
+
   return (
     <footer className="footer">
-      <Link href="#">{`${appData.AppInfo.version}`}</Link>
+      <Link href="#">{`${appctx.getVersion()}`}</Link>
     </footer>
   )
 }

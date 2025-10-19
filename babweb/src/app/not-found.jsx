@@ -1,18 +1,13 @@
 "use client"
 
 import Link from "next/link"
-import { getErrors404, getAppContext, setAppInfo } from "./appContext"
+import { AppContext } from "./appContext"
+import { useContext } from "react";
 
 export default function notfound() {
 
-  const appCtx = getAppContext();
-  appCtx.setAppInfo({
-    homeVisits: appCtx.AppInfo.homeVisits,
-    version: appCtx.AppInfo.version,
-    Errors404: appCtx.AppInfo.Errors404 + 1
-  })
-  const Errors404 = getErrors404();
-  console.log(`******************** ${Errors404}`);
+  const { incErrors404 } = useContext(AppContext);
+  // console.log(`******************** ${Errors404}`);
 
   return (
     <div>
