@@ -1,7 +1,9 @@
+"use client"
 
-import Link from "next/link"
+import { useContext } from "react"
 
 function Header() {
+
   return (
     <header className="header">
       <div className="header__div--left">

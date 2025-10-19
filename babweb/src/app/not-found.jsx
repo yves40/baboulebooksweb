@@ -1,6 +1,19 @@
+"use client"
+
 import Link from "next/link"
+import { getErrors404, getAppContext, setAppInfo } from "./appContext"
 
 export default function notfound() {
+
+  const appCtx = getAppContext();
+  appCtx.setAppInfo({
+    homeVisits: appCtx.AppInfo.homeVisits,
+    version: appCtx.AppInfo.version,
+    Errors404: appCtx.AppInfo.Errors404 + 1
+  })
+  const Errors404 = getErrors404();
+  console.log(`******************** ${Errors404}`);
+
   return (
     <div>
         <h1 className=" text-4xl mb-4">404 - Not found</h1>

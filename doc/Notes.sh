@@ -23,3 +23,7 @@ git init
 git commit -m "Initial"
 git remote add origin https://github.com/yves40/baboulebooksweb.git
 git push -u origin master
+#
+# Some nextJS useful file-system conventions
+# https://nextjs.org/docs/app/api-reference/file-conventions
+#

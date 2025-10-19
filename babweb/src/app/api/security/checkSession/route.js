@@ -14,7 +14,7 @@ export async function GET() {
   try {
     const cookieStore = await cookies();
     const sessionId = cookieStore.get("sessionId")?.value;
-    if(!sessionId) {
+    if(sessionId) {
       return NextResponse.json({authorized: false, status:401});
     }
     /*
@@ -34,7 +34,7 @@ export async function GET() {
   }
   catch(error) {
     // console.log("Error while validating session", error);
-    return NextResponse.json({authorized: false}, {status:500});
+    return NextResponse.json({authorized: false, status:500});
   }
 }
 
