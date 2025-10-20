@@ -31,7 +31,8 @@ function Header() {
         <p>Rien à signaler depuis le début du mois.</p>
         <p>Les derniers livres achetés n'ont pas encore été rentrés dans la base.</p>
         <p>Elapsed (sec) : {elapsed}</p>
-        <p>Errors: {appctx.getErrors()}</p>
+        <p>Errors 404 : {appctx.getErrors404()}</p>
+        <p>Errors     : {appctx.getErrors()}</p>
       </div>
     </header>
   )

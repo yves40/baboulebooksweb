@@ -8,7 +8,7 @@ export default function notfound() {
   
   const appctx = useContext(AppContext);
   useEffect(() => {
-    appctx.incErrors();
+    appctx.incErrors404();
   }, []);
 
   return (
