@@ -5,37 +5,28 @@
 */
 "use client"
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
 
 export const AppContext =createContext();
 console.log(`AppContext triggered`);
 
 export function AppProvider({children}) {
 
-  const version = 'baboulebooks &copy; : Oct 19 2025 : 1.12';
-  const [AppInfo, setAppInfo] = useState( {
-    homeVisits: 0,
-    Errors404: 0
-  })
-
-  useEffect( () => {
-    console.log(`useEffect() in AppContext with errors set to : ${AppInfo.Errors404}`); 
-  }, []);
+  const version = 'baboulebooks &copy; : Oct 20 2025 : 1.16';
+  const errors = useRef(0);
 
   function incErrors404() {
-    const newAppInfo = {...AppInfo};
-    newAppInfo.Errors404++;
-    setAppInfo(newAppInfo);
+    errors.current += 1;
   }
   function getVersion() {
     return version;
   }
   function getErrors404() {
-    return AppInfo.Errors404;
+    return errors.current;
   }
   
   return (
-    <AppContext.Provider value={{AppInfo, incErrors404, getVersion, getErrors404}}>
+    <AppContext.Provider value={{incErrors404, getVersion, getErrors404}}>
       {children}
     </AppContext.Provider>
   )

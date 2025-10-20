@@ -31,7 +31,6 @@ export default function RootLayout({ children }) {
       <body className="body__container">
         <Providers>
           <Navbar></Navbar>
-          <Header></Header>
           <main className="page__container">
             {children}
           </main>

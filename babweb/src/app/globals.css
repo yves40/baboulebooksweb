@@ -50,7 +50,7 @@ body {
   @apply text-right bg-white p-4 border-t border-t-zinc-300;
 }
 .page__container {
-  @apply  mx-auto my-10 text-center w-[30rem]
+  @apply  mx-auto text-center w-[30rem]
       sm:w-[40rem]
       md:w-[50rem]
       lg:w-[60rem];

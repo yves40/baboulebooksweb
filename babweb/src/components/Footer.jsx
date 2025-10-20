@@ -9,8 +9,6 @@ import { AppContext } from "@/app/appContext"
 function Footer() {
 
   const appctx = useContext(AppContext);
-  const errors = appctx.getErrors404();
-
   return (
     <footer className="footer">
       <Link href="#">{`${appctx.getVersion()}`}</Link>

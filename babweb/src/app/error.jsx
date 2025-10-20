@@ -1,13 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { useContext } from "react";
-import { AppContext } from "./appContext";
 
 export default function error() {
-
-  const appctx = useContext(AppContext);
-  appctx.incErrors404();
 
   return (
     <div className=" pt-44 text-center">
