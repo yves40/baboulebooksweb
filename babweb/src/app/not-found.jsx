@@ -2,16 +2,18 @@
 
 import Link from "next/link"
 import { AppContext } from "./appContext"
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 export default function notfound() {
-
+  
   const appctx = useContext(AppContext);
-  appctx.incErrors404();
+  useEffect(() => {
+    appctx.incErrors();
+  }, []);
 
   return (
     <div className="header">
-        <h1 className=" text-4xl mb-4">404 - Not found</h1>
+        <h1 className=" text-4xl py-4">404 - Not found</h1>
         <p className="mb-2 text-red-500 ">La page demandée n'a pas été trouvée</p>
         <p className="my-4 text-gray-700 px-8">Contactez l'administrateur au 06.88.33.55.66<br/>
           Il est très disponible et s'efforcera de résoudre ce problème dans les meilleurs délais.

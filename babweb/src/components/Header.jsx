@@ -7,32 +7,31 @@ import { AppContext } from "@/app/appContext"
 function Header() {
 
   const appctx = useContext(AppContext);
-  let errors = appctx.getErrors404();
-  const counter = useRef(0);
-  const [score, setScore] = useState(0);
+  const [elapsed, setElapsed] = useState(0);
 
 
   useEffect(() => {
         const timeID = setInterval(() => {
-          counter.current += 1;
-          console.log((counter.current));
-          setScore(score + 1);
+          setElapsed(elapsed + 1);
         }, 1000);
-        return cleanup(timeID);
-      }, []);
+        // console.log('Header updated');
+        return () => { 
+          clearInterval(timeID) ; 
+        }
+      }, [elapsed]); // Array parameter and specific variable, useEffect called every time state changes
+      // }); // No array parameter, useEffect called every time state changes
+      // }, []); // Array parameter, useEffect called once at mount time
 
-  function cleanup(td) {
-    clearInterval(td);
-  }
-
+      // console.log('Header mount');
+      
   return (
     <header className="header">
       <div className="header__div--left">
         <h3 className=" font-bold">Les news</h3>
         <p>Rien à signaler depuis le début du mois.</p>
         <p>Les derniers livres achetés n'ont pas encore été rentrés dans la base.</p>
-        <p>Counter : {counter.current}</p>
-        <p>Score : {score}</p>
+        <p>Elapsed (sec) : {elapsed}</p>
+        <p>Errors: {appctx.getErrors()}</p>
       </div>
     </header>
   )
