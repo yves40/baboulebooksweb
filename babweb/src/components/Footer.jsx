@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useContext } from "react";
-import { AppContext } from "@/app/appContext"
+import { AppContext } from "@/app/context/appContext"
 
 
 

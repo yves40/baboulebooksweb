@@ -1,7 +1,7 @@
 "use client"
 
 import { useContext, useEffect, useRef, useState } from "react"
-import { AppContext } from "@/app/appContext"
+import { AppContext } from "@/app/context/appContext"
 
 
 function Header() {

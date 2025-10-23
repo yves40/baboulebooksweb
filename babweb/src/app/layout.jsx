@@ -6,7 +6,7 @@ import "./globals.css"; /* Permet de centraliser le constantes, les classe css, 
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Providers } from "./providers";
+import { Providers } from "./context/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

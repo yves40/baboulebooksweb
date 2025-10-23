@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { AppContext } from "./appContext"
+import { AppContext } from "./context/appContext"
 import { useContext, useEffect } from "react";
 export default function error() {
 
