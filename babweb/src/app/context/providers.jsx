@@ -10,11 +10,12 @@
 
 import { AppProvider } from "./appContext";
 import { DbProvider } from "./dbContext";
+// import { AuthContext } from "./authContext";
 
 export function Providers({ children }) {
   return (
     <AppProvider>
-      <DbProvider>{children}</DbProvider>
+        <DbProvider>{children}</DbProvider>
     </AppProvider>
   );
 }
