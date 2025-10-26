@@ -12,7 +12,7 @@ export default function notfound() {
   }, []);
 
   return (
-    <div className="header">
+    <div className="news">
         <h1 className=" text-4xl py-4">404 - Not found</h1>
         <p className="mb-2 text-red-500 ">La page demandée n'a pas été trouvée</p>
         <p className="my-4 text-gray-700 px-8">Contactez l'administrateur au 06.88.33.55.66<br/>

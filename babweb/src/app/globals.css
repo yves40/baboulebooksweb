@@ -36,21 +36,21 @@ body {
 .nav__div {
   @apply max-w-6xl mx-auto px-12 flex py-4;
 }
-.header {
-  margin-top: var(--menuheight);
+.news {
   @apply w-full;
 }
-.header__div {
+.news__div {
   @apply text-center bg-white p-4 border-t border-t-zinc-300;
 }
-.header__div--left {
+.news__div--left {
   @apply text-left bg-white p-4 border-t border-t-zinc-300;
 }
-.header__div--right {
+.news__div--right {
   @apply text-right bg-white p-4 border-t border-t-zinc-300;
 }
 .page__container {
-  @apply  mx-auto text-center w-[30rem]
+  margin-top: var(--menuheight);
+  @apply mx-auto text-center w-[30rem]
       sm:w-[40rem]
       md:w-[50rem]
       lg:w-[60rem];
@@ -60,5 +60,11 @@ body {
   @apply fixed z-10 w-full 
     text-center bg-white p-4 border-t border-t-zinc-300;
 }
-
+.form__label {
+  @apply block mb-2 text-gray-700 font-semibold;
+}
+/* Register page */
+.form__input {
+  @apply w-full mb-4 p-4 focus:outline-slate-400 border rounded;
+}
 
