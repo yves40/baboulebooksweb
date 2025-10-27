@@ -4,7 +4,7 @@ import Link from "next/link"
 import { AppContext } from "./context/appContext"
 import { useContext, useEffect } from "react";
 
-export default function notfound() {
+export default function NotFound() {
   
   const appctx = useContext(AppContext);
   useEffect(() => {
