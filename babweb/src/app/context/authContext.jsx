@@ -7,8 +7,7 @@ export const AuthContext = createContext();
 
 export function AuthProvider({children}) {
 
-  const [isAuthenticated, setIsAuthenticated] = useState( {
-    loading: true,
+  const [userIdentity, setUserIdentity] = useState( {
     isConnected: false,
     userId: null,
     userName: null
@@ -18,7 +17,7 @@ export function AuthProvider({children}) {
     async function fetchSession() {
       const session = await SAsessionInfo();
       if(session.success) {
-        setIsAuthenticated({
+        setsetUserIdentity({
           loading: false,
           isConnected: session.success,
           userName: session.userName,
@@ -30,9 +29,9 @@ export function AuthProvider({children}) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{isAuthenticated, setIsAuthenticated}}>
+    <AuthContext.Provider value={{userIdentity, setUserIdentity}}>
       {children}
     </AuthContext.Provider>
   )
 }
-export function useAuth() { return useContext(AuthContext)}
+export function getUserIdentity() { return useContext(AuthContext)}

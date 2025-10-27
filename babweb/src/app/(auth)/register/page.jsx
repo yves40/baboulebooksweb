@@ -2,8 +2,8 @@
 
 import React, { useRef } from 'react'
 import Link from 'next/link';
-// import { register } from '@/lib/serverActions/session/sessionServerAction';
 import { useRouter } from "next/navigation";
+import { getUserIdentity } from '@/app/context/authContext';
 
 export default function page() {
 
@@ -15,6 +15,7 @@ export default function page() {
     const serverInfo = useRef('');
     const router = useRouter();
     
+    const {userIdentity} = getUserIdentity();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -47,7 +48,7 @@ export default function page() {
 
     return (
         <div className='body__container page__container background-slate-500'>
-            <h1 className='mb-10 text-2xl'>Sign Up</h1>
+            <h1 className='mb-10 text-2xl'>S'enregistrer</h1>
             <div className='w-7/8 md:w-1/2 border rounded shadow-md background-slate-900 text-left mx-auto
                     m-4 p-4'>
                 <form onSubmit={handleSubmit}>
@@ -63,8 +64,11 @@ export default function page() {
                      ref={submitButton}>Submit</button>
                 </form>
             </div>
-            <p ref={serverInfo} className=' text-center my-4'>Status</p>
-            <Link href={"/signin"} className=' mt-6 text-blue-500 underline'>Already have an account ? Log In</Link>
+            {userIdentity.isConnected && <>
+                    <p ref={serverInfo} className=' text-center my-4'>Status</p>
+                </> 
+            }
+            <Link href={"/login"} className=' mt-6 text-blue-500 underline'>Already have an account ? Log In</Link>
         </div>
     )
 }

@@ -12,7 +12,7 @@ export default class User {
   #lastlogin = new Date();
   
   constructor() {
-    this.Version = "user.js Oct 25 2025, 1.01";
+    this.Version = "user.js Oct 27 2025, 1.02";
   }
 
   // ------------------------------------------------------------------------
