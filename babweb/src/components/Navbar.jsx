@@ -13,8 +13,8 @@ export default function Navbar() {
     // Look in globals.css for classes definitions
       <nav className="nav">
         <div className="nav__div">
-            <Link href="/" className=" mr-2 text-zinc-900">Home</Link>
-            <Link href="/books" className=" mx-2 text-zinc-900">Books</Link>
+            <Link href="/" className=" mr-2 text-zinc-900">Accueil</Link>
+            <Link href="/books" className=" mx-2 text-zinc-900">Livres</Link>
             { userIdentity.isConnected &&  
             <>
               <Link href="/signout" className=" mx-2 text-zinc-900 mr-auto">Déconnexion</Link>

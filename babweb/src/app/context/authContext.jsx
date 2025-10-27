@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { SAsessionInfo } from "@/server/session/session";
+import Session  from "@/classes/clientSession";
 
 export const AuthContext = createContext();
 
@@ -15,10 +15,10 @@ export function AuthProvider({children}) {
 
   useEffect( () => {
     async function fetchSession() {
-      const session = await SAsessionInfo();
+      const sess = new Session();
+      const session = await sess.getSessionInfo();
       if(session.success) {
-        setsetUserIdentity({
-          loading: false,
+        setUserIdentity({
           isConnected: session.success,
           userName: session.userName,
           userId: session.userId
