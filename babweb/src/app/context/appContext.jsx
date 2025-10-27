@@ -47,8 +47,14 @@ export function AppProvider({children}) {
   }
   
   return (
-    <AppContext.Provider value={{incErrors404, incErrors, 
-                  getVersion, getErrors404, getErrors}}>
+    <AppContext.Provider value={
+        {incErrors404, 
+          incErrors, 
+          getVersion, 
+          getErrors404, 
+          getErrors
+        }
+      }>
       {children}
     </AppContext.Provider>
   )
