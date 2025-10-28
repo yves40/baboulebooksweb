@@ -51,7 +51,7 @@ export default class sqlHelper {
       (async () => {
         try {
           const [ result, fields ] = await this.pool.execute(sql, params);
-          resolve(true) ;
+          resolve(result) ;
         }
         catch(error) {
           reject(error);

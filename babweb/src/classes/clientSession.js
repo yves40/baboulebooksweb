@@ -1,7 +1,7 @@
 "use strict";
 "use client"
 
-import { createDBSession, getSessionCookie } from "@/server/session/serverSession";
+import { createDBSession, createCookieSession, getSessionCookie } from "@/server/session/serverSession";
 
 export default class Session {
 
@@ -9,18 +9,24 @@ export default class Session {
   #created = new Date();
   #expired = new Date();
   #userid = 0;
-  #CookieExpirationDelay = 1 * 24 * 60 * 60; // One day expiration date for Cookie (sec)
   
   // ------------------------------------------------------------------------
   constructor() {
-    this.Version = "Session.js Oct 27 2025, 1.01";
+    this.Version = "Session.js Oct 28 2025, 1.02";
   }
   // ------------------------------------------------------------------------
   //      P U B L I C 
   // ------------------------------------------------------------------------
-  createDBSession(userid) {
-        console.log(`Create a session with userID : ${userid}`);
-        createDBSession(userid);
+  async createDBSession(userid) {
+        console.log(`DB session with userID : ${userid}`);
+        // TODO get the session ID from the DB
+        const sessionId = await createDBSession(userid);
+        return sessionId;
+  }
+  // ------------------------------------------------------------------------
+  async createCookieSession(userid, sessionId) {
+        console.log(`Cookie session with userID : ${userid}`);
+        createCookieSession(userid);
   }
   // ------------------------------------------------------------------------
   async getSessionInfo() {

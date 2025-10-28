@@ -17,7 +17,7 @@ export default class User {
   
   // ------------------------------------------------------------------------
   constructor() {
-    this.Version = "user.js Oct 27 2025, 1.05";
+    this.Version = "user.js Oct 28 2025, 1.06";
     this.#created = new Date();
     this.#lastlogin = new Date();
   }  
@@ -31,7 +31,8 @@ export default class User {
       this.#email = usr_email;
       // Create a new session
       const sess = new Session();
-      sess.createDBSession(usr_id);
+      const sessionId = await sess.createDBSession(usr_id);
+      sess.createCookieSession(usr_id, sessionId);
     }
     catch(error) {
       console.log(error);

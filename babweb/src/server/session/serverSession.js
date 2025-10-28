@@ -2,10 +2,12 @@
 
 import sqlHelper from '@/classes/sqlHelper';
 import { cookies } from "next/headers";
+import { revalidateTag } from "next/cache";
 
 const modulename = "serverSession # ";
 const Version = "serverSession.js Oct 27 2025, 1.01";
 const DBExpirationDelay = 60;  // One hour expiration date for DBSession (msec )
+const CookieExpirationDelay = 1 * 24 * 60 * 60; // One day expiration date for Cookie (sec)
 
 
 export async function isPrivatePage(pathname) {
@@ -30,13 +32,22 @@ export async function isPrivatePage(pathname) {
 export async function createDBSession(userid) {
   const sqlh = new sqlHelper();
   sqlh.startTransactionRW();
-  sqlh.Insert(`insert into babouledb.sessions (ses_userid, ses_created, ses_expired) \
+  const result = await sqlh.Insert(`insert into babouledb.sessions (ses_userid, ses_created, ses_expired) \
     values ( ?, now(), now() + INTERVAL ${DBExpirationDelay} MINUTE )`, [parseInt( userid)] );
   sqlh.commitTransaction;
+  const {insertId} = result;
+  return insertId;
 }
 // ------------------------------------------------------------------------
-export async function setSessionCookie(userid) {
-  
+export async function createCookieSession(userid) {
+  const cookieStore = await cookies();
+  cookieStore.set('userId', userid.toString(), { 
+      httpOnly: true, // No JS access
+      secure: process.env.NODE_ENV === "production", // If prod, use HTTP for requests
+      path: '/', // Use cookie for all APP pages. Could be restrained to sensitive pages
+      maxAge: CookieExpirationDelay,   // One day persistence
+      sameSite: "Lax" // To block CSRF attacks. Cookie is sent only to our site. Look at https://contentsquare.com/fr-fr/blog/samesite-cookie-attribute/
+  });
 }
 // ------------------------------------------------------------------------
 export async function getSessionCookie() {
