@@ -9,8 +9,8 @@ export function AuthProvider({children}) {
 
   const [userIdentity, setUserIdentity] = useState( {
     isConnected: false,
-    userId: null,
-    userName: null
+    userId: 0,
+    userEmail: ''
   })
 
   useEffect( () => {
@@ -20,8 +20,15 @@ export function AuthProvider({children}) {
       if(session.success) {
         setUserIdentity({
           isConnected: session.success,
-          userName: session.userName,
+          userEmail: session.userEmail,
           userId: session.userId
+        })
+      }
+      else {
+        setUserIdentity({
+          isConnected: false,
+          userEmail: '',
+          userId: 0
         })
       }
     }

@@ -3,7 +3,7 @@
 import bcrypt from 'bcryptjs';
 import sqlHelper from '@/classes/sqlHelper';
 
-const Version = 'serverUser, Oct 27 2025 : 1.01';
+const Version = 'serverUser, Oct 28 2025 : 1.02';
 const modulename = 'serverUser # ';
 
 // -----------------------------------------------------------------------------------------
@@ -130,10 +130,12 @@ export async function logout() {
     const cookieStore = await cookies();
     const userId = cookieStore.get('sessionId')?.value;
     try {
-        await Session.findOneAndDelete({ userId: userId });        // Shoot the DB session
-        cookieStore.set('sessionId', "", {                         // Shoot the cookie
+        // Shoot the DB session
+        // TODO
+        // Shoot the cookie
+        cookieStore.set('sessionId', "", {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",         // If prod, use HTTP for requests
+            secure: process.env.NODE_ENV === "production",  // If prod, use HTTP for requests
             path: '/',
             maxAge: 0,  // maxAge set to 0 deletes the cookie
             sameSite: "strict"

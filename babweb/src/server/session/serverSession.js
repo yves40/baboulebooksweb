@@ -31,7 +31,7 @@ export async function isPrivatePage(pathname) {
 
 export async function createDBSession(userid) {
   const sqlh = new sqlHelper();
-  sqlh.startTransactionRW();
+  await sqlh.startTransactionRW();
   const result = await sqlh.Insert(`insert into babouledb.sessions (ses_userid, ses_created, ses_expired) \
     values ( ?, now(), now() + INTERVAL ${DBExpirationDelay} MINUTE )`, [parseInt( userid)] );
   sqlh.commitTransaction;
@@ -39,15 +39,25 @@ export async function createDBSession(userid) {
   return insertId;
 }
 // ------------------------------------------------------------------------
-export async function createCookieSession(userid) {
+export async function createCookieSession(userid, sessionid) {
+  console.log(`********** create cookies ${userid}===${sessionid}`);
   const cookieStore = await cookies();
-  cookieStore.set('userId', userid.toString(), { 
+  cookieStore.set('userid', userid.toString(), { 
       httpOnly: true, // No JS access
       secure: process.env.NODE_ENV === "production", // If prod, use HTTP for requests
       path: '/', // Use cookie for all APP pages. Could be restrained to sensitive pages
       maxAge: CookieExpirationDelay,   // One day persistence
       sameSite: "Lax" // To block CSRF attacks. Cookie is sent only to our site. Look at https://contentsquare.com/fr-fr/blog/samesite-cookie-attribute/
   });
+  cookieStore.set('sessionid', sessionid.toString(), { 
+      httpOnly: true, // No JS access
+      secure: process.env.NODE_ENV === "production", // If prod, use HTTP for requests
+      path: '/', // Use cookie for all APP pages. Could be restrained to sensitive pages
+      maxAge: CookieExpirationDelay,   // One day persistence
+      sameSite: "Lax" // To block CSRF attacks. Cookie is sent only to our site. Look at https://contentsquare.com/fr-fr/blog/samesite-cookie-attribute/
+  });
+  console.log(`********** cookies created`);
+  
 }
 // ------------------------------------------------------------------------
 export async function getSessionCookie() {
@@ -58,7 +68,7 @@ export async function getSessionCookie() {
         return { success: false, cookie: undefined };
     }
     else {
-        console.log(`${modulename} user KO : No sessionCookie`);      
+        console.log(`${modulename} user OK : sessionCookie`);      
         return { success: true, cookie: userCookieId };
     }
 }

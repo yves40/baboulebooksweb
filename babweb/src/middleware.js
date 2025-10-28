@@ -19,7 +19,7 @@ export async function middleware(req) {
   );
   const { authorized } = await authResponse.json();
   if (!authorized) {
-    return NextResponse.redirect(`${req.nextUrl.origin}/signin`, req.url);
+    return NextResponse.redirect(`${req.nextUrl.origin}/login`, req.url);
   }
   else {
     return NextResponse.next();
@@ -28,6 +28,6 @@ export async function middleware(req) {
 // Filter dashboard and any underlying route
 export const config = {
   // matcher: [ "/admin/:path*"]
-  matcher: [ "/"]
+  matcher: [ "/books"]
 }
 

@@ -8,7 +8,7 @@ import { AuthContext } from "@/app/context/authContext";
 import  User  from "@/classes/clientUser";
 
 export default function page() {
-  const {userIdentity} = useContext(AuthContext);;
+  const {userIdentity} = useContext(AuthContext);
   const email = useRef('');
   const password = useRef('');
   const submitButton = useRef('');
@@ -22,21 +22,10 @@ export default function page() {
       // submitButton.current.disabled = true;
       const user = new User();
       user.login(formdataObj.email, formdataObj.password);
-      // serverInfo.current.textContent = "";
-      // try {
-      //   const result = await login(new FormData(e.target));
-      //   if(result.success) {
-      //     setIsAuthenticated({ loading: false, isConnected: true, userId: result.userId, userName: result.userName});
-      //     router.push('/');
-      //   }
-      // }
-      // catch(error) {
-      //   console.error(error.message);
-      //   submitButton.current.disabled = false;
-      //   serverInfo.current.textContent = error.message;
-      // }
+      router.push('/');
+      submitButton.current.disabled = false;
   }
-        
+
   return (
     <div className='body__container page__container background-slate-500'>
       <h1 className='mb-10 text-2xl'>Se connecter</h1>

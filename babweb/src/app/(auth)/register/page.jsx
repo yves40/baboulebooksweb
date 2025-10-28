@@ -34,7 +34,7 @@ export default function page() {
                 serverInfo.current.textContent = `Redirecting ${countdown}...`;
                 if(countdown === 0) {
                 clearInterval(interval);
-                router.push(`/signin`); // In case of success route to login page
+                router.push(`/login`); // In case of success route to login page
                 }
             }, 1000);        
         }

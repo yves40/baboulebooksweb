@@ -18,19 +18,21 @@ export default class Session {
   //      P U B L I C 
   // ------------------------------------------------------------------------
   async createDBSession(userid) {
-        console.log(`DB session with userID : ${userid}`);
+        console.log(`createDBSession with userID : ${userid}`);
         // TODO get the session ID from the DB
         const sessionId = await createDBSession(userid);
+        console.log('********************* Done');        
         return sessionId;
   }
   // ------------------------------------------------------------------------
   async createCookieSession(userid, sessionId) {
         console.log(`Cookie session with userID : ${userid}`);
-        createCookieSession(userid);
+        createCookieSession(userid, sessionId);
   }
   // ------------------------------------------------------------------------
   async getSessionInfo() {
-    const check = getSessionCookie();
+    const check = await getSessionCookie();
+    console.log('*****************' + JSON.stringify(check));
     return check;
   }
     /**

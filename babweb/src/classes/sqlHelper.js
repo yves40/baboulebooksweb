@@ -3,6 +3,7 @@
 import mysqlPromise from "mysql2/promise.js";
 import dotenv from 'dotenv';
 
+// TODO study singleton, check instance
 
 export default class sqlHelper {
 
@@ -13,7 +14,7 @@ export default class sqlHelper {
   #dbpass = process.env.DBPASS;
   
   constructor() {
-    this.Version = "sqlHelper.js Aug 30 2025, 1.55";
+    this.Version = "sqlHelper.js Oct 28 2025, 1.56";
 
     dotenv.config({ quiet: true });
     this.#dbhost = process.env.DBHOST;
@@ -54,6 +55,7 @@ export default class sqlHelper {
           resolve(result) ;
         }
         catch(error) {
+          console.log(`INSERT ERROR ${error}`);
           reject(error);
         }
       })();
