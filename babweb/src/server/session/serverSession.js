@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { revalidateTag } from "next/cache";
 
 const modulename = "serverSession # ";
-const Version = "serverSession.js Oct 27 2025, 1.01";
+const Version = "serverSession.js Oct 29 2025, 1.02";
 const DBExpirationDelay = 60;  // One hour expiration date for DBSession (msec )
 const CookieExpirationDelay = 1 * 24 * 60 * 60; // One day expiration date for Cookie (sec)
 

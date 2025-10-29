@@ -3,12 +3,12 @@
 import { useRef } from "react";
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
-import { AuthContext } from "@/app/context/authContext";
+import { getUserIdentity } from '@/app/context/authContext';
+
 import  User  from "@/classes/clientUser";
 
 export default function page() {
-  const {userIdentity} = useContext(AuthContext);
+  const {userIdentity, setUserIdentity} = getUserIdentity();
   const email = useRef('');
   const password = useRef('');
   const submitButton = useRef('');
@@ -22,6 +22,12 @@ export default function page() {
       // submitButton.current.disabled = true;
       const user = new User();
       user.login(formdataObj.email, formdataObj.password);
+      // Update the authorization context
+      setUserIdentity( {
+        isConnected: true,
+        userId: user.getId(),
+        userEmail: user.getEmail()
+      })
       router.push('/');
       submitButton.current.disabled = false;
   }

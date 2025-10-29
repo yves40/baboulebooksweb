@@ -2,19 +2,13 @@
 
 import {login} from '../server/user/serverUser.js'
 import Session from '@/classes/clientSession';
-import { AuthContext, getUserIdentity } from '@/app/context/authContext.jsx';
 
 export default class User {
 
-  #firstname = "";
-  #lastname = "";
   #email = "";
-  #password = "";
-  #password2 = "";
   #id = 0;
   #created;
   #lastlogin;
-  #sqlh = null;
   
   // ------------------------------------------------------------------------
   constructor() {
@@ -34,13 +28,6 @@ export default class User {
       const sess = new Session();
       const sessionId = await sess.createDBSession(usr_id);
       sess.createCookieSession(usr_id, sessionId);
-      // Update the authorization context
-      // const {setUserIdentity} = getUserIdentity();
-      // setUserIdentity( {
-      //   isConnected: true,
-      //   userId: usr_id,
-      //   userEmail: usr_email
-      // })
     }
     catch(error) {
       console.log(error);
@@ -49,6 +36,9 @@ export default class User {
   async logout() {
 
   }
+  // ------------------------------------------------------------------------
+  getEmail() { return this.#email};
+  getId() { return this.#id};
   // ------------------------------------------------------------------------
   //      P R I V A T E 
   // ------------------------------------------------------------------------

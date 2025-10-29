@@ -8,7 +8,9 @@ import { AuthContext } from "@/app/context/authContext";
 const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
+
   const {userIdentity} = useContext(AuthContext);
+
   return (
     // Look in globals.css for classes definitions
       <nav className="nav">
@@ -17,7 +19,7 @@ export default function Navbar() {
             <Link href="/books" className=" mx-2 text-zinc-900">Livres</Link>
             { userIdentity.isConnected &&  
             <>
-              <Link href="/signout" className=" mx-2 text-zinc-900 mr-auto">Déconnexion</Link>
+              <Link href="/logout" className=" mx-2 text-zinc-900 mr-auto">Déconnexion</Link>
             </>
             }
             { !userIdentity.isConnected &&  

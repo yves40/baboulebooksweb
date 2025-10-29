@@ -28,6 +28,6 @@ export async function middleware(req) {
 // Filter dashboard and any underlying route
 export const config = {
   // matcher: [ "/admin/:path*"]
-  matcher: [ "/books"]
+  matcher: [ "/admin"]
 }
 
