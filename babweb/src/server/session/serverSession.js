@@ -62,7 +62,7 @@ export async function createCookieSession(userid, sessionid) {
 // ------------------------------------------------------------------------
 export async function getSessionCookie() {
     const cookieStore = await cookies();
-    const userCookieId = cookieStore.get("sessionId")?.value;
+    const userCookieId = cookieStore.get("sessionid")?.value;
     if (!userCookieId) {  // No cookie yet !
         console.log(`${modulename} user KO : No sessionCookie`);      
         return { success: false, cookie: undefined };

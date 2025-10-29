@@ -7,6 +7,8 @@ export const AuthContext = createContext();
 
 export function AuthProvider({children}) {
 
+  console.log(`AuthContext mounted`);
+
   const [userIdentity, setUserIdentity] = useState( {
     isConnected: false,
     userId: 0,
@@ -33,7 +35,7 @@ export function AuthProvider({children}) {
       }
     }
     fetchSession();
-  }, [])
+  }, []) // Called once
 
   return (
     <AuthContext.Provider value={{userIdentity, setUserIdentity}}>

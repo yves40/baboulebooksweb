@@ -2,25 +2,23 @@
 
 import { useEffect } from 'react'
 import { useRouter } from "next/navigation";
+import { getUserIdentity } from '@/app/context/authContext';
 
 export default function page() {
 
   const router = useRouter(); 
-  
+  const {setUserIdentity} = getUserIdentity();
   useEffect(() => {
     handleLogout();
   }, [])  // Called once
 
   async function handleLogout() {
-    console.log('LOGOUT');
     router.push('/');
-        // const result = await logout();
-        // if(result.success) {
-        //     setIsAuthenticated({loading: false, isConnected: false, userId: null });
-        //     if(await isPrivatePage(window.location.pathname)) {
-        //         router.push('/signin');
-        //     }
-        // }
+    setUserIdentity({
+          isConnected: false,
+          userEmail: '',
+          userId: 0
+    });
   }    
 
   return (

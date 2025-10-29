@@ -31,9 +31,8 @@ export default class Session {
   }
   // ------------------------------------------------------------------------
   async getSessionInfo() {
-    const check = await getSessionCookie();
-    console.log('*****************' + JSON.stringify(check));
-    return check;
+    return await getSessionCookie();
+
   }
     /**
      * Check session in DB
