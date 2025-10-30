@@ -1,4 +1,5 @@
 "use strict";
+"use client"
 
 import {login} from '../server/user/serverUser.js'
 import Session from '@/classes/clientSession';
@@ -12,7 +13,7 @@ export default class User {
   
   // ------------------------------------------------------------------------
   constructor() {
-    this.Version = "user.js Oct 28 2025, 1.06";
+    this.Version = "user.js Oct 29 2025, 1.07";
     this.#created = new Date();
     this.#lastlogin = new Date();
   }  
