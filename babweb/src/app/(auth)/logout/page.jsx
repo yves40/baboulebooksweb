@@ -16,10 +16,10 @@ export default function page() {
   }, [])  // Called once
 
   async function handleLogout() {
-    router.push('/');
     user.logout();
     setSession(new Session());
     setUser(new User());
+    router.push('/');
   }    
 
   return (

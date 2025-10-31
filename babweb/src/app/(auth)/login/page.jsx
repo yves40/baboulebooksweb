@@ -13,8 +13,9 @@ export default function page() {
   const router = useRouter();
 
   const {user, session} = getSession();
-  
+
   async function handleSubmit(e) {
+    try {
       e.preventDefault();
       const formData = new FormData(e.target);
       const formdataObj = Object.fromEntries(formData);
@@ -24,6 +25,10 @@ export default function page() {
       session.setSessionState(true);
       router.push('/');
       submitButton.current.disabled = false;
+    }
+    catch(error) {
+      window.alert('Invalid connection credentials');
+    }
   }
 
   return (

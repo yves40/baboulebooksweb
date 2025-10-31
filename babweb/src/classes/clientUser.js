@@ -3,6 +3,7 @@
 
 import {login, logout} from '../server/security/SessionsUsers'
 import Session from '@/classes/clientSession';
+import AppError from './customError';
 
 export default class User {
 
@@ -21,18 +22,13 @@ export default class User {
   //      P U B L I C 
   // ------------------------------------------------------------------------
   async login(email, password) {
-    try {
-      const {usr_id, usr_email} = await login(email, password);
+    const {usr_id, usr_email} = await login(email, password);
       this.#id = usr_id;
       this.#email = usr_email;
       // Create a new session
       const sess = new Session();
       const sessionId = await sess.createDBSession(usr_id);
       sess.createCookieSession(usr_id, sessionId);
-    }
-    catch(error) {
-      console.log(error);
-    }
   }
   // ------------------------------------------------------------------------
   async logout() {
