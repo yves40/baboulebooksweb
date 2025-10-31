@@ -1,18 +1,19 @@
 "use strict";
 "use client"
 
-import { createDBSession, createCookieSession, getSessionCookie } from "@/server/session/serverSession";
+import { createDBSession, createCookieSession, getSessionCookie } from "@/server/security/SessionsUsers";
 
 export default class Session {
 
-  #id = 0;
+  #sessionid = 0;
+  #userid = 0;
+  #state = false;   // Not connected, if true connected
   #created = new Date();
   #expired = new Date();
-  #userid = 0;
   
   // ------------------------------------------------------------------------
   constructor() {
-    this.Version = "Session.js Oct 29 2025, 1.03";
+    this.Version = "Session.js Oct 31 2025, 1.05";
   }
   // ------------------------------------------------------------------------
   //      P U B L I C 
@@ -32,9 +33,15 @@ export default class Session {
   // ------------------------------------------------------------------------
   async getSessionInfo() {
     return await getSessionCookie();
-
   }
-    /**
+  isConnected() {
+    return (this.#state === false ? false : true);
+  }
+  setSessionId(id) { this.#sessionid = id}
+  getSessionId() { return this.#sessionid}
+  setSessionState(state) { this.#state = state}
+  getSessionState() { return this.#state}
+  /**
      * Check session in DB
     await connectToDB();
     // Check the user session in the DB

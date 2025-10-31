@@ -22,7 +22,7 @@ export function AppProvider({children}) {
     }
   }, []);
   
-  const version = 'baboulebooks &copy; : Oct 28 2025 : 1.27';
+  const version = 'baboulebooks &copy; : Oct 31 2025 : 1.28';
   const [ errors404, setErrors404 ] = useState(0);
   const [ errors, setErrors ] = useState(0);
 

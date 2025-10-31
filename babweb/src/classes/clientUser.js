@@ -8,13 +8,13 @@ export default class User {
 
   #email = "";
   #id = 0;
-  #created;
+  #logged;
   #lastlogin;
   
   // ------------------------------------------------------------------------
   constructor() {
-    this.Version = "user.js Oct 29 2025, 1.07";
-    this.#created = new Date();
+    this.Version = "user.js Oct 31 2025, 1.09";
+    this.#logged = new Date();
     this.#lastlogin = new Date();
   }  
   // ------------------------------------------------------------------------

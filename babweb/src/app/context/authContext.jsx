@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import Session  from "@/classes/clientSession";
+import User  from "@/classes/clientUser";
+import { createDBSession, createCookieSession, getSessionCookie } from "@/server/security/SessionsUsers";
 
 export const AuthContext = createContext();
 
@@ -9,38 +11,21 @@ export function AuthProvider({children}) {
 
   console.log(`AuthContext mounted`);
 
-  const [userIdentity, setUserIdentity] = useState( {
-    isConnected: false,
-    userId: 0,
-    userEmail: ''
-  })
+  const [session, setSession] = useState(new Session());
+  const [user, setUser] = useState(new User());
 
   useEffect( () => {
-    async function fetchSession() {
-      const sess = new Session();
-      const session = await sess.getSessionInfo();
-      if(session.success) {
-        setUserIdentity({
-          isConnected: session.success,
-          userEmail: session.userEmail,
-          userId: session.userId
-        })
-      }
-      else {
-        setUserIdentity({
-          isConnected: false,
-          userEmail: '',
-          userId: 0
-        })
-      }
-    }
-    fetchSession();
+    async function getSessionState() {
+        const cookiestate = await getSessionCookie();
+        session.setSessionState(cookiestate);
+    }    
+    getSessionState();
   }, []) // Called once
 
   return (
-    <AuthContext.Provider value={{userIdentity, setUserIdentity}}>
+    <AuthContext.Provider value={{session, setSession, user, setUser}}>
       {children}
     </AuthContext.Provider>
   )
 }
-export function getUserIdentity() { return useContext(AuthContext)}
+export function getSession() { return useContext(AuthContext)}

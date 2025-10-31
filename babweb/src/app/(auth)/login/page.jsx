@@ -3,31 +3,25 @@
 import { useRef } from "react";
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import { getUserIdentity } from '@/app/context/authContext';
-
-import  User  from "@/classes/clientUser";
+import { getSession } from '@/app/context/authContext';
 
 export default function page() {
-  const {userIdentity, setUserIdentity} = getUserIdentity();
   const email = useRef('');
   const password = useRef('');
   const submitButton = useRef('');
   const serverInfo = useRef('');
   const router = useRouter();
 
+  const {user, session} = getSession();
+  
   async function handleSubmit(e) {
       e.preventDefault();
       const formData = new FormData(e.target);
       const formdataObj = Object.fromEntries(formData);
-      // submitButton.current.disabled = true;
-      const user = new User();
+      submitButton.current.disabled = true;
       user.login(formdataObj.email, formdataObj.password);
       // Update the authorization context
-      setUserIdentity( {
-        isConnected: true,
-        userId: user.getId(),
-        userEmail: user.getEmail()
-      })
+      session.setSessionState(true);
       router.push('/');
       submitButton.current.disabled = false;
   }
@@ -48,7 +42,7 @@ export default function page() {
             </button>
         </form>
       </div>
-      { userIdentity.isConnected && 
+      { session.isConnected() && 
       <>
         <p ref={serverInfo} className=' text-center my-4'>Status</p>
       </>

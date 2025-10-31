@@ -1,24 +1,24 @@
 "use client"
 
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useRouter } from "next/navigation";
-import { getUserIdentity } from '@/app/context/authContext';
+import { AuthContext } from '@/app/context/authContext';
+import User from '@/classes/clientUser';
 
 export default function page() {
 
   const router = useRouter(); 
-  const {setUserIdentity} = getUserIdentity();
+
+  const {setUser, session} = useContext(AuthContext);
+  
   useEffect(() => {
     handleLogout();
   }, [])  // Called once
 
   async function handleLogout() {
     router.push('/');
-    setUserIdentity({
-          isConnected: false,
-          userEmail: '',
-          userId: 0
-    });
+    session.setSessionState(false);
+    setUser(new User());
   }    
 
   return (
