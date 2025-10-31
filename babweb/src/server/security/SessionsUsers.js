@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs';
 import { revalidateTag } from "next/cache";
 
 const modulename = "serverSession # ";
-const Version = "SessionsUsers.js Oct 31 2025, 1.00";
+const Version = "SessionsUsers.js Oct 31 2025, 1.03";
 const DBExpirationDelay = 60;  // One hour expiration date for DBSession (msec )
 const CookieExpirationDelay = 1 * 24 * 60 * 60; // One day expiration date for Cookie (sec)
 
@@ -61,6 +61,24 @@ export async function createCookieSession(userid, sessionid) {
   });
   console.log(`********** cookies created`);
   
+}
+// ------------------------------------------------------------------------
+export async function deleteSessionCookies() {
+  const cookieStore = await cookies();
+        cookieStore.set('sessionid', "", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",  // If prod, use HTTP for requests
+            path: '/',
+            maxAge: 0,  // maxAge set to 0 deletes the cookie
+            sameSite: "strict"
+        });
+        cookieStore.set('userid', "", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",  // If prod, use HTTP for requests
+            path: '/',
+            maxAge: 0,  // maxAge set to 0 deletes the cookie
+            sameSite: "strict"
+        });
 }
 // ------------------------------------------------------------------------
 export async function getSessionCookie() {
@@ -205,13 +223,7 @@ export async function logout() {
         // Shoot the DB session
         // TODO
         // Shoot the cookie
-        cookieStore.set('sessionId', "", {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",  // If prod, use HTTP for requests
-            path: '/',
-            maxAge: 0,  // maxAge set to 0 deletes the cookie
-            sameSite: "strict"
-        });
+        deleteSessionCookies();
         revalidateTag("auth-session");  // gestion du cache NextJS
         return { success: true }
     }

@@ -1,7 +1,7 @@
 "use strict";
 "use client"
 
-import {login} from '../server/user/serverUser.js'
+import {login, logout} from '../server/security/SessionsUsers'
 import Session from '@/classes/clientSession';
 
 export default class User {
@@ -13,7 +13,7 @@ export default class User {
   
   // ------------------------------------------------------------------------
   constructor() {
-    this.Version = "user.js Oct 31 2025, 1.09";
+    this.Version = "user.js Oct 31 2025, 1.10";
     this.#logged = new Date();
     this.#lastlogin = new Date();
   }  
@@ -34,8 +34,9 @@ export default class User {
       console.log(error);
     }
   }
+  // ------------------------------------------------------------------------
   async logout() {
-
+    logout(); // The server method
   }
   // ------------------------------------------------------------------------
   getEmail() { return this.#email};

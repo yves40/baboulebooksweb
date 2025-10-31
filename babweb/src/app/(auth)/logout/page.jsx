@@ -2,14 +2,14 @@
 
 import { useContext, useEffect } from 'react'
 import { useRouter } from "next/navigation";
-import { AuthContext } from '@/app/context/authContext';
+import { getSession } from '@/app/context/authContext';
 import User from '@/classes/clientUser';
+import Session from '@/classes/clientSession';
 
 export default function page() {
 
   const router = useRouter(); 
-
-  const {setUser, session} = useContext(AuthContext);
+  const {user, session, setSession, setUser } = getSession();
   
   useEffect(() => {
     handleLogout();
@@ -17,7 +17,8 @@ export default function page() {
 
   async function handleLogout() {
     router.push('/');
-    session.setSessionState(false);
+    user.logout();
+    setSession(new Session());
     setUser(new User());
   }    
 
