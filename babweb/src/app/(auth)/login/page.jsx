@@ -52,7 +52,7 @@ export default function page() {
         <p ref={serverInfo} className=' text-center my-4'>Status</p>
       </>
       }
-    <Link href={"/register"} className=' mt-6 text-blue-500 underline'>Need an account ? Register</Link>
+    <Link href={"/register"} className=' mt-6 text-blue-500 underline'>Pas de compte ? Enregistrez vous</Link>
   </div>
 )
 }

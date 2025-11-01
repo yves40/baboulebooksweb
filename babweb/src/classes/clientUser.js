@@ -11,6 +11,7 @@ export default class User {
   #id = 0;
   #logged;
   #lastlogin;
+  MINPASS = 8;
   
   // ------------------------------------------------------------------------
   constructor() {
@@ -33,12 +34,36 @@ export default class User {
     }
     catch(error) {
       throw error;   
-      console.error(`Erreur sur le serveur: ${error.message}`);
     }
   }
   // ------------------------------------------------------------------------
   async logout() {
     logout(); // The server method
+  }
+  // ------------------------------------------------------------------------
+  checkEmail(email) {
+    const emailregex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const validEmail = emailregex.test(email);
+    if(typeof email !== "string" ||  !validEmail) {
+        throw new AppError({code: 0, message: "Invalid email"});
+    }
+  }
+  checkPassword(pass, conf) {
+    if(typeof pass !== "string" ) {
+        throw new AppError("Invalid Password");
+    }
+    if(typeof conf !== "string" ) {
+        throw new AppError("Invalid Confirmation Password");
+    }
+    if(pass.length < this.MINPASS) {
+        throw new AppError("Password too short");
+    }
+    if((conf.length > 0) && (conf.length < this.MINPASS)){
+        throw new AppError("Confirmation Password too short");
+    }
+    if((conf.length > 0)  && (pass.length > 0) && (pass !== conf)) {
+        throw new AppError("Passwords should match");
+    }
   }
   // ------------------------------------------------------------------------
   getEmail() { return this.#email};
