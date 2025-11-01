@@ -4,9 +4,10 @@ import sqlHelper from '@/classes/sqlHelper';
 import { cookies } from "next/headers";
 import bcrypt from 'bcryptjs';
 import { revalidateTag } from "next/cache";
+import AppError from '@/classes/customError';
 
 const modulename = "serverSession # ";
-const Version = "SessionsUsers.js Oct 31 2025, 1.03";
+const Version = "SessionsUsers.js Nov 01 2025, 1.04";
 const DBExpirationDelay = 60;  // One hour expiration date for DBSession (msec )
 const CookieExpirationDelay = 1 * 24 * 60 * 60; // One day expiration date for Cookie (sec)
 
@@ -159,18 +160,22 @@ export async function login(email, password) {
             console.log(`Found ${usr_email}`);
             const isPasswordOK = await bcrypt.compare(password, usr_password);
             if(!isPasswordOK) {
-                throw new Error('Invalid credentials');
+                throw new AppError('Connexion rejetée'); // Bad password
             }
             // Good credentials
             return { usr_id: usr_id, usr_email: usr_email };
         }
         else {
-            throw new Error('Invalid credentials');
+            throw new AppError('Connexion rejetée'); // Unknown user
         }
         revalidateTag("auth-session");  // gestion du cache NextJS
     }
     catch(error) {
-        throw new Error("Connexion rejetée");    
+      if(error instanceof AppError) {        
+        throw error;   
+      }
+      console.error(`Erreur sur le serveur: ${error.message}`);
+      throw new Error('Erreur durant le login');
     }
 }
 // -----------------------------------------------------------------------------------------

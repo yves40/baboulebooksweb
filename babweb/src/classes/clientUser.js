@@ -14,7 +14,7 @@ export default class User {
   
   // ------------------------------------------------------------------------
   constructor() {
-    this.Version = "user.js Oct 31 2025, 1.10";
+    this.Version = "user.js Nov 01 2025, 1.11";
     this.#logged = new Date();
     this.#lastlogin = new Date();
   }  
@@ -22,13 +22,19 @@ export default class User {
   //      P U B L I C 
   // ------------------------------------------------------------------------
   async login(email, password) {
-    const {usr_id, usr_email} = await login(email, password);
+    try {
+      const {usr_id, usr_email} = await login(email, password);
       this.#id = usr_id;
       this.#email = usr_email;
       // Create a new session
       const sess = new Session();
       const sessionId = await sess.createDBSession(usr_id);
       sess.createCookieSession(usr_id, sessionId);
+    }
+    catch(error) {
+      throw error;   
+      console.error(`Erreur sur le serveur: ${error.message}`);
+    }
   }
   // ------------------------------------------------------------------------
   async logout() {

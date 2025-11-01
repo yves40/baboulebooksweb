@@ -20,14 +20,14 @@ export default function page() {
       const formData = new FormData(e.target);
       const formdataObj = Object.fromEntries(formData);
       submitButton.current.disabled = true;
-      user.login(formdataObj.email, formdataObj.password);
+      await user.login(formdataObj.email, formdataObj.password);
       // Update the authorization context
-      session.setSessionState(true);
+      await session.setSessionState(true);
       router.push('/');
       submitButton.current.disabled = false;
     }
     catch(error) {
-      window.alert('Invalid connection credentials');
+      window.alert(`${error.message}`);
     }
   }
 
