@@ -7,6 +7,9 @@ import { getSession } from '@/app/context/authContext';
 
 export default function page() {
 
+    console.log('*** render');
+    
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confpassword, setConfpassword] = useState('');
@@ -20,7 +23,8 @@ export default function page() {
     const router = useRouter();
     
     const {user, session} = getSession();
-    function checkButtonStatus(e) {
+
+    function checkMandatoryFields(e) {
         try {
             switch(e.target.id) {
                 case 'email':
@@ -29,7 +33,6 @@ export default function page() {
                         setEmail(e.target.value);
                         serverInfo.current.textContent = '';
                         valid.email = true;
-                        console.log(JSON.stringify(valid));           
                         break;
                 case 'password':
                         valid.password = false;
@@ -56,6 +59,7 @@ export default function page() {
     }
 
     function manageButton() {
+        console.log(valid);
         if(valid.email && valid.password && valid.confpassword) {
             submitButton.current.disabled = false;
         }
@@ -102,15 +106,15 @@ export default function page() {
                     text-left mx-auto m-2 py-2 px-4'>
                 <form onSubmit={handleSubmit}>
                     <label className='form__label' htmlFor="email">E-mail *</label>
-                    <input onChange={(checkButtonStatus)} className='form__input' type="text" name="email" id="email" placeholder='Your contact email'/>
+                    <input onChange={(checkMandatoryFields)} className='form__input' type="text" name="email" id="email" placeholder='Your contact email'/>
                     <label className='form__label' htmlFor="password">Password *</label>
-                    <input onChange={checkButtonStatus} className='form__input' type="password" name="password" id="password" placeholder='Your password'/>
+                    <input onChange={checkMandatoryFields} className='form__input' type="password" name="password" id="password" placeholder='Your password'/>
                     <label className='form__label' htmlFor="confpassword">Confirm password *</label>
-                    <input onChange={checkButtonStatus} className='form__input' type="password" name="confpassword" id="confpassword" placeholder='Confirrm password'/>
+                    <input onChange={checkMandatoryFields} className='form__input' type="password" name="confpassword" id="confpassword" placeholder='Confirrm password'/>
+                    <label className='form__label' htmlFor="lastname">Nom</label>
+                    <input className='form__input' type="text" name="lastname" id="lastname" placeholder='Nom'/>
                     <label className='form__label' htmlFor="firstname">Prénom</label>
                     <input className='form__input' type="text" name="firstname" id="firstname" placeholder='Prénom'/>
-                    <label className='form__label' htmlFor="lastname">Nom</label>
-                    <input className='form__input' type="text" name="lastname" id="lastname" placeholder='Prénom'/>
                     <button className='w-full bg-blue-500 hover:bg-blue-800 text-white 
                         mt-4 rounded-lg border p-2'
                         ref={submitButton} >S'enregistrer

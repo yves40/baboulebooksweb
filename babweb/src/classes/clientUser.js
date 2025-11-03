@@ -45,9 +45,10 @@ export default class User {
     const emailregex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const validEmail = emailregex.test(email);
     if(typeof email !== "string" ||  !validEmail) {
-        throw new AppError({code: 0, message: "Invalid email"});
+        throw new AppError("Invalid email");
     }
   }
+  // ------------------------------------------------------------------------
   checkPassword(pass, conf) {
     if(typeof pass !== "string" ) {
         throw new AppError("Invalid Password");
@@ -58,7 +59,7 @@ export default class User {
     if(pass.length < this.MINPASS) {
         throw new AppError("Password too short");
     }
-    if((conf.length > 0) && (conf.length < this.MINPASS)){
+    if((conf.length < this.MINPASS)){
         throw new AppError("Confirmation Password too short");
     }
     if((conf.length > 0)  && (pass.length > 0) && (pass !== conf)) {
