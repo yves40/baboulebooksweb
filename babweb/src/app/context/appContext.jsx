@@ -11,6 +11,10 @@ export const AppContext =createContext();
 
 export function AppProvider({children}) {
   
+  const version = 'baboulebooks &copy; :Nov 04 2025 : 1.29';
+  const [ errors404, setErrors404 ] = useState(0);
+  const [ errors, setErrors ] = useState(0);
+
   console.log(`AppContext mounted`);
 
   useEffect(() => {
@@ -22,9 +26,6 @@ export function AppProvider({children}) {
     }
   }, []);
   
-  const version = 'baboulebooks &copy; : Oct 31 2025 : 1.28';
-  const [ errors404, setErrors404 ] = useState(0);
-  const [ errors, setErrors ] = useState(0);
 
   function incErrors404() {
     const current =parseInt(window.localStorage.getItem('errors404')) ;
