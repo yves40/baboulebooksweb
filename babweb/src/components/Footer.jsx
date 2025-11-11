@@ -11,7 +11,7 @@ function Footer() {
   const appctx = useContext(AppContext);
   return (
     <footer className="footer">
-      <Link href="#">{`${appctx.getVersion()}`}</Link>
+      <Link href="#">&copy;  {`${appctx.getVersion()}`}</Link>
     </footer>
   )
 }
