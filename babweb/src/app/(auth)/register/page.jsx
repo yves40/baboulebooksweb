@@ -110,9 +110,7 @@ export default function page() {
                     md:w-1/2 border rounded shadow-md background-slate-900 
                     text-left mx-auto m-2 py-2 px-4'>
                 <form onSubmit={handleSubmit}>
-                    <InputEmail componentname="mail" componentid="mail" handler={checkMandatoryFields} ></InputEmail>
-                    <label className='form__label' htmlFor="email">E-mail *</label>
-                    <input onChange={checkMandatoryFields} className='form__input' type="text" name="email" id="email" placeholder='Your contact email'/>
+                    <InputEmail componentname="mail" componentid="mail" parentHandler={setEmail} ></InputEmail>
                     <label className='form__label' htmlFor="password">Password *</label>
                     <input onChange={checkMandatoryFields} className='form__input' type="password" name="password" id="password" placeholder='Your password'/>
                     <label className='form__label' htmlFor="confpassword">Confirm password *</label>
