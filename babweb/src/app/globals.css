@@ -65,6 +65,6 @@ body {
 }
 /* Register page */
 .form__input {
-  @apply w-full mb-4 p-2 focus:outline-slate-400 border rounded;
+  @apply w-full mb-4 p-2 focus:outline-slate-400 border rounded-2xl;
 }
 
