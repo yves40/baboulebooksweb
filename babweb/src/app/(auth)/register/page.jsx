@@ -8,9 +8,8 @@ import InputEmail from '@/components/InputEmail';
 
 export default function page() {
 
-    console.log('*** render');
     
-
+    const module = "RegisterPage";
     const TIMEOUT = 500;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,12 +21,13 @@ export default function page() {
         confpassword: false
     });
     const debounceRef = useRef(null); // Debounce validation so checks run after the user stops typing (300ms)
-
+    
     const serverInfo = useRef('');
     const submitButton = useRef();
     const router = useRouter();
     
     const {user, session} = getSession();
+    console.log(`*** ${module} render`);
 
     function checkMandatoryFields(e) {
         const { id, value } = e.target;
@@ -58,7 +58,7 @@ export default function page() {
                         break;
                 }
             } catch (error) {
-                console.log('*** ' + error.message);
+                console.log(`*** ${module} ${error.message}`);
                 serverInfo.current.textContent = error.message;
                 // mark the specific field invalid
                 validRef.current[id] = false;

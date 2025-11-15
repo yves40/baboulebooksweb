@@ -4,6 +4,7 @@ import AppError from '@/classes/customError';
 export default function InputEmail({componentname, componentid, parentHandler}) {
     
     const delayedInput = useRef(null);
+    const module = "InputEmail";
     const TIMEOUT = 500;
 
     function checkEmail(email) {
@@ -22,7 +23,7 @@ export default function InputEmail({componentname, componentid, parentHandler}) 
                 parentHandler(e.target.value);
             }
             catch(error){ 
-                console.log('*** ' + error.message);
+                console.log (`*** ${module} ${error.message}`);
             }
         }, TIMEOUT);
     }
