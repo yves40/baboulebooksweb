@@ -65,6 +65,23 @@ body {
 }
 /* Register page */
 .form__input {
-  @apply w-full mb-4 p-2 focus:outline-slate-400 border rounded-2xl;
+  display: flex;
+  justify-content: space-between;
+  @apply w-full mb-4 p-2 focus:outline-slate-400 
+        border rounded-2xl;
 }
+.svgsmall-green {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) saturate(100%) invert(75%) sepia(54%) saturate(7355%) hue-rotate(85deg) brightness(124%) contrast(119%);
+}
+.svgsmall-red {
+  width: 18px;
+  height: 18px;
+  filter: invert(19%) sepia(96%) saturate(6102%) hue-rotate(357deg) brightness(98%) contrast(117%); }
 
+.svgsmall-blue {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(2790%) hue-rotate(236deg) brightness(86%) contrast(176%);
+}
