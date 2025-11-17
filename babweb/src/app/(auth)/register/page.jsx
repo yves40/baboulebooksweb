@@ -33,33 +33,22 @@ export default function page() {
     const {user, session} = getSession();
     console.log(`*** ${module} render`);
 
-    function checkMandatoryFields(e) {
-        const { id, value } = e.target;
+    function checkMandatoryFields() {
         serverInfo.current.textContent = '';
-        if (debounceRef.current) clearTimeout(debounceRef.current);
-        debounceRef.current = setTimeout(() => {
-            try {
-                switch (id) {
-                    case 'password':
-                        user.checkPassword(value, confpassword);
-                        setPassword(value);
-                        validRef.current.password = true;
-                        break;
-                    case 'confpassword':
-                        user.checkPassword(password, value);
-                        setConfpassword(value);
-                        validRef.current.confpassword = true;
-                        break;
-                }
-            } catch (error) {
-                console.log(`*** ${module} ${error.message}`);
-                serverInfo.current.textContent = error.message;
-                // mark the specific field invalid
-                validRef.current[id] = false;
-            } finally {
-                manageButton();
-            }
-        }, TIMEOUT);
+        try {
+            if(!email) throw new Error("Email obligatoire");
+            if(!password) throw new Error("Mot de passe obligatoire");
+            if(!confpassword) throw new Error("Confirmation obligatoire");
+            if(password !== confpassword) throw new Error("Les mots de passe ne correspondent pas");
+        } 
+        catch (error) {
+            console.log(`*** ${module} ${error.message}`);
+            serverInfo.current.textContent = error.message;
+            // mark the specific field invalid
+            validRef.current[id] = false;
+        } finally {
+            manageButton();
+        }
     }
 
     function manageButton() {
@@ -110,12 +99,12 @@ export default function page() {
                     <InputText componentname="lastname" componentid="lastname" label="Nom"  parentHandler={setLastname}></InputText>
                     <InputText componentname="firstname" componentid="firstname" label="Prénom" parentHandler={setFirstname}></InputText>
                     <button className='w-full bg-blue-500 hover:bg-blue-800 text-white 
-                        mt-4 rounded-lg border p-2'
+                        my-4 rounded-lg border p-2'
                         ref={submitButton} disabled>S'enregistrer
                     </button>
                 </form>
             </div>
-            <p ref={serverInfo} className=' text-center my-4'></p>
+            <p hidden ref={serverInfo} className=' text-center my-4 text-red-600'></p>
             <Link href={"/login"} className=' mt-4 text-blue-500 underline'>Vous avez un compte ? Connectez vous</Link>
         </div>
     )

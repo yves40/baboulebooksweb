@@ -6,6 +6,8 @@ export default function InputPassword({componentname, componentid, label, parent
     const delayedInput = useRef(null);
     const module = "InputPassword";
     const controlicon = useRef('controlicon');
+    const passwordinput = useRef('passwordinput');
+
     const feedback = useRef('feedback');
     const TIMEOUT = 500;
     
@@ -23,6 +25,14 @@ export default function InputPassword({componentname, componentid, label, parent
         }
     }
     
+    function clearInput() {
+        controlicon.current.src = "/png/cross-mark-32.png";
+        feedback.current.textContent = '';  
+        feedback.current.hidden = true;
+        passwordinput.current.value = '';
+        parentHandler('');
+    }
+
     function checkInput(e) {
         if(delayedInput.current) clearTimeout(delayedInput.current);
         delayedInput.current = setTimeout(() => {
@@ -48,10 +58,14 @@ export default function InputPassword({componentname, componentid, label, parent
             <div className='form__div'>
                 <input className='form__input' onChange={checkInput}
                     type="password" 
+                    ref={passwordinput}
                     name={componentname} 
                     id={componentid} placeholder='Votre mot de passe'
                 />
-                <img ref={controlicon} src="/png/cross-mark-32.png" alt="info email status" 
+                <img ref={controlicon} 
+                    onClick={clearInput}                    
+                    src="/png/cross-mark-32.png" 
+                    alt="info email status" 
                     className="inline w-6 h-6  mx-2 mb-1"/>
             </div>
             <p ref={feedback} hidden className='mb-2 text-red-600'>Message</p>

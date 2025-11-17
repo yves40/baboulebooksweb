@@ -6,6 +6,7 @@ export default function InputEmail({componentname, componentid, label, parentHan
     const delayedInput = useRef(null);
     const module = "InputEmail";
     const controlicon = useRef('controlicon');
+    const emailinput = useRef('emailinput');
     const feedback = useRef('feedback');
     const TIMEOUT = 1000;
 
@@ -15,6 +16,14 @@ export default function InputEmail({componentname, componentid, label, parentHan
         if(typeof email !== "string" ||  !validEmail) {
             throw new AppError("Entrez un email SVP");
         }
+    }
+
+    function clearInput() {
+        controlicon.current.src = "/png/cross-mark-32.png";
+        feedback.current.textContent = '';  
+        feedback.current.hidden = true;
+        emailinput.current.value = '';
+        parentHandler('');
     }
     
     function checkInput(e) {
@@ -38,15 +47,20 @@ export default function InputEmail({componentname, componentid, label, parentHan
 
     return (
         <>
-            <label className='form__label' htmlFor={componentname}>{label} *</label>
+            <label className='form__label mt-2' htmlFor={componentname}>{label} *</label>
             <div className='form__div'>
                 <input className='form__input' onChange={checkInput}
+                    ref={emailinput}
                     type="text" 
                     name={componentname} 
                     id={componentid} placeholder='email'
                 />
-                <img ref={controlicon} src="/png/cross-mark-32.png" alt="info email status" 
-                    className="inline w-6 h-6  mx-2 mb-1"/>
+                <img className="inline w-6 h-6  mx-2 mb-1" 
+                    onClick={clearInput}
+                    ref={controlicon} 
+                    src="/png/cross-mark-32.png" 
+                    alt="info email status" 
+                />
             </div>
             <p ref={feedback} hidden className='mb-2 text-red-600'>Message</p>
         </>
