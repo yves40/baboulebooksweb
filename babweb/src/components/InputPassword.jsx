@@ -1,19 +1,25 @@
 import { useRef } from 'react'
 import AppError from '@/classes/customError';
 
-export default function InputEmail({componentname, componentid, label, parentHandler}) {
+export default function InputPassword({componentname, componentid, label, parentHandler}) {
     
     const delayedInput = useRef(null);
-    const module = "InputEmail";
+    const module = "InputPassword";
     const controlicon = useRef('controlicon');
     const feedback = useRef('feedback');
-    const TIMEOUT = 1000;
+    const TIMEOUT = 500;
+    
+    function containsUppercase(str) {
+      return /[A-Z]/.test(str);
+    }
 
-    function checkEmail(email) {
-        const emailregex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        const validEmail = emailregex.test(email);
-        if(typeof email !== "string" ||  !validEmail) {
-            throw new AppError("Entrez un email SVP");
+    // Some rules for password validation
+    function checkPassword(password) {
+        if(typeof password !== "string" || password.length < 8) {
+            throw new AppError("Minimum 8 caractères et une majuscule");
+        }
+        if(!containsUppercase(password)) {
+            throw new AppError("Minimum 8 caractères et une majuscule");
         }
     }
     
@@ -21,7 +27,7 @@ export default function InputEmail({componentname, componentid, label, parentHan
         if(delayedInput.current) clearTimeout(delayedInput.current);
         delayedInput.current = setTimeout(() => {
             try {
-                checkEmail(e.target.value);
+                checkPassword(e.target.value);
                 controlicon.current.src = "/png/check-mark-32.png";
                 feedback.current.textContent = '';
                 feedback.current.hidden = true;
@@ -38,12 +44,12 @@ export default function InputEmail({componentname, componentid, label, parentHan
 
     return (
         <>
-            <label className='form__label' htmlFor={componentname}>{label} *</label>
+            <label className='form__label' htmlFor={componentname} >{label} *</label>
             <div className='form__div'>
                 <input className='form__input' onChange={checkInput}
-                    type="text" 
+                    type="password" 
                     name={componentname} 
-                    id={componentid} placeholder='email'
+                    id={componentid} placeholder='Votre mot de passe'
                 />
                 <img ref={controlicon} src="/png/cross-mark-32.png" alt="info email status" 
                     className="inline w-6 h-6  mx-2 mb-1"/>

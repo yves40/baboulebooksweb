@@ -38,9 +38,9 @@ export default function page() {
           m-4 p-4'>
         <form onSubmit={handleSubmit}>
             <label className='form__label' htmlFor="userName">email</label>
-            <input className='form__input' type="text" name="email" id="email" ref={email} placeholder='Your registered email'/>
+            <input className='form__div' type="text" name="email" id="email" ref={email} placeholder='Your registered email'/>
             <label className='form__label' htmlFor="password">Password</label>
-            <input className='form__input' type="password" name="password" id="password" ref={password} placeholder='Your password'/>
+            <input className='form__div' type="password" name="password" id="password" ref={password} placeholder='Your password'/>
             <button className='w-full bg-blue-500 hover:bg-blue-800 
               text-white mt-6 rounded-lg border p-4' ref={submitButton}>
               Connexion

@@ -7,7 +7,7 @@ export default function error() {
 
   const appctx = useContext(AppContext);
   useEffect(() => {
-    appctx.incErrors();
+
   }, []);
 
   return (

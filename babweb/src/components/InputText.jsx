@@ -1,11 +1,10 @@
 import { useRef } from 'react'
 import AppError from '@/classes/customError';
 
-export default function InputEmail({componentname, componentid, label, parentHandler}) {
+export default function InputText({componentname, componentid, label, parentHandler}) {
     
     const delayedInput = useRef(null);
-    const module = "InputEmail";
-    const controlicon = useRef('controlicon');
+    const module = "InputText";
     const feedback = useRef('feedback');
     const TIMEOUT = 1000;
 
@@ -21,32 +20,26 @@ export default function InputEmail({componentname, componentid, label, parentHan
         if(delayedInput.current) clearTimeout(delayedInput.current);
         delayedInput.current = setTimeout(() => {
             try {
-                checkEmail(e.target.value);
-                controlicon.current.src = "/png/check-mark-32.png";
                 feedback.current.textContent = '';
                 feedback.current.hidden = true;
                 parentHandler(e.target.value);
             }
             catch(error){ 
-                controlicon.current.src = "/png/cross-mark-32.png";
                 feedback.current.textContent = error.message;
                 feedback.current.hidden = false;
-                console.log (`*** ${module} ${error.message}`);
             }
         }, TIMEOUT);
     }
 
     return (
         <>
-            <label className='form__label' htmlFor={componentname}>{label} *</label>
+            <label className='form__label' htmlFor={componentname}>{label}</label>
             <div className='form__div'>
                 <input className='form__input' onChange={checkInput}
                     type="text" 
                     name={componentname} 
-                    id={componentid} placeholder='email'
+                    id={componentid}
                 />
-                <img ref={controlicon} src="/png/cross-mark-32.png" alt="info email status" 
-                    className="inline w-6 h-6  mx-2 mb-1"/>
             </div>
             <p ref={feedback} hidden className='mb-2 text-red-600'>Message</p>
         </>

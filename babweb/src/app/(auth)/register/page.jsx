@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import { getSession } from '@/app/context/authContext';
 import InputEmail from '@/components/InputEmail';
+import InputPassword from '@/components/InputPassword';
+import InputText from '@/components/InputText';
 
 export default function page() {
 
@@ -14,6 +16,8 @@ export default function page() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confpassword, setConfpassword] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [firstname, setFirstname] = useState('');
     // useRef to store validity flags (avoid mutating state directly on each keystroke)
     const validRef = useRef({
         email: false,
@@ -36,16 +40,6 @@ export default function page() {
         debounceRef.current = setTimeout(() => {
             try {
                 switch (id) {
-                    case 'mail':
-                        user.checkEmail(value);
-                        setEmail(value);
-                        validRef.current.email = true;
-                        break;
-                    case 'email':
-                        user.checkEmail(value);
-                        setEmail(value);
-                        validRef.current.email = true;
-                        break;
                     case 'password':
                         user.checkPassword(value, confpassword);
                         setPassword(value);
@@ -110,15 +104,11 @@ export default function page() {
                     md:w-1/2 border rounded shadow-md background-slate-900 
                     text-left mx-auto m-2 py-2 px-4'>
                 <form onSubmit={handleSubmit}>
-                    <InputEmail componentname="mail" componentid="mail" parentHandler={setEmail} ></InputEmail>
-                    <label className='form__label' htmlFor="password">Password *</label>
-                    <input onChange={checkMandatoryFields} className='form__input' type="password" name="password" id="password" placeholder='Your password'/>
-                    <label className='form__label' htmlFor="confpassword">Confirm password *</label>
-                    <input onChange={checkMandatoryFields} className='form__input' type="password" name="confpassword" id="confpassword" placeholder='Confirrm password'/>
-                    <label className='form__label' htmlFor="lastname">Nom</label>
-                    <input className='form__input' type="text" name="lastname" id="lastname" placeholder='Nom'/>
-                    <label className='form__label' htmlFor="firstname">Prénom</label>
-                    <input className='form__input' type="text" name="firstname" id="firstname" placeholder='Prénom'/>
+                    <InputEmail componentname="mail" componentid="mail" label="Email" parentHandler={setEmail} ></InputEmail>
+                    <InputPassword componentname="password" componentid="password" label="Mot de passe" parentHandler={setPassword}></InputPassword>
+                    <InputPassword componentname="confpassword" componentid="confpassword" label="Confirmation" parentHandler={setConfpassword}></InputPassword>
+                    <InputText componentname="lastname" componentid="lastname" label="Nom"  parentHandler={setLastname}></InputText>
+                    <InputText componentname="firstname" componentid="firstname" label="Prénom" parentHandler={setFirstname}></InputText>
                     <button className='w-full bg-blue-500 hover:bg-blue-800 text-white 
                         mt-4 rounded-lg border p-2'
                         ref={submitButton} disabled>S'enregistrer
