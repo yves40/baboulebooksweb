@@ -62,11 +62,13 @@ export default function InputPassword({componentid, label, parentHandler}) {
                     name={componentid} 
                     id={componentid} placeholder='Votre mot de passe'
                 />
-                <img ref={controlicon} 
-                    onClick={clearInput}                    
-                    src="/png/cross-mark-32.png" 
-                    alt="info email status" 
-                    className="inline w-6 h-6  mx-2 mb-1"/>
+                <a href="#" tabIndex="-1">
+                    <img ref={controlicon} 
+                        onClick={clearInput}                    
+                        src="/png/cross-mark-32.png" 
+                        alt="info email status" 
+                        className="inline w-6 h-6  mx-2 mb-1"/>
+                </a>
             </div>
             <p ref={feedback} hidden className='mb-2 text-red-600'>Message</p>
         </>

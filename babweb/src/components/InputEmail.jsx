@@ -8,7 +8,7 @@ export default function InputEmail({componentid, label, parentHandler}) {
     const controlicon = useRef('controlicon');
     const emailinput = useRef('emailinput');
     const feedback = useRef('feedback');
-    const TIMEOUT = 1000;
+    const TIMEOUT = 800;
 
     function checkEmail(email) {
         const emailregex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -55,12 +55,14 @@ export default function InputEmail({componentid, label, parentHandler}) {
                     name={componentid} 
                     id={componentid} placeholder='email'
                 />
-                <img className="inline w-6 h-6  mx-2 mb-1" 
-                    onClick={clearInput}
-                    ref={controlicon} 
-                    src="/png/cross-mark-32.png" 
-                    alt="info email status" 
-                />
+                <a href="#" tabIndex="-1">
+                    <img className="inline w-6 h-6  mx-2 mb-1" 
+                        onClick={clearInput}
+                        ref={controlicon} 
+                        src="/png/cross-mark-32.png" 
+                        alt="info email status" 
+                    />
+                </a>
             </div>
             <p ref={feedback} hidden className='mb-2 text-red-600'>Message</p>
         </>
