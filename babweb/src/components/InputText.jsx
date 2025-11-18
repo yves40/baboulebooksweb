@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import AppError from '@/classes/customError';
 
-export default function InputText({componentname, componentid, label, parentHandler}) {
+export default function InputText({componentid, label, parentHandler}) {
     
     const delayedInput = useRef(null);
     const module = "InputText";
@@ -33,11 +33,11 @@ export default function InputText({componentname, componentid, label, parentHand
 
     return (
         <>
-            <label className='form__label' htmlFor={componentname}>{label}</label>
+            <label className='form__label' htmlFor={componentid}>{label}</label>
             <div className='form__div'>
                 <input className='form__input' onChange={checkInput}
                     type="text" 
-                    name={componentname} 
+                    name={componentid} 
                     id={componentid}
                 />
             </div>

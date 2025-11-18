@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import AppError from '@/classes/customError';
 
-export default function InputEmail({componentname, componentid, label, parentHandler}) {
+export default function InputEmail({componentid, label, parentHandler}) {
     
     const delayedInput = useRef(null);
     const module = "InputEmail";
@@ -47,12 +47,12 @@ export default function InputEmail({componentname, componentid, label, parentHan
 
     return (
         <>
-            <label className='form__label mt-2' htmlFor={componentname}>{label} *</label>
+            <label className='form__label mt-2' htmlFor={componentid}>{label} *</label>
             <div className='form__div'>
                 <input className='form__input' onChange={checkInput}
                     ref={emailinput}
                     type="text" 
-                    name={componentname} 
+                    name={componentid} 
                     id={componentid} placeholder='email'
                 />
                 <img className="inline w-6 h-6  mx-2 mb-1" 

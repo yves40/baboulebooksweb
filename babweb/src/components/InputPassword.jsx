@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import AppError from '@/classes/customError';
 
-export default function InputPassword({componentname, componentid, label, parentHandler}) {
+export default function InputPassword({componentid, label, parentHandler}) {
     
     const delayedInput = useRef(null);
     const module = "InputPassword";
@@ -54,12 +54,12 @@ export default function InputPassword({componentname, componentid, label, parent
 
     return (
         <>
-            <label className='form__label' htmlFor={componentname} >{label} *</label>
+            <label className='form__label' htmlFor={componentid} >{label} *</label>
             <div className='form__div'>
                 <input className='form__input' onChange={checkInput}
                     type="password" 
                     ref={passwordinput}
-                    name={componentname} 
+                    name={componentid} 
                     id={componentid} placeholder='Votre mot de passe'
                 />
                 <img ref={controlicon} 
