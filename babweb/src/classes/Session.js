@@ -20,14 +20,12 @@ export default class Session {
         console.log(`createDBSession with userID : ${userid}`);
         // TODO get the session ID from the DB
         const sessionId = await createDBSession(userid);
-        console.log('********************* Done');        
         return sessionId;
   }
   // ------------------------------------------------------------------------
   async createCookieSession(userid, sessionid) {
         console.log(`createCookieSession with userID : ${userid} and sessionID : ${sessionid}`);
         await createCookieSession(userid, sessionid);
-        console.log('********************* Done');        
   } 
   // ------------------------------------------------------------------------
   async getSessionCookie() {
