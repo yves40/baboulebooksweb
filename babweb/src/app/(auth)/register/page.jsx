@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import { register } from '@/server/security/Users';
+import User from '@/classes/User';
 import InputEmail from '@/components/InputEmail';
 import InputPassword from '@/components/InputPassword';
 import InputText from '@/components/InputText';
@@ -94,7 +94,9 @@ export default function page() {
         feedback.current.hidden = false;
         submitButton.current.disabled = true;   // No multiple server request when one is running
         try {
-            const result = await register(formData);
+            const user = new User();
+            submitButton.current.textContent = 'Saving...';
+            const result = await user.register(formData);
             console.log(result);             
             submitButton.current.textContent = 'User saved ✅';
             let countdown = 3;

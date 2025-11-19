@@ -1,23 +1,23 @@
 "use strict";
-"use client"
 
-import {login, logout} from '../server/security/Users'
+import {login, logout, register} from '../server/security/Users'
 import Session from '@/classes/Session';
 import AppError from './customError';
 
 export default class User {
 
-  #email = "";
   #id = 0;
-  #logged;
+  #email = "";
+  #password = "";
+  #firstname = "";
+  #lastname = "";
   #lastlogin;
   MINPASS = 8;
   
   // ------------------------------------------------------------------------
   constructor() {
-    this.Version = "user.js Nov 01 2025, 1.11";
-    this.#logged = new Date();
-    this.#lastlogin = new Date();
+    this.Version = "user.js Nov 19 2025, 1.12";
+    this.#lastlogin = null;
   }  
   // ------------------------------------------------------------------------
   //      P U B L I C 
@@ -37,34 +37,24 @@ export default class User {
     }
   }
   // ------------------------------------------------------------------------
+  async register(formData) {
+    // Registration is now handled in server/security/Users.js
+    try {
+      // Call the server method
+      const { mail, password, firstname, lastname } = Object.fromEntries(formData);
+      this.#email = mail;
+      this.#password = password;
+      this.#firstname = firstname;
+      this.#lastname = lastname;
+      return await register(formData);
+    }
+    catch(error) {
+      throw error;   
+    }
+  }
+  // ------------------------------------------------------------------------
   async logout() {
     logout(); // The server method
-  }
-  // ------------------------------------------------------------------------
-  checkEmail(email) {
-    const emailregex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const validEmail = emailregex.test(email);
-    if(typeof email !== "string" ||  !validEmail) {
-        throw new AppError("Invalid email");
-    }
-  }
-  // ------------------------------------------------------------------------
-  checkPassword(pass, conf) {
-    if(typeof pass !== "string" ) {
-        throw new AppError("Invalid Password");
-    }
-    if(typeof conf !== "string" ) {
-        throw new AppError("Invalid Confirmation Password");
-    }
-    if(pass.length < this.MINPASS) {
-        throw new AppError("Password too short");
-    }
-    if((conf.length < this.MINPASS)){
-        throw new AppError("Confirmation Password too short");
-    }
-    if((conf.length > 0)  && (pass.length > 0) && (pass !== conf)) {
-        throw new AppError("Passwords should match");
-    }
   }
   // ------------------------------------------------------------------------
   getEmail() { return this.#email};

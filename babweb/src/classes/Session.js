@@ -1,5 +1,4 @@
 "use strict";
-"use client"
 
 import { createDBSession, createCookieSession, getSessionCookie } from "@/server/security/Sessions";
 
@@ -13,7 +12,7 @@ export default class Session {
   
   // ------------------------------------------------------------------------
   constructor() {
-    this.Version = "Session.js Oct 31 2025, 1.05";
+    this.Version = "Session.js Nov 19 2025, 1.06";
   }
   // ------------------------------------------------------------------------
   //      P U B L I C 

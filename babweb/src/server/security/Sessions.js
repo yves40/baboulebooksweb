@@ -41,7 +41,6 @@ export async function createDBSession(userid) {
 }
 // ------------------------------------------------------------------------
 export async function createCookieSession(userid, sessionid) {
-  console.log(`********** create cookies ${userid}===${sessionid}`);
   const cookieStore = await cookies();
   cookieStore.set('userid', userid.toString(), { 
       httpOnly: true, // No JS access
@@ -56,9 +55,7 @@ export async function createCookieSession(userid, sessionid) {
       path: '/', // Use cookie for all APP pages. Could be restrained to sensitive pages
       maxAge: CookieExpirationDelay,   // One day persistence
       sameSite: "Lax" // To block CSRF attacks. Cookie is sent only to our site. Look at https://contentsquare.com/fr-fr/blog/samesite-cookie-attribute/
-  });
-  console.log(`********** cookies created`);
-  
+  });  
 }
 // ------------------------------------------------------------------------
 export async function deleteSessionCookies() {
