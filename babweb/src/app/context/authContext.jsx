@@ -3,7 +3,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import Session  from "@/classes/Session";
 import User  from "@/classes/User";
-import { createDBSession, createCookieSession, getSessionCookie } from "@/server/security/Sessions";
 
 export const AuthContext = createContext();
 
@@ -16,7 +15,7 @@ export function AuthProvider({children}) {
 
   useEffect( () => {
     async function getSessionState() {
-        const cookiestate = await getSessionCookie();
+        const cookiestate = await session.getSessionCookie();
         session.setSessionState(cookiestate);
     }    
     getSessionState();

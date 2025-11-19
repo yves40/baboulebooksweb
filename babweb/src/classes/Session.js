@@ -1,7 +1,6 @@
 "use strict";
 
-import { createDBSession, createCookieSession, getSessionCookie } from "@/server/security/Sessions";
-
+import {createCookieSession, getSessionCookie, createDBSession } from "@/server/security/Sessions";
 export default class Session {
 
   #sessionid = 0;
@@ -25,14 +24,20 @@ export default class Session {
         return sessionId;
   }
   // ------------------------------------------------------------------------
-  async createCookieSession(userid, sessionId) {
-        console.log(`Cookie session with userID : ${userid}`);
-        createCookieSession(userid, sessionId);
+  async createCookieSession(userid, sessionid) {
+        console.log(`createCookieSession with userID : ${userid} and sessionID : ${sessionid}`);
+        await createCookieSession(userid, sessionid);
+        console.log('********************* Done');        
+  } 
+  // ------------------------------------------------------------------------
+  async getSessionCookie() {
+    const status = await getSessionCookie();
+    if(status.success === true) {
+        return status.cookie;
+    }
+    return null
   }
   // ------------------------------------------------------------------------
-  async getSessionInfo() {
-    return await getSessionCookie();
-  }
   isConnected() {
     return (this.#state === false ? false : true);
   }
