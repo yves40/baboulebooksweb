@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { checkEmail } from '@/libs/controls';
 
-export default function InputEmail({componentid, label, parentHandler}) {
+export default function InputEmail({componentid, label, parentHandler, placeholder=true}) {
     
     const delayedInput = useRef(null);
     const module = "InputEmail";
@@ -9,6 +9,11 @@ export default function InputEmail({componentid, label, parentHandler}) {
     const emailinput = useRef('emailinput');
     const feedback = useRef('feedback');
     const TIMEOUT = 800;
+
+    let ph = false;
+    if(placeholder === true) {
+        ph = true;
+    }
 
     function clearInput() {
         controlicon.current.src = "/png/cross-mark-32.png";
@@ -45,7 +50,8 @@ export default function InputEmail({componentid, label, parentHandler}) {
                     ref={emailinput}
                     type="text" 
                     name={componentid} 
-                    id={componentid} placeholder='Email valide SVP'
+                    id={componentid} 
+                    placeholder={ph ? 'Email SVP' : ''} 
                 />
                 <a href="#" tabIndex="-1">
                     <img className="inline w-6 h-6  mx-2 mb-1" 

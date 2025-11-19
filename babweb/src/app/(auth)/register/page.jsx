@@ -9,8 +9,7 @@ import InputPassword from '@/components/InputPassword';
 import InputText from '@/components/InputText';
 
 export default function page() {
-    
-    
+        
     const module = "RegisterPage";
     console.log(`*** ${module} : render`);
     
@@ -92,6 +91,7 @@ export default function page() {
         const formdataObj = Object.fromEntries(formData);
         console.log(JSON.stringify(formdataObj));
         feedback.current.textContent = ""
+        feedback.current.hidden = false;
         submitButton.current.disabled = true;   // No multiple server request when one is running
         try {
             const result = await register(formData);
@@ -127,7 +127,8 @@ export default function page() {
                     <InputPassword componentid="confpassword" label="Confirmation" parentHandler={setConfpassword}></InputPassword>
                     <InputText componentid="lastname" label="Nom"  parentHandler={setLastname}></InputText>
                     <InputText componentid="firstname" label="Prénom" parentHandler={setFirstname}></InputText>
-                    <button className="w-full bg-blue-200 hover:bg-blue-800 text-white my-4 rounded-lg border p-2"
+                    <button className="w-full bg-blue-200 hover:bg-blue-800
+                         text-white my-4 rounded-lg border p-2"
                         ref={submitButton}>S'enregistrer
                     </button>
                 </form>

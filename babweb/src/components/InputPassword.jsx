@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import {checkPassword} from '@/libs/controls';
 
-export default function InputPassword({componentid, label, parentHandler}) {
+export default function InputPassword({componentid, label, parentHandler, placeholder=true}) {
     
     const delayedInput = useRef(null);
     const module = "InputPassword";
@@ -11,6 +11,10 @@ export default function InputPassword({componentid, label, parentHandler}) {
     const feedback = useRef('feedback');
     const TIMEOUT = 1000;
     
+    let ph = false;
+    if(placeholder === true) {
+        ph = true;
+    }
     
     function clearInput() {
         controlicon.current.src = "/png/cross-mark-32.png";
@@ -47,7 +51,8 @@ export default function InputPassword({componentid, label, parentHandler}) {
                     type="password" 
                     ref={passwordinput}
                     name={componentid} 
-                    id={componentid} placeholder='Au moins 8 caractères, 1 chiffre, 1 majuscule'
+                    id={componentid} 
+                    placeholder={ph ? 'Au moins 8 caractères, 1 chiffre, 1 majuscule' : ''}
                 />
                 <a href="#" tabIndex="-1">
                     <img ref={controlicon} 

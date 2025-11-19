@@ -137,6 +137,9 @@ export async function register(formData) {
         if(error instanceof AppError) {
             throw error;      // Send this application error to the caller
         }
+        if(error.code === 'ER_DUP_ENTRY') {
+            throw new AppError('Email déjà enregistré');
+        }        
         throw new Error('Erreur d\'enregistrement'); // Send a generic message for any non App error
     }
 }
