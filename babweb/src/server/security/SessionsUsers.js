@@ -2,12 +2,13 @@
 
 import sqlHelper from '@/classes/sqlHelper';
 import { cookies } from "next/headers";
-import bcrypt from 'bcryptjs';
+import bcrypt, { hash } from 'bcryptjs';
 import { revalidateTag } from "next/cache";
 import AppError from '@/classes/customError';
+import { checkEmail, checkPassword, hashPassword, validatePassword } from '@/libs/controls';
 
 const modulename = "serverSession # ";
-const Version = "SessionsUsers.js Nov 01 2025, 1.04";
+const Version = "SessionsUsers.js Nov 19 2025, 1.05";
 const DBExpirationDelay = 60;  // One hour expiration date for DBSession (msec )
 const CookieExpirationDelay = 1 * 24 * 60 * 60; // One day expiration date for Cookie (sec)
 
@@ -101,47 +102,42 @@ export async function getSessionCookie() {
 // Register
 // -----------------------------------------------------------------------------------------
 export async function register(formData) {
-    const { userName, email, password, confpassword } = Object.fromEntries(formData);
-    const emailregex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;        
+    const { mail, password, confpassword, firstname, lastname } = Object.fromEntries(formData);
 
     try {
-        if(typeof userName !== "string" || (userName.trim().length < 3)) { 
-            throw new AppError("Pseudo too short, must have at least 3 characters");
-        }
-        const validEmail = emailregex.test(email);
-        if(typeof email !== "string" ||  !validEmail) {
-            throw new AppError("Invalid email");
-        }
-        if(typeof password !== "string" || password.trim().length < 6) {
-            throw new AppError("password must have at least 6 characters");
-        }
+        checkEmail(mail);
+        checkPassword(password);
         if(password !== confpassword) {
-            throw new AppError("password and confirm password must be the same");
+            throw new AppError("Les mots de passe ne correspondent pas");
         }
-        /**
-         * SQL code to check user
-        
-        const normalizedUserName = slugify(userName, {lower:true,strict:true});
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-    
-        const newUser = new User({
-          userName,
-          normalizedUserName,
-          email,
-          password: hashedPassword
-        })
-        await newUser.save();
-        console.log(`${modulename} saved user to DB : ${JSON.stringify(newUser)}`);
-        return { success: true };
-        */
+        const hashedPassword = await hashPassword(password);
+        // Now SQL Insert
+        const sqlh = new sqlHelper();
+        await sqlh.startTransactionRW();
+        // Assign a default role to the new user
+        const roleanonymous = await sqlh.Select('select role_id from babouledb.roles where role_name = ?', 'ROLE_ANONYMOUS');
+        const result = await sqlh.Insert(`insert into babouledb.users 
+            (usr_email, usr_password, usr_firstname, usr_lastname, usr_created) 
+            values ( ?, ?, ?, ?, now())`,  [mail, hashedPassword, firstname, lastname ] );
+        console.log(`${modulename} User registered with id ${result.insertId}`);
+        // Assign role
+        if(roleanonymous.length > 0) {
+            const { role_id } = roleanonymous[0];
+            await sqlh.Insert(`insert into babouledb.users_roles (ur_userid, ur_roleid) values ( ?, ? )`, 
+                [result.insertId, role_id] );
+        }
+        else {
+            throw new AppError("Rôle par défaut introuvable, contactez l'administrateur");
+        }
+        sqlh.commitTransaction;
+        return { mail, password,hashedpassword: hashedPassword, firstname, lastname };
       }
     catch(error) {
-        console.log(`Error while registering ${error}`);
+        console.log(`${module} ${error}`);
         if(error instanceof AppError) {
             throw error;      // Send this application error to the caller
         }
-        throw new Error('An error occured while registering'); // Send a generic message for any non App error
+        throw new Error('Erreur d\'enregistrement'); // Send a generic message for any non App error
     }
 }
 // -----------------------------------------------------------------------------------------
@@ -158,17 +154,14 @@ export async function login(email, password) {
         if(result.length > 0) {
             const { usr_id, usr_email, usr_password} = result[0];
             console.log(`Found ${usr_email}`);
-            const isPasswordOK = await bcrypt.compare(password, usr_password);
-            if(!isPasswordOK) {
-                throw new AppError('Connexion rejetée'); // Bad password
-            }
+            await validatePassword(password, usr_password);
             // Good credentials
             return { usr_id: usr_id, usr_email: usr_email };
+            revalidateTag("auth-session");  // gestion du cache NextJS
         }
         else {
             throw new AppError('Connexion rejetée'); // Unknown user
         }
-        revalidateTag("auth-session");  // gestion du cache NextJS
     }
     catch(error) {
       if(error instanceof AppError) {        

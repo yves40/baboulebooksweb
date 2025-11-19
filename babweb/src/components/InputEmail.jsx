@@ -1,5 +1,5 @@
-import { useRef } from 'react'
-import AppError from '@/classes/customError';
+import { useRef } from 'react';
+import { checkEmail } from '@/libs/controls';
 
 export default function InputEmail({componentid, label, parentHandler}) {
     
@@ -9,14 +9,6 @@ export default function InputEmail({componentid, label, parentHandler}) {
     const emailinput = useRef('emailinput');
     const feedback = useRef('feedback');
     const TIMEOUT = 800;
-
-    function checkEmail(email) {
-        const emailregex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        const validEmail = emailregex.test(email);
-        if(typeof email !== "string" ||  !validEmail) {
-            throw new AppError("Entrez un email SVP");
-        }
-    }
 
     function clearInput() {
         controlicon.current.src = "/png/cross-mark-32.png";
@@ -53,7 +45,7 @@ export default function InputEmail({componentid, label, parentHandler}) {
                     ref={emailinput}
                     type="text" 
                     name={componentid} 
-                    id={componentid} placeholder='email'
+                    id={componentid} placeholder='Email valide SVP'
                 />
                 <a href="#" tabIndex="-1">
                     <img className="inline w-6 h-6  mx-2 mb-1" 

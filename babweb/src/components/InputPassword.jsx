@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import AppError from '@/classes/customError';
+import {checkPassword} from '@/libs/controls';
 
 export default function InputPassword({componentid, label, parentHandler}) {
     
@@ -9,21 +9,8 @@ export default function InputPassword({componentid, label, parentHandler}) {
     const passwordinput = useRef('passwordinput');
 
     const feedback = useRef('feedback');
-    const TIMEOUT = 500;
+    const TIMEOUT = 1000;
     
-    function containsUppercase(str) {
-      return /[A-Z]/.test(str);
-    }
-
-    // Some rules for password validation
-    function checkPassword(password) {
-        if(typeof password !== "string" || password.length < 8) {
-            throw new AppError("Minimum 8 caractères et une majuscule");
-        }
-        if(!containsUppercase(password)) {
-            throw new AppError("Minimum 8 caractères et une majuscule");
-        }
-    }
     
     function clearInput() {
         controlicon.current.src = "/png/cross-mark-32.png";
@@ -60,7 +47,7 @@ export default function InputPassword({componentid, label, parentHandler}) {
                     type="password" 
                     ref={passwordinput}
                     name={componentid} 
-                    id={componentid} placeholder='Votre mot de passe'
+                    id={componentid} placeholder='Au moins 8 caractères, 1 chiffre, 1 majuscule'
                 />
                 <a href="#" tabIndex="-1">
                     <img ref={controlicon} 

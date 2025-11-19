@@ -40,7 +40,7 @@ export default function page() {
         try {
             if(!email) {
                 validInput.email = false;
-                throw new Error("Email obligatoire");
+                throw new Error("Email valide SVP");
             }
             else {
                 validInput.email = true;
@@ -95,6 +95,7 @@ export default function page() {
         submitButton.current.disabled = true;   // No multiple server request when one is running
         try {
             const result = await register(formData);
+            console.log(result);             
             submitButton.current.textContent = 'User saved ✅';
             let countdown = 3;
             feedback.current.textContent = `Redirecting ${countdown}...`;
