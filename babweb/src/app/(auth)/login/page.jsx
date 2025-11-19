@@ -67,7 +67,9 @@ export default function page() {
       submitButton.current.disabled = false;
     }
     catch(error) {
-      window.alert(`${error.message}`);
+      feedback.current.textContent = `${error.message}`;
+      feedback.current.hidden = false;
+      submitButton.current.disabled = false;  
     }
   }
 
