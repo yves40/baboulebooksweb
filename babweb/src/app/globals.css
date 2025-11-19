@@ -69,6 +69,7 @@ body {
   justify-content: space-between;
   align-items: center;
   border:solid 1px #ccc;
+  height: 2.5rem;
   @apply w-full mb-2 p-2;
 }
 .form__input {

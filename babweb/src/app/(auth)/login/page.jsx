@@ -86,7 +86,7 @@ export default function page() {
         </form>
         <p ref={feedback} hidden className='mb-2 text-red-600'>Message</p>
       </div>
-    <Link href={"/register"} className=' mt-6 text-blue-500 underline'>Pas de compte ? Enregistrez vous</Link>
+    <Link href={"/register"} className=' mt-6 text-gray-700 underline'>Pas de compte ? Enregistrez vous</Link>
   </div>
 )
 }

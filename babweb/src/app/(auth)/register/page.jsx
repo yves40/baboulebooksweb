@@ -134,7 +134,7 @@ export default function page() {
                 </form>
                 <p ref={feedback} hidden className='mb-2 text-red-600'>Message</p>
             </div>
-            <Link href={"/login"} className=' mt-4 text-blue-500 underline'>Vous avez un compte ? Connectez vous</Link>
+            <Link href={"/login"} className=' mt-4 text-gray-700 underline'>Vous avez un compte ? Connectez vous</Link>
         </div>
     )
 }
