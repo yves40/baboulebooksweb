@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import { register } from '@/server/security/SessionsUsers';
+import { register } from '@/server/security/Users';
 import InputEmail from '@/components/InputEmail';
 import InputPassword from '@/components/InputPassword';
 import InputText from '@/components/InputText';

@@ -1,7 +1,7 @@
 "use strict";
 "use client"
 
-import { createDBSession, createCookieSession, getSessionCookie } from "@/server/security/SessionsUsers";
+import { createDBSession, createCookieSession, getSessionCookie } from "@/server/security/Sessions";
 
 export default class Session {
 

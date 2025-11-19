@@ -1,8 +1,8 @@
 "use strict";
 "use client"
 
-import {login, logout} from '../server/security/SessionsUsers'
-import Session from '@/classes/clientSession';
+import {login, logout} from '../server/security/Users'
+import Session from '@/classes/Session';
 import AppError from './customError';
 
 export default class User {

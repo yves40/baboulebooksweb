@@ -3,8 +3,8 @@
 import { useContext, useEffect } from 'react'
 import { useRouter } from "next/navigation";
 import { getSession } from '@/app/context/authContext';
-import User from '@/classes/clientUser';
-import Session from '@/classes/clientSession';
+import User from '@/classes/User';
+import Session from '@/classes/Session';
 
 export default function page() {
 

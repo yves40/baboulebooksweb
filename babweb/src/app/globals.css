@@ -73,7 +73,7 @@ body {
   @apply w-full mb-2 p-2;
 }
 .form__input {
-  @apply px-3 focus:bg-blue-200 w-full h-10;
+  @apply px-3 focus:bg-blue-200 w-full h-7;
 }
 .svgsmall-green {
   width: 18px;
