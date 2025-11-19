@@ -90,10 +90,13 @@ export async function login(email, password) {
 // -----------------------------------------------------------------------------------------
 // Logout
 // -----------------------------------------------------------------------------------------
-export async function logout() {
+export async function logout(userid) {
     try {
         // Shoot the DB session
-        // TODO
+        const sqlh = new sqlHelper();
+        sqlh.startTransactionRW();
+        await sqlh.Delete('delete from babouledb.sessions where ses_userid = ?', [userid]);
+        sqlh.commitTransaction()
         // Shoot the cookie
         const cookieStore = await cookies();
         cookieStore.set('sessionid', "", {
@@ -110,7 +113,6 @@ export async function logout() {
             maxAge: 0,  // maxAge set to 0 deletes the cookie
             sameSite: "strict"
         });        
-        // deleteSessionCookies();
         revalidateTag("auth-session");  // gestion du cache NextJS
         return { success: true }
     }

@@ -14,7 +14,7 @@ export default class sqlHelper {
   #dbpass = process.env.DBPASS;
   
   constructor() {
-    this.Version = "sqlHelper.js Oct 28 2025, 1.56";
+    this.Version = "sqlHelper.js Nov 19 2025, 1.57";
 
     dotenv.config({ quiet: true });
     this.#dbhost = process.env.DBHOST;
@@ -47,6 +47,7 @@ export default class sqlHelper {
   getVersion() {
     return this.Version;
   }
+  // ------------------------------------------------------------------------
   Insert(sql, params = null) {
     return new Promise((resolve, reject) => {
       (async () => {
@@ -62,6 +63,22 @@ export default class sqlHelper {
     });
   }
   // ------------------------------------------------------------------------
+  Delete(sql, params = null) {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const [ result, fields ] = await this.pool.execute(sql, params);
+          resolve(result) ;
+        }
+        catch(error) {
+          console.log(`DELETE ERROR ${error}`);
+          reject(error);
+        }
+      })();
+    });
+  }
+  
+    // ------------------------------------------------------------------------
   startTransactionRW() {
     return new Promise((resolve, reject) => {
       (async () => {

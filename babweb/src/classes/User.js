@@ -54,7 +54,7 @@ export default class User {
   }
   // ------------------------------------------------------------------------
   async logout() {
-    logout(); // The server method
+    logout(this.getId()); // The server method
   }
   // ------------------------------------------------------------------------
   getEmail() { return this.#email};
