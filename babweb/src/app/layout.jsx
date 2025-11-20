@@ -5,7 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css"; /* Permet de centraliser le constantes, les classe css, etc. */
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { AuthProvider, AuthContext } from "@/app/context/authContext";
+import { AuthProvider } from "@/app/context/authContext";
 import { AppProvider } from "./context/appContext";
 
 

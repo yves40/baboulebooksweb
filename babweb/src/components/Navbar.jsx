@@ -11,6 +11,12 @@ export default function Navbar() {
 
   const {session, user} = useContext(AuthContext);
 
+  if(user.getId()) {
+    console.log(`${modulename} Navbar render - User ID : ${user.getId()} - Email : ${user.getEmail()}`);
+  } else {
+    console.log(`${modulename} Navbar render - No user logged in`);
+  }
+
   return (
     // Look in globals.css for classes definitions
       <nav className="nav">
@@ -20,6 +26,7 @@ export default function Navbar() {
             { session.isConnected() &&  
             <>
               <Link href="/logout" className=" mx-2 text-zinc-900 mr-auto">Déconnexion</Link>
+              <p>{user.getEmail()}</p>
             </>
             }
             { !session.isConnected() &&  

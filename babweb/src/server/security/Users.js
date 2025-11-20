@@ -4,6 +4,7 @@ import sqlHelper from '@/classes/sqlHelper';
 import { cookies } from "next/headers";
 import { revalidateTag } from "next/cache";
 import AppError from '@/classes/customError';
+import User from '@/classes/User';
 import { checkEmail, checkPassword, hashPassword, validatePassword } from '@/libs/controls';
 
 const modulename = "serverSession # ";
@@ -64,17 +65,18 @@ export async function login(email, password) {
     console.log(`Log as : ${email}/${password}`);
     try {
         const sqlh = new sqlHelper();
-        let result = await sqlh.Select('select usr_id, usr_email, usr_password from babouledb.users \
-                            where usr_email = ? ', email);
+        let result = await sqlh.Select('select usr_id, usr_email, \
+                    usr_password, usr_lastname, usr_firstname from babouledb.users \
+                    where usr_email = ? ', email);
         console.log(result);
         if(result.length > 0) {
-            const { usr_id, usr_email, usr_password} = result[0];
+            const { usr_id, usr_email, usr_password, usr_lastname, usr_firstname} = result[0];
             console.log(`Found ${usr_email}`);
             await validatePassword(password, usr_password);
             // Good credentials, update the lastlogin column
             await sqlh.Update('update babouledb.users set usr_lastlogin = now() where usr_id = ?', [usr_id]);
             revalidateTag("auth-session");  // gestion du cache NextJS
-            return { usr_id: usr_id, usr_email: usr_email };
+            return result[0];
         }
         else {
             throw new AppError('Connexion rejetée'); // Unknown user

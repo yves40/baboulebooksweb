@@ -2,11 +2,18 @@
 
 import Link from "next/link"
 import { AppContext } from "./context/appContext"
+import { AuthContext } from "./context/authContext";
 import { useContext, useEffect } from "react";
 
 export default function NotFound() {
   
+  const module = 'not-found.jsx';
   const appctx = useContext(AppContext);
+  const {user} = useContext(AuthContext);
+
+  console.log(`${module} : 404 Not Found page rendered for user ${user.getEmail()}`);
+
+
   useEffect(() => {
     appctx.incErrors404();
   }, []);

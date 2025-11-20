@@ -2,14 +2,14 @@
 
 import { useContext, useEffect } from 'react'
 import { useRouter } from "next/navigation";
-import { getSession } from '@/app/context/authContext';
+import { getAuthContext } from '@/app/context/authContext';
 import User from '@/classes/User';
 import Session from '@/classes/Session';
 
 export default function page() {
 
   const router = useRouter(); 
-  const {user, session, setSession, setUser } = getSession();
+  const {user, session, setSession, setUser } = getAuthContext();
   
   useEffect(() => {
     handleLogout();

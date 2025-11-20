@@ -8,29 +8,34 @@ export default class User {
 
   #id = 0;
   #email = "";
-  #password = "";
   #firstname = "";
   #lastname = "";
-  #lastlogin;
   MINPASS = 8;
   
   // ------------------------------------------------------------------------
-  constructor() {
+  constructor(id=0, email, fname="", lname="", ) {
     this.Version = "user.js Nov 20 2025, 1.12";
-    this.#lastlogin = null;
+    this.#id = id;
+    this.#email = email;
+    this.#firstname = fname;
+    this.#lastname = lname;
   }  
   // ------------------------------------------------------------------------
   //      P U B L I C 
   // ------------------------------------------------------------------------
   async login(email, password) {
     try {
-      const {usr_id, usr_email} = await login(email, password);
+      const user = await login(email, password); // server method
+      const { usr_id, usr_email, usr_lastname, usr_firstname } = user;
       this.#id = usr_id;
-      this.#email = usr_email;
+      this.#email = usr_email;  
+      this.#firstname =  usr_firstname;
+      this.#lastname =  usr_lastname;
       // Create a new session
       const sess = new Session();
       const sessionId = await sess.createDBSession(usr_id);
       sess.createCookieSession(usr_id, sessionId);
+      return this
     }
     catch(error) {
       throw error;   
@@ -38,15 +43,12 @@ export default class User {
   }
   // ------------------------------------------------------------------------
   async register(formData) {
-    // Registration is now handled in server/security/Users.js
     try {
-      // Call the server method
       const { mail, password, firstname, lastname } = Object.fromEntries(formData);
       this.#email = mail;
-      this.#password = password;
       this.#firstname = firstname;
       this.#lastname = lastname;
-      return await register(formData);
+      return await register(formData); // server method
     }
     catch(error) {
       throw error;   
@@ -54,11 +56,17 @@ export default class User {
   }
   // ------------------------------------------------------------------------
   async logout() {
-    logout(this.getId()); // The server method
+    logout(this.getId()); // server method
   }
   // ------------------------------------------------------------------------
-  getEmail() { return this.#email};
   getId() { return this.#id};
+  getEmail() { return this.#email};
+  getFirstName() { return this.#firstname};
+  getLastName() { return this.#lastname}
+  setId(id) { this.#id = id};
+  setEmail(email) { this.#email = email};
+  setFirstName(fname) { this.#firstname = fname};
+  setLastName(lname) { this.#lastname = lname};
   // ------------------------------------------------------------------------
   //      P R I V A T E 
   // ------------------------------------------------------------------------

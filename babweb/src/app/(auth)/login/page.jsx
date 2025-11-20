@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import { getSession } from '@/app/context/authContext';
+import { getAuthContext } from '@/app/context/authContext';
 import InputEmail from '@/components/InputEmail';
 import InputPassword from '@/components/InputPassword'; 
 
@@ -17,7 +17,7 @@ export default function page() {
   const feedback = useRef('feedback');  
   const submitButton = useRef('');
   const router = useRouter();
-  const {user, session} = getSession();
+  const {user, session, setSession, setUser} = getAuthContext();
   const validInput = {
         email: false,
         password: false
@@ -60,7 +60,14 @@ export default function page() {
       const formData = new FormData(e.target);
       const formdataObj = Object.fromEntries(formData);
       submitButton.current.disabled = true;
-      await user.login(formdataObj.mail, formdataObj.password);
+      const loggeduser = await user.login(formdataObj.mail, formdataObj.password);
+      // user.setId(loggeduser.getId());
+      // user.setEmail(loggeduser.getEmail());
+      // user.setFirstName(loggeduser.getFirstName());
+      // user.setLastName(loggeduser.getLastName()); 
+      setUser(loggeduser);
+      console.log(`${module} ${user.getEmail()} logged in successfully`);
+      
       // Update the authorization context
       await session.setSessionState(true);
       router.push('/');

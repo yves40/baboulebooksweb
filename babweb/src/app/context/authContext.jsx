@@ -27,4 +27,4 @@ export function AuthProvider({children}) {
     </AuthContext.Provider>
   )
 }
-export function getSession() { return useContext(AuthContext)}
+export function getAuthContext() { return useContext(AuthContext)}
