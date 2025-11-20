@@ -71,9 +71,10 @@ export async function login(email, password) {
             const { usr_id, usr_email, usr_password} = result[0];
             console.log(`Found ${usr_email}`);
             await validatePassword(password, usr_password);
-            // Good credentials
-            return { usr_id: usr_id, usr_email: usr_email };
+            // Good credentials, update the lastlogin column
+            await sqlh.Update('update babouledb.users set usr_lastlogin = now() where usr_id = ?', [usr_id]);
             revalidateTag("auth-session");  // gestion du cache NextJS
+            return { usr_id: usr_id, usr_email: usr_email };
         }
         else {
             throw new AppError('Connexion rejetée'); // Unknown user

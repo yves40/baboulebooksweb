@@ -16,7 +16,7 @@ export default class User {
   
   // ------------------------------------------------------------------------
   constructor() {
-    this.Version = "user.js Nov 19 2025, 1.12";
+    this.Version = "user.js Nov 20 2025, 1.12";
     this.#lastlogin = null;
   }  
   // ------------------------------------------------------------------------
