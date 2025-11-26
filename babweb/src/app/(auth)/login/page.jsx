@@ -61,11 +61,7 @@ export default function page() {
       const formdataObj = Object.fromEntries(formData);
       submitButton.current.disabled = true;
       const loggeduser = await user.login(formdataObj.mail, formdataObj.password);
-      // user.setId(loggeduser.getId());
-      // user.setEmail(loggeduser.getEmail());
-      // user.setFirstName(loggeduser.getFirstName());
-      // user.setLastName(loggeduser.getLastName()); 
-      setUser(loggeduser);
+      // setUser(loggeduser);
       console.log(`${module} ${loggeduser.getEmail()} logged in successfully`);
       
       // Update the authorization context

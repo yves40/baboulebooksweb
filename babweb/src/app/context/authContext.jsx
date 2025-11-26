@@ -14,13 +14,6 @@ export function AuthProvider({children}) {
   const [user, setUser] = useState(new User());
   
   // ------------------------------------------------------------------------
-  function getUser() {
-    return user;
-  }
-  function getSession() {
-    return session;
-  }
-  // ------------------------------------------------------------------------
   useEffect( () => {
     async function getSessionState() {
       const cookiestate = await session.getSessionCookie();
@@ -30,7 +23,7 @@ export function AuthProvider({children}) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{session, user, setSession, setUser}}>
+    <AuthContext.Provider value={{session, user}}>
       {children}
     </AuthContext.Provider>
   )
