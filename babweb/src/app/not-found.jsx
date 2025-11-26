@@ -11,9 +11,6 @@ export default function NotFound() {
   const appctx = useContext(AppContext);
   const {user} = useContext(AuthContext);
 
-  console.log(`${module} : 404 Not Found page rendered for user ${user.getEmail()}`);
-
-
   useEffect(() => {
     appctx.incErrors404();
   }, []);
