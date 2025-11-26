@@ -17,7 +17,7 @@ export default function page() {
   const feedback = useRef('feedback');  
   const submitButton = useRef('');
   const router = useRouter();
-  const {user, session, setSession, setUser} = getAuthContext();
+  const {session, user, setUser} = getAuthContext();
   const validInput = {
         email: false,
         password: false
@@ -66,7 +66,7 @@ export default function page() {
       // user.setFirstName(loggeduser.getFirstName());
       // user.setLastName(loggeduser.getLastName()); 
       setUser(loggeduser);
-      console.log(`${module} ${user.getEmail()} logged in successfully`);
+      console.log(`${module} ${loggeduser.getEmail()} logged in successfully`);
       
       // Update the authorization context
       await session.setSessionState(true);
