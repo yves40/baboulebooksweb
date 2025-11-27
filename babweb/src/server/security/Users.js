@@ -4,11 +4,10 @@ import sqlHelper from '@/classes/sqlHelper';
 import { cookies } from "next/headers";
 import { revalidateTag } from "next/cache";
 import AppError from '@/classes/customError';
-import User from '@/classes/User';
 import { checkEmail, checkPassword, hashPassword, validatePassword } from '@/libs/controls';
 
 const modulename = "serverSession # ";
-const Version = "Users.js Nov 19 2025, 1.07";
+const Version = "Users.js Nov 26 2025, 1.08";
 const DBExpirationDelay = 60;  // One hour expiration date for DBSession (msec )
 const CookieExpirationDelay = 1 * 24 * 60 * 60; // One day expiration date for Cookie (sec)
 
@@ -90,37 +89,50 @@ export async function login(email, password) {
       throw new Error('Erreur durant le login');
     }
 }
+// ------------------------------------------------------------------------
+export async function createUserCookie(userid) {
+    const cookieStore = await cookies();
+    cookieStore.set('userid', userid.toString(), { 
+        httpOnly: true, // No JS access
+        secure: process.env.NODE_ENV === "production", // If prod, use HTTP for requests
+        path: '/', // Use cookie for all APP pages. Could be restrained to sensitive pages
+        maxAge: CookieExpirationDelay,   // One day persistence
+        sameSite: "Lax" // To block CSRF attacks. Cookie is sent only to our site. Look at https://contentsquare.com/fr-fr/blog/samesite-cookie-attribute/
+    });
+}
+// ------------------------------------------------------------------------
+export async function getUserCookie() {
+    const cookieStore = await cookies();
+    const userCookieId = cookieStore.get("userid")?.value;
+    if (!userCookieId) {  // No cookie yet !
+        return { success: false, cookie: undefined };
+    }
+    else {
+        return { success: true, cookie: userCookieId };
+    }
+}
+// ------------------------------------------------------------------------
+export async function deleteUserCookie() {
+    const cookieStore = await cookies();
+    cookieStore.set('userid', "", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",  // If prod, use HTTP for requests
+        path: '/',
+        maxAge: 0,  // maxAge set to 0 deletes the cookie
+        sameSite: "strict"
+    });
+}
+
 // -----------------------------------------------------------------------------------------
 // Logout
 // -----------------------------------------------------------------------------------------
-export async function logout(userid) {
-    try {
-        // Shoot the DB session
-        const sqlh = new sqlHelper();
-        sqlh.startTransactionRW();
-        await sqlh.Delete('delete from babouledb.sessions where ses_userid = ?', [userid]);
-        sqlh.commitTransaction()
-        // Shoot the cookie
-        const cookieStore = await cookies();
-        cookieStore.set('sessionid', "", {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",  // If prod, use HTTP for requests
-            path: '/',
-            maxAge: 0,  // maxAge set to 0 deletes the cookie
-            sameSite: "strict"
-        });
-        cookieStore.set('userid', "", {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",  // If prod, use HTTP for requests
-            path: '/',
-            maxAge: 0,  // maxAge set to 0 deletes the cookie
-            sameSite: "strict"
-        });        
+export async function logout() {
+    try { 
         revalidateTag("auth-session");  // gestion du cache NextJS
         return { success: true }
     }
     catch(error) {
-        console.log(error);
-        
+        console.log(error);        
+        throw error
     }
 }

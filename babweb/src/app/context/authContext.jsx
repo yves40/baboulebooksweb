@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect, useRef } from "react";
+import { createContext, useContext, useReducer } from "react";
 import Session  from "@/classes/Session";
 import User  from "@/classes/User";
 
@@ -8,22 +8,54 @@ export const AuthContext = createContext();
 
 export function AuthProvider({children}) {
 
-  const version = "authContext: 1.17";
+  const version = "authContext Nov 26 2025, 1.20";
   const module = "AuthContext";
-  const [session, setSession] = useState(new Session());
-  const [user, setUser] = useState(new User());
-  
+  const [user, dispatchUser] = useReducer(manageUser, null);
+  const [session, dispatchSession] = useReducer(manageSession, null);
+
+  function manageUser(prevUser, action) {
+    switch(action.type) {
+      case 'SET_USER':
+        return action.payload;
+        break;
+      case 'CLEAR_USER':
+        return new User();
+      default:
+        return new User();
+    }
+  }
+  function manageSession(prevSession, action) {
+    switch(action.type) {
+      case 'SET_SESSION':
+        return action.payload;
+        break;
+      case 'CLEAR_SESSION':
+        return new Session();
+      default:
+        return new Session();
+    }
+  }
+
   // ------------------------------------------------------------------------
-  useEffect( () => {
-    async function getSessionState() {
-      const cookiestate = await session.getSessionCookie();
-      session.setSessionState(cookiestate);
-    }    
-    getSessionState();
-  }, []);
+  function setUser(newUser) {dispatchUser({type: 'SET_USER', payload: newUser});}
+  function logoutUser() {dispatchUser({type: 'CLEAR_USER'});}
+  function setSession(newSession) {dispatchSession({type: 'SET_SESSION', payload: newSession});}
+  function logoutSession() {dispatchSession({type: 'CLEAR_SESSION'});}
+  // ------------------------------------------------------------------------
+  function getUser() {return user;}
+  function getSession() { return session}
+  function isUserLogged() {return (user != null && user.getId() != 0);}
 
   return (
-    <AuthContext.Provider value={{session, user}}>
+    <AuthContext.Provider value={{session, user, 
+                  setUser,
+                  isUserLogged,
+                  getUser,
+                  logoutUser,
+                  setSession,
+                  getSession,
+                  logoutSession
+            }}>
       {children}
     </AuthContext.Provider>
   )

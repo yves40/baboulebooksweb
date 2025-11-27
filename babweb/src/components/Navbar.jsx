@@ -9,8 +9,9 @@ const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const {session, user} = useContext(AuthContext);
+  const {getUser, isUserLogged} = useContext(AuthContext);
 
+  const user = getUser();
   if(user != undefined && user.getId()) {
     console.log(`${modulename} Navbar render - User ID : ${user.getId()} - Email : ${user.getEmail()}`);
   } else {
@@ -23,14 +24,15 @@ export default function Navbar() {
         <div className="nav__div">
             <Link href="/" className=" mr-2 text-zinc-900">Accueil</Link>
             <Link href="/books" className=" mx-2 text-zinc-900">Livres</Link>
-
-            { session.isConnected() &&  
+            {/* console.log(`****************** ${isUserLogged()}`); */}
+    
+            { isUserLogged() &&  
             <>
               <Link href="/logout" className=" mx-2 text-zinc-900 mr-auto">Déconnexion</Link>
               <p>{user.getEmail()}</p>
             </>
             }
-            { !session.isConnected() &&  
+            { !isUserLogged() &&  
             <>
               <Link href="/login" className=" mx-2 text-zinc-900">Connexion</Link>
               <Link href="/register" className=" mx-2 text-zinc-900">S'enregister</Link>

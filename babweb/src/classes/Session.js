@@ -1,17 +1,17 @@
 "use strict";
 
-import {createCookieSession, getSessionCookie, createDBSession } from "@/server/security/Sessions";
+import {createSessionCookie, getSessionCookie, createDBSession, logout } from "@/server/security/Sessions";
 export default class Session {
 
-  #sessionid = 0;
-  #userid = 0;
-  #state = false;   // Not connected, if true connected
-  #created = new Date();
-  #expired = new Date();
+   sessionid = 0;
+   userid = 0;
+   state = false;   // Not connected, if true connected
+   created = new Date();
+   expired = new Date();
   
   // ------------------------------------------------------------------------
   constructor() {
-    this.Version = "Session.js Nov 20 2025, 1.07";
+    this.Version = "Session.js Nov 26 2025, 1.08";
   }
   // ------------------------------------------------------------------------
   //      P U B L I C 
@@ -23,9 +23,9 @@ export default class Session {
         return sessionId;
   }
   // ------------------------------------------------------------------------
-  async createCookieSession(userid, sessionid) {
-        console.log(`createCookieSession with userID : ${userid} and sessionID : ${sessionid}`);
-        await createCookieSession(userid, sessionid);
+  async createSessionCookie(sessionid) {
+        console.log(`createSessionCookie  sessionID : ${sessionid}`);
+        await createSessionCookie(sessionid);
   } 
   // ------------------------------------------------------------------------
   async getSessionCookie() {
@@ -36,13 +36,20 @@ export default class Session {
     return null
   }
   // ------------------------------------------------------------------------
-  isConnected() {
-    return (this.#state === false ? false : true);
+  async logout() {
+      try {
+        await logout(this.getSessionId()); // server method
+      }
+      catch(error) {
+        console.log(`Session logout failed: ${error}`);       
+      }    
   }
-  setSessionId(id) { this.#sessionid = id}
-  getSessionId() { return this.#sessionid}
-  setSessionState(state) { this.#state = state}
-  getSessionState() { return this.#state}
+  setSessionId(id) { this.sessionid = id}
+  setuserId(id) { this.userid = id}
+  getSessionId() { return this. sessionid}
+  setSessionState(state) { this. state = state}
+  getSessionState() { return this. state}
+  
   /**
      * Check session in DB
     await connectToDB();

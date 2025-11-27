@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { getAuthContext } from '@/app/context/authContext';
 import InputEmail from '@/components/InputEmail';
 import InputPassword from '@/components/InputPassword'; 
+import User from "@/classes/User";
+import Session from "@/classes/Session";
 
 export default function page() {
 
@@ -17,11 +19,13 @@ export default function page() {
   const feedback = useRef('feedback');  
   const submitButton = useRef('');
   const router = useRouter();
-  const {session, user, setUser} = getAuthContext();
   const validInput = {
-        email: false,
-        password: false
+    email: false,
+    password: false
   };
+
+  // Authentication context access
+  const {setUser, setSession} = getAuthContext();
 
   useEffect(() => {
     checkMandatoryFields();
@@ -60,14 +64,23 @@ export default function page() {
       const formData = new FormData(e.target);
       const formdataObj = Object.fromEntries(formData);
       submitButton.current.disabled = true;
+      // New user
+      let user = new User();
       const loggeduser = await user.login(formdataObj.mail, formdataObj.password);
-      // setUser(loggeduser);
-      console.log(`${module} ${loggeduser.getEmail()} logged in successfully`);
-      
+      // Create a new session
+      let session = new Session();
+      const sessionid = await session.createDBSession(loggeduser.getId());
+      session.setSessionState(true);
+      session.setSessionId(sessionid);
+      session.setuserId(loggeduser.getId());      
+      // Create cookies for user and session
+      await session.createSessionCookie(sessionid);
+      await user.createUserCookie(loggeduser.getId());
       // Update the authorization context
-      await session.setSessionState(true);
-      router.push('/');
+      setUser(loggeduser);
+      setSession(session);
       submitButton.current.disabled = false;
+      router.push('/');
     }
     catch(error) {
       feedback.current.textContent = `${error.message}`;

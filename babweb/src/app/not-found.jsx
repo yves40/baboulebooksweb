@@ -9,7 +9,6 @@ export default function NotFound() {
   
   const module = 'not-found.jsx';
   const appctx = useContext(AppContext);
-  const {user} = useContext(AuthContext);
 
   useEffect(() => {
     appctx.incErrors404();
