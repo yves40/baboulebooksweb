@@ -4,12 +4,18 @@ import Link from "next/link"
 import { AppContext } from "./context/appContext"
 import { AuthContext } from "./context/authContext";
 import { useContext, useEffect } from "react";
+import User from "@/classes/User";
 
 export default function NotFound() {
   
   const module = 'not-found.jsx';
   const appctx = useContext(AppContext);
-
+  const { getUser } = useContext(AuthContext);
+  const user = getUser();
+  if(user != undefined && user.getId()) {
+    console.log(`${module}: ${user.getEmail()}`);
+  }
+  
   useEffect(() => {
     appctx.incErrors404();
   }, []);
@@ -17,6 +23,7 @@ export default function NotFound() {
   return (
     <div className="news">
         <h1 className=" text-4xl py-4">404 - Not found</h1>
+        <h2 className=" mb-4">You are using version : {appctx.getVersion()}</h2>
         <p className="mb-2 text-red-500 ">La page demandée n'a pas été trouvée</p>
         <p className="my-4 text-gray-700 px-8">Contactez l'administrateur au 06.88.33.55.66<br/>
           Il est très disponible et s'efforcera de résoudre ce problème dans les meilleurs délais.
