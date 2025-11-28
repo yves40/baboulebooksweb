@@ -17,10 +17,7 @@ export function AuthProvider({children}) {
     switch(action.type) {
       case 'SET_USER':
         return action.payload;
-        break;
       case 'CLEAR_USER':
-        return new User();
-      default:
         return new User();
     }
   }
@@ -28,10 +25,7 @@ export function AuthProvider({children}) {
     switch(action.type) {
       case 'SET_SESSION':
         return action.payload;
-        break;
       case 'CLEAR_SESSION':
-        return new Session();
-      default:
         return new Session();
     }
   }
@@ -41,7 +35,6 @@ export function AuthProvider({children}) {
   function logoutUser() {dispatchUser({type: 'CLEAR_USER'});}
   function setSession(newSession) {dispatchSession({type: 'SET_SESSION', payload: newSession});}
   function logoutSession() {dispatchSession({type: 'CLEAR_SESSION'});}
-  // ------------------------------------------------------------------------
   function getUser() {return user;}
   function getSession() { return session}
   function isUserLogged() {return (user != null && user.getId() != 0);}
