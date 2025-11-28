@@ -80,13 +80,13 @@ export async function createSessionCookie(sessionid) {
   // -----------------------------------------------------------------------------------------
   export async function logout(sessionid) {
       try {
-          // Shoot the DB session
-          const sqlh = new sqlHelper();
-          sqlh.startTransactionRW();
-          await sqlh.Delete('delete from babouledb.sessions where ses_userid = ?', [sessionid]);
-          sqlh.commitTransaction()
-          revalidateTag("auth-session");  // gestion du cache NextJS
-          return { success: true }
+        // Shoot the DB session
+        const sqlh = new sqlHelper();
+        await sqlh.startTransactionRW();
+        await sqlh.Delete('delete from babouledb.sessions where ses_id = ?', [sessionid]);
+        sqlh.commitTransaction()
+        revalidateTag("auth-session");  // gestion du cache NextJS
+        return { success: true }
       }
       catch(error) {
           console.log(error);
