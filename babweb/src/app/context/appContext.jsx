@@ -11,7 +11,7 @@ export const AppContext =createContext();
 
 export function AppProvider({children}) {
   
-  const version = 'baboulebooks :Nov 27 2025 : 1.35';
+  const version = 'baboulebooks :Nov 28 2025 : 1.36';
   const [ errors404, setErrors404 ] = useState(0);
 
   console.log(`AppContext mounted`);
