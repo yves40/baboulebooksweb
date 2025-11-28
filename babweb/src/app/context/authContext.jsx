@@ -34,7 +34,7 @@ export function AuthProvider({children}) {
   function setUser(newUser) {dispatchUser({type: 'SET_USER', payload: newUser});}
   function logoutUser() {dispatchUser({type: 'CLEAR_USER'});}
   function setSession(newSession) {dispatchSession({type: 'SET_SESSION', payload: newSession});}
-  function logoutSession() {dispatchSession({type: 'CLEAR_SESSION'});}
+  function closeSession() {dispatchSession({type: 'CLEAR_SESSION'});}
   function getUser() {return user;}
   function getSession() { return session}
   function isUserLogged() {return (user != null && user.getId() != 0);}
@@ -47,7 +47,7 @@ export function AuthProvider({children}) {
                   logoutUser,
                   setSession,
                   getSession,
-                  logoutSession
+                  closeSession
             }}>
       {children}
     </AuthContext.Provider>

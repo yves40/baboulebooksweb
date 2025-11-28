@@ -1,6 +1,6 @@
 "use strict";
 
-import {createSessionCookie, getSessionCookie, createDBSession, logout } from "@/server/security/Sessions";
+import {createSessionCookie, getSessionCookie, createDBSession, closeDBSession } from "@/server/security/Sessions";
 export default class Session {
 
    sessionid = 0;
@@ -38,7 +38,7 @@ export default class Session {
   // ------------------------------------------------------------------------
   async logout() {
       try {
-        await logout(this.getSessionId()); // server method
+        await closeDBSession(this.getSessionId()); // server method
       }
       catch(error) {
         console.log(`Session logout failed: ${error}`);       

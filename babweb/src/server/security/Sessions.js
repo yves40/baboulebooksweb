@@ -76,9 +76,9 @@ export async function createSessionCookie(sessionid) {
       }
   }
   // -----------------------------------------------------------------------------------------
-  // Logout
+  // Close session in DB 
   // -----------------------------------------------------------------------------------------
-  export async function logout(sessionid) {
+  export async function closeDBSession(sessionid) {
       try {
         // Shoot the DB session
         const sqlh = new sqlHelper();

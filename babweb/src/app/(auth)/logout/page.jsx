@@ -5,17 +5,21 @@ import { useRouter } from "next/navigation";
 import { getAuthContext } from '@/app/context/authContext';
 import { deleteSessionCookie } from '@/server/security/Sessions';
 import { deleteUserCookie } from '@/server/security/Users';
+import { closeDBSession } from '@/server/security/Sessions';
 
 export default function page() {
   
-  const {getUser, logoutUser, logoutSession} = getAuthContext();
+  const {getUser, logoutUser, closeSession, getSession} = getAuthContext();
   const router = useRouter(); 
   
   async function handleLogout(e) {
     e.preventDefault();
     console.log(`Log out for : ${getUser().getEmail()}`);
+    // AuthContext update
     await logoutUser();
-    await logoutSession();
+    await closeSession();
+    // DB and cookies update
+    await closeDBSession(getSession().getSessionId());
     await deleteSessionCookie();
     await deleteUserCookie();
     router.push('/');
