@@ -4,18 +4,12 @@ import Link from "next/link"
 import { AppContext } from "./context/appContext"
 import { AuthContext } from "./context/authContext";
 import { useContext, useEffect } from "react";
-import User from "@/classes/User";
 
 export default function NotFound() {
   
   const module = 'not-found.jsx';
   const appctx = useContext(AppContext);
-  const { getUser } = useContext(AuthContext);
-  const user = getUser();
-  if(user != undefined && user.getId()) {
-    console.log(`${module}: ${user.getEmail()}`);
-  }
-  
+
   useEffect(() => {
     appctx.incErrors404();
   }, []);
