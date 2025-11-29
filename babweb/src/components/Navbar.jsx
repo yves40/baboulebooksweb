@@ -12,7 +12,7 @@ export default function Navbar() {
   const {getUser, isUserLogged} = useContext(AuthContext);
 
   const user = getUser();
-  if(user != undefined && user.getId()) {
+  if(user && user.getId()) {
     console.log(`${modulename} Navbar render - User ID : ${user.getId()} - Email : ${user.getEmail()}`);
   } else {
     console.log(`${modulename} Navbar render - No user logged in`);
@@ -24,8 +24,6 @@ export default function Navbar() {
         <div className="nav__div">
             <Link href="/" className=" mr-2 text-zinc-900">Accueil</Link>
             <Link href="/books" className=" mx-2 text-zinc-900">Livres</Link>
-            {/* console.log(`****************** ${isUserLogged()}`); */}
-    
             { isUserLogged() &&  
             <>
               <Link href="/logout" className=" mx-2 text-zinc-900 mr-auto">Déconnexion</Link>
