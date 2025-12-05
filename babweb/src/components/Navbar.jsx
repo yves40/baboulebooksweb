@@ -12,11 +12,12 @@ export default function Navbar() {
   const {getUser, isUserLogged} = useContext(AuthContext);
 
   const user = getUser();
-  if(user && user.getId()) {
-    console.log(`${modulename} Navbar render - User ID : ${user.getId()} - Email : ${user.getEmail()}`);
-  } else {
-    console.log(`${modulename} Navbar render - No user logged in`);
-  }
+  
+  // if(user && user.getId()) {
+  //   console.log(`${modulename} Navbar render - User ID : ${user.getId()} - Email : ${user.getEmail()}`);
+  // } else {
+  //   console.log(`${modulename} Navbar render - No user logged in`);
+  // }
 
   return (
     // Look in globals.css for classes definitions

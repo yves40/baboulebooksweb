@@ -11,10 +11,10 @@ export const AppContext =createContext();
 
 export function AppProvider({children}) {
   
-  const version = 'baboulebooks :Nov 29 2025 : 1.37';
+  const version = 'baboulebooks, Dec 04 2025 : 1.38';
   const [ errors404, setErrors404 ] = useState(0);
 
-  console.log(`AppContext mounted - version: ${version}`);
+  // console.log(`AppContext mounted - version: ${version}`);
 
   useEffect(() => {
     if(window.localStorage.getItem('errors404') == null) {

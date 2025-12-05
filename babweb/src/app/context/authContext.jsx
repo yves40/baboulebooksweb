@@ -1,8 +1,9 @@
 "use client"
 
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import Session  from "@/classes/Session";
 import User  from "@/classes/User";
+
 
 // Check later why it's breaking the server !!!!!!!!!!!!!!!!!!!!!!!
 // import Logger from "@/classes/logger";
@@ -12,41 +13,68 @@ import User  from "@/classes/User";
 export const AuthContext = createContext();
 
 export function AuthProvider({children}) {
-
-  const version = "authContext Nov 29 2025, 1.24";
-  const module = "AuthContext";
-  const getInitialUserState = () => {
-    const currentUser = sessionStorage.getItem("currentUser");
-    return currentUser ? JSON.parse(currentUser) : null
-  }
-  const getInitialSessionState = () => {
-    const currentUser = sessionStorage.getItem("currentSession");
-    return currentUser ? JSON.parse(currentUser) : null
-  }
-
-  const [user, dispatchUser] = useReducer(manageUser, getInitialUserState());
-  const [session, dispatchSession] = useReducer(manageSession, getInitialSessionState());
   
-  console.log(`${module} Mounted - version: ${version}`);
-  console.log(`${module} user object: ${user? JSON.stringify(user) : 'No user'}`);
+  const version = "authContext Dec 05 2025, 1.28";
+  const module = "AuthContext";  
+  const [user, dispatchUser] = useReducer(manageUser,null);
+  const [session, dispatchSession] = useReducer(manageSession, null);
   
+  useEffect(() => { 
+    const readuser = JSON.parse(sessionStorage.getItem("currentUser"));
+    const readsession = JSON.parse(sessionStorage.getItem("currentSession"));
+    if(readuser.id === 0) {
+      dispatchUser({type: 'INIT_USER'});
+    }
+    else {
+      dispatchUser({type: 'SET_USER', payload: readuser});
+    }
+    if(readsession.id === 0) {
+      dispatchSession({type: 'INIT_SESSION'});
+    }
+    else {
+      dispatchSession({type: 'SET_SESSION', payload: readsession});
+    }
+  }, []); // One call at component mount only
+  
+  
+  // console.log(`${module} Mounted - version: ${version}`);
+  // console.log(`${module} user object: ${user? JSON.stringify(user) : 'No user'}`);
+  // ------------------------------------------------------------------------
   function manageUser(prevUser, action) {
-    console.log(`${module} manageUser called with action ${action.type}`);
+    // console.log(`${module} manageUser called with action ${action.type}`);
     switch(action.type) {
+      case 'INIT_USER':
+        sessionStorage.setItem("currentUser", JSON.stringify(new User()));
+        return new User();
       case 'SET_USER':
-        sessionStorage.setItem("currentUser", JSON.stringify(action.payload))
-        return action.payload;
+        const u = new User();
+        u.setId(action.payload.id);
+        u.setEmail(action.payload.email);
+        u.setFirstName(action.payload.firstname);
+        u.setLastName(action.payload.lastname); 
+        sessionStorage.setItem("currentUser", JSON.stringify(u))
+        return u;
       case 'CLEAR_USER':
+        sessionStorage.removeItem("currentUser");
         return new User();
     }
   }
+  // ------------------------------------------------------------------------
   function manageSession(prevSession, action) {
-    console.log(`${module} manageSession called with action ${action.type}`);
+    // console.log(`${module} manageSession called with action ${action.type}`);
     switch(action.type) {
+      case 'INIT_SESSION':
+        sessionStorage.setItem("currentSession", JSON.stringify(new Session()));
+        return new Session();
       case 'SET_SESSION':
+        const s = new Session();
+        s.setSessionId(action.payload.id);
+        s.setuserId(action.payload.userid);
+        s.setSessionState(action.payload.state);
         sessionStorage.setItem("currentSession", JSON.stringify(action.payload))
         return action.payload;
       case 'CLEAR_SESSION':
+        sessionStorage.removeItem("currentSession");
         return new Session();
     }
   }
@@ -59,7 +87,7 @@ export function AuthProvider({children}) {
   function closeSession() {dispatchSession({type: 'CLEAR_SESSION'});}
   function getUser() {return user;}
   function getSession() { return session}
-  function isUserLogged() {return (user != null && user.getId() != 0);}
+  function isUserLogged() {return (user ? user.getId(): 0);}
 
   return (
     <AuthContext.Provider value={{session, user, 
