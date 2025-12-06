@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import { getAuthContext } from '@/app/context/authContext';
+import { AppContext } from "@/app/context/appContext";
 import InputEmail from '@/components/InputEmail';
 import InputPassword from '@/components/InputPassword'; 
 import User from "@/classes/User";
@@ -26,6 +27,7 @@ export default function page() {
 
   // Authentication context access
   const {setUser, setSession} = getAuthContext();
+  const { refreeshNavbar } =  AppContext;
 
   useEffect(() => {
     checkMandatoryFields();
@@ -80,6 +82,8 @@ export default function page() {
       setUser(loggeduser);
       setSession(session);
       submitButton.current.disabled = false;
+      //
+
       router.push('/');
     }
     catch(error) {

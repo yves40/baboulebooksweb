@@ -1,23 +1,42 @@
 "use client"
-
+import { useState } from "react";
 import Link from "next/link"
-import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "@/app/context/authContext";
 
 const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
+  const version = "Navbar.jsx Dec 06 2025, 1.13";
   const {getUser, isUserLogged} = useContext(AuthContext);
-
-  const user = getUser();
+  const [sessionstatus, setSessionstatus] =  useState("Non connecté");
   
-  // if(user && user.getId()) {
-  //   console.log(`${modulename} Navbar render - User ID : ${user.getId()} - Email : ${user.getEmail()}`);
-  // } else {
-  //   console.log(`${modulename} Navbar render - No user logged in`);
-  // }
+  useEffect(() => {
+    const loginsection = document.getElementById("loginsection");
+    const logoutsection = document.getElementById("logoutsection");
+    if(isUserLogged()) {
+      const user = getUser();
+      // setSessionstatus(user.getEmail());
+      setSessionstatus(`Connecté`);
+      loginsection.hidden = true;
+      logoutsection.hidden = false;
+    }
+    else {
+      setSessionstatus("Non connecté");
+      loginsection.hidden = false;
+      logoutsection.hidden = true;
+    }
+  }, []); // One call at component mount only
+
+
+  function refreshNavbar() {
+    console.log(`${modulename} refreshNavbar called`);
+    const loginsection = document.getElementById("loginsection");
+    const logoutsection = document.getElementById("logoutsection"); 
+    console.log(`Refreshing navbar`);
+    
+  }
 
   return (
     // Look in globals.css for classes definitions
@@ -25,18 +44,14 @@ export default function Navbar() {
         <div className="nav__div">
             <Link href="/" className=" mr-2 text-zinc-900">Accueil</Link>
             <Link href="/books" className=" mx-2 text-zinc-900">Livres</Link>
-            { isUserLogged() &&  
-            <>
+            <div id="logoutsection" hidden>
               <Link href="/logout" className=" mx-2 text-zinc-900 mr-auto">Déconnexion</Link>
-              <p>{user.getEmail()}</p>
-            </>
-            }
-            { !isUserLogged() &&  
-            <>
+            </div>
+            <div id="loginsection" hidden>
               <Link href="/login" className=" mx-2 text-zinc-900">Connexion</Link>
               <Link href="/register" className=" mx-2 text-zinc-900">S'enregister</Link>
-            </>
-            }
+            </div>
+            <p>{sessionstatus}</p>
         </div>
       </nav>
   )

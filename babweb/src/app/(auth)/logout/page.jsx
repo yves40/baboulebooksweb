@@ -17,9 +17,13 @@ export default function page() {
     console.log(`Log out for : ${getUser().getEmail()}`);
     // AuthContext update
     await logoutUser();
-    await closeDBSession(getSession().getSessionId());
     await closeSession();
     // DB and cookies update
+    const session = getSession();
+    console.log(`${JSON.stringify(session)}`);
+    const sessionid = await session.getSessionId();
+    console.log(`Shoot DB session with ID : ${sessionid} `);
+    await closeDBSession(sessionid);
     await deleteSessionCookie();
     await deleteUserCookie();
     router.push('/');
