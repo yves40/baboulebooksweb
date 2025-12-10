@@ -3,12 +3,17 @@ import { useState } from "react";
 import Link from "next/link"
 import { useContext, useEffect } from "react";
 import { AuthContext } from "@/app/context/authContext";
+import { useSelector } from 'react-redux'
 
 const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Dec 06 2025, 1.13";
+  const toto = useSelector((state) => state.menuProperties);
+  console.log(`***************** ${JSON.stringify(toto)}`);
+  
+
+  const version = "Navbar.jsx Dec 10 2025, 1.15";
   const {getUser, isUserLogged} = useContext(AuthContext);
   const [sessionstatus, setSessionstatus] =  useState("Non connecté");
   
@@ -28,8 +33,7 @@ export default function Navbar() {
       logoutsection.hidden = true;
     }
   }, []); // One call at component mount only
-
-
+  
   function refreshNavbar() {
     console.log(`${modulename} refreshNavbar called`);
     const loginsection = document.getElementById("loginsection");
@@ -56,3 +60,5 @@ export default function Navbar() {
       </nav>
   )
 }
+
+
