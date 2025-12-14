@@ -9,11 +9,12 @@ import InputEmail from '@/components/InputEmail';
 import InputPassword from '@/components/InputPassword'; 
 import User from "@/classes/User";
 import Session from "@/classes/Session";
+import { useDispatch } from "react-redux";
+import { loginUser } from "@/redux/menuProperties";
 
 export default function page() {
 
   const module = "LoginPage";
-  console.log(`*** ${module} : render`);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,6 +28,7 @@ export default function page() {
 
   // Authentication context access
   const {setUser, setSession} = getAuthContext();
+  const dispatch = useDispatch();
   const { refreeshNavbar } =  AppContext;
 
   useEffect(() => {
@@ -81,6 +83,11 @@ export default function page() {
       // Update the authorization context
       setUser(loggeduser);
       setSession(session);
+      console.log(`${module} - Dispatching loginUser action to redux store`);
+      dispatch({type: 'loginUser', payload: {useremail: loggeduser.getEmail()} });
+      // dispatch(loginUser({useremail: loggeduser.getEmail()}));
+      // refreeshNavbar();
+      // Redirect to home page
       submitButton.current.disabled = false;
       //
 

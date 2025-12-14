@@ -13,15 +13,19 @@ const menuSlice = createSlice(
         initialState,
         reducers: 
         {
-            loginUser: (state, action) => {           
+            loginUser: (state, action) => {       
+              state.logged = true;
+              state.useremail = action.payload.useremail;    
               console.log('User login');              
             },
             logoutUser: (state, action) => {           
+              state.logged = false;
+              state.useremail = "";
               console.log('User logout');              
             },
         }
     }
 )
-
+export const { loginUser, logoutUser } = menuSlice.actions;
 export default menuSlice.reducer;
 

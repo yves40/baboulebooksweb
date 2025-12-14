@@ -9,8 +9,9 @@ const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const toto = useSelector((state) => state.menuProperties);
-  console.log(`***************** ${JSON.stringify(toto)}`);
+  console.log(`${modulename} render`);
+  const userstatus = useSelector((state) => state.menuProperties);
+  console.log(`***************** ${JSON.stringify(userstatus)}`);
   
 
   const version = "Navbar.jsx Dec 10 2025, 1.15";
