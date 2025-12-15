@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initialState = [        
-        {
-            logged : false,
-            useremail : "",
-        },
-    ]
+const initialState =      
+    {
+        logged : false,
+        useremail : "",
+    }
 
 const menuSlice = createSlice(
     {
@@ -18,7 +17,7 @@ const menuSlice = createSlice(
               state.useremail = action.payload.useremail;    
               console.log('User login');              
             },
-            logoutUser: (state, action) => {           
+            disconnectUser: (state, action) => {           
               state.logged = false;
               state.useremail = "";
               console.log('User logout');              
@@ -26,6 +25,6 @@ const menuSlice = createSlice(
         }
     }
 )
-export const { loginUser, logoutUser } = menuSlice.actions;
+export const { loginUser, disconnectUser } = menuSlice.actions;
 export default menuSlice.reducer;
 

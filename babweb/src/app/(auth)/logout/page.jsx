@@ -6,12 +6,16 @@ import { getAuthContext } from '@/app/context/authContext';
 import { deleteSessionCookie } from '@/server/security/Sessions';
 import { deleteUserCookie } from '@/server/security/Users';
 import { closeDBSession } from '@/server/security/Sessions';
+import { useDispatch } from "react-redux";
+import { disconnectUser } from "@/redux/menuProperties";
+
 
 export default function page() {
   
   const {getUser, logoutUser, closeSession, getSession} = getAuthContext();
   const router = useRouter(); 
-  
+  const dispatch = useDispatch();
+
   async function handleLogout(e) {
     e.preventDefault();
     console.log(`Log out for : ${getUser().getEmail()}`);
@@ -26,6 +30,8 @@ export default function page() {
     await closeDBSession(sessionid);
     await deleteSessionCookie();
     await deleteUserCookie();
+    const dispatchObj =  dispatch(disconnectUser());
+    
     router.push('/');
   }    
 

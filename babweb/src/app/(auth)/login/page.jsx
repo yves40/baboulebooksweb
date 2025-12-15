@@ -29,7 +29,7 @@ export default function page() {
   // Authentication context access
   const {setUser, setSession} = getAuthContext();
   const dispatch = useDispatch();
-  const { refreeshNavbar } =  AppContext;
+  const { refreshNavbar } =  AppContext;
 
   useEffect(() => {
     checkMandatoryFields();
@@ -84,9 +84,10 @@ export default function page() {
       setUser(loggeduser);
       setSession(session);
       console.log(`${module} - Dispatching loginUser action to redux store`);
-      dispatch({type: 'loginUser', payload: {useremail: loggeduser.getEmail()} });
-      // dispatch(loginUser({useremail: loggeduser.getEmail()}));
-      // refreeshNavbar();
+      const dispatchObj =  dispatch(loginUser({useremail: loggeduser.getEmail()}));
+      console.log(`Result of the dispatch : ${JSON.stringify(dispatchObj)}`);
+      
+      // refreshNavbar();
       // Redirect to home page
       submitButton.current.disabled = false;
       //
