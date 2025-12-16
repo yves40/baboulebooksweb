@@ -19,9 +19,7 @@ export default function page() {
     const [lastname, setLastname] = useState('');
     const [firstname, setFirstname] = useState('');    
     const feedback = useRef('feedback');
-    const submitButton = useRef();
-
-    // useRef to store validity flags (avoid mutating state directly on each keystroke)
+    const submitButton = useRef(); 
     const validInput = {
         email: false,
         password: false
@@ -37,21 +35,21 @@ export default function page() {
         feedback.current.textContent = '';
         feedback.current.hidden = true;
         try {
-            if(!email) {
+            if(!email && email !== '') {
                 validInput.email = false;
                 throw new Error("Email valide SVP");
             }
             else {
                 validInput.email = true;
             }
-            if(!password) {
+            if(!password && password !== '') {
                 validInput.password = false;
                 throw new Error("Mot de passe obligatoire");
             } 
             else {
                 validInput.password = true;
             }
-            if(!confpassword) { 
+            if(!confpassword && confpassword !== '') { 
                 validInput.password = false;  
                 throw new Error("Confirmation obligatoire");
             }
@@ -73,7 +71,7 @@ export default function page() {
             submitButton.current.disabled = true;
         } 
         finally {
-            if(validInput.email && validInput.password) {
+            if(validInput.email && email !== '' && validInput.password && password !== '' ) {
                 submitButton.current.disabled = false;
                 submitButton.current.className = "w-full bg-blue-800 text-white my-4 rounded-lg border p-2";
             }
@@ -87,6 +85,10 @@ export default function page() {
     async function handleSubmit(e)
     {
         e.preventDefault();
+        checkMandatoryFields();
+        if(!validInput.email || !validInput.password) {
+            return;
+        }
         const formData = new FormData(e.target);
         const formdataObj = Object.fromEntries(formData);
         console.log(JSON.stringify(formdataObj));
@@ -124,9 +126,9 @@ export default function page() {
                     md:w-1/2 border rounded shadow-md background-slate-900 
                     text-left mx-auto m-2 py-2 px-4'>
                 <form onSubmit={handleSubmit}>
-                    <InputEmail componentid="mail" label="Email" parentHandler={setEmail} ></InputEmail>
+                    <InputEmail componentid="mail" label="Email" parentHandler={setEmail} placeholder={false} ></InputEmail>
                     <InputPassword componentid="password" label="Mot de passe" parentHandler={setPassword}></InputPassword>
-                    <InputPassword componentid="confpassword" label="Confirmation" parentHandler={setConfpassword}></InputPassword>
+                    <InputPassword componentid="confpassword" label="Confirmation" parentHandler={setConfpassword} placeholder={false}></InputPassword>
                     <InputText componentid="lastname" label="Nom"  parentHandler={setLastname}></InputText>
                     <InputText componentid="firstname" label="Prénom" parentHandler={setFirstname}></InputText>
                     <button className="w-full bg-blue-200 hover:bg-blue-800
