@@ -1,7 +1,8 @@
 import { useRef } from 'react'
 import {checkPassword} from '@/libs/controls';
 
-export default function InputPassword({componentid, label, parentHandler, placeholder=true}) {
+export default function InputPassword({componentid, label, parentHandler, 
+    placeholder=true, timeout=800}) {
     
     const delayedInput = useRef(null);
     const module = "InputPassword";
@@ -9,7 +10,6 @@ export default function InputPassword({componentid, label, parentHandler, placeh
     const passwordinput = useRef('passwordinput');
 
     const feedback = useRef('feedback');
-    const TIMEOUT = 1000;
     
     let ph = false;
     if(placeholder === true) {
@@ -40,7 +40,7 @@ export default function InputPassword({componentid, label, parentHandler, placeh
                 feedback.current.hidden = false;
                 console.log (`*** ${module} ${error.message}`);
             }
-        }, TIMEOUT);
+        }, timeout);
     }
 
     return (

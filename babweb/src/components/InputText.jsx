@@ -1,12 +1,12 @@
 import { useRef } from 'react'
 import AppError from '@/classes/customError';
 
-export default function InputText({componentid, label, parentHandler}) {
-    
+export default function InputText({componentid, label, parentHandler,
+    timeout=800}) 
+{
     const delayedInput = useRef(null);
     const module = "InputText";
     const feedback = useRef('feedback');
-    const TIMEOUT = 1000;
     
     function checkInput(e) {
         if(delayedInput.current) clearTimeout(delayedInput.current);
@@ -20,7 +20,7 @@ export default function InputText({componentid, label, parentHandler}) {
                 feedback.current.textContent = error.message;
                 feedback.current.hidden = false;
             }
-        }, TIMEOUT);
+        }, timeout);
     }
 
     return (

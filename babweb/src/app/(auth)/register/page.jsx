@@ -129,8 +129,8 @@ export default function page() {
                     <InputEmail componentid="mail" label="Email" parentHandler={setEmail} placeholder={false} ></InputEmail>
                     <InputPassword componentid="password" label="Mot de passe" parentHandler={setPassword}></InputPassword>
                     <InputPassword componentid="confpassword" label="Confirmation" parentHandler={setConfpassword} placeholder={false}></InputPassword>
-                    <InputText componentid="lastname" label="Nom"  parentHandler={setLastname}></InputText>
-                    <InputText componentid="firstname" label="Prénom" parentHandler={setFirstname}></InputText>
+                    <InputText componentid="lastname" label="Nom"  parentHandler={setLastname} timeout={1000}> </InputText>
+                    <InputText componentid="firstname" label="Prénom" parentHandler={setFirstname} timeout={1000}></InputText>
                     <button className="w-full bg-blue-200 hover:bg-blue-800
                          text-white my-4 rounded-lg border p-2"
                         ref={submitButton}>S'enregistrer

@@ -1,14 +1,14 @@
 import { useRef } from 'react';
 import { checkEmail } from '@/libs/controls';
 
-export default function InputEmail({componentid, label, parentHandler, placeholder=true}) {
+export default function InputEmail({componentid, label, parentHandler, 
+    placeholder=true, timeout=800}) {
     
     const delayedInput = useRef(null);
     const module = "InputEmail";
     const controlicon = useRef('controlicon');
     const emailinput = useRef('emailinput');
     const feedback = useRef('feedback');
-    const TIMEOUT = 800;
 
     let ph = false;
     if(placeholder === true) {
@@ -39,7 +39,7 @@ export default function InputEmail({componentid, label, parentHandler, placehold
                 feedback.current.hidden = false;
                 console.log (`*** ${module} ${error.message}`);
             }
-        }, TIMEOUT);
+        }, timeout);
     }
 
     return (
