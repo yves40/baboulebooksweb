@@ -50,7 +50,7 @@ export default function Navbar() {
               <Link href="/login" className=" mx-2 text-zinc-900">Connexion</Link>
               <Link href="/register" className=" mx-2 text-zinc-900">S'enregister</Link>
             </div>}
-            <p>{userstate.useremail}</p>
+            <p className=" ml-auto font-semibold">{userstate.useremail}</p>
         </div>
       </nav>
   )
