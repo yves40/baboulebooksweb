@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import {checkPassword} from '@/libs/controls';
 
 export default function InputPassword({componentid, label, parentHandler, 
@@ -15,9 +15,14 @@ export default function InputPassword({componentid, label, parentHandler,
     if(placeholder === true) {
         ph = true;
     }
+
+    useEffect( () => {
+        controlicon.current.hidden = true;
+    }, [] );
+
     
     function clearInput() {
-        controlicon.current.src = "/png/cross-mark-32.png";
+        controlicon.current.hidden = true;
         feedback.current.textContent = '';  
         feedback.current.hidden = true;
         passwordinput.current.value = '';
@@ -25,8 +30,13 @@ export default function InputPassword({componentid, label, parentHandler,
     }
 
     function checkInput(e) {
+        if(e.target.value === '') {
+            controlicon.current.hidden = true;
+            return;
+        }
         if(delayedInput.current) clearTimeout(delayedInput.current);
         delayedInput.current = setTimeout(() => {
+            controlicon.current.hidden = false;
             try {
                 checkPassword(e.target.value);
                 controlicon.current.src = "/png/check-mark-32.png";

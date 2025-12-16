@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { checkEmail } from '@/libs/controls';
 
 export default function InputEmail({componentid, label, parentHandler, 
@@ -15,8 +15,12 @@ export default function InputEmail({componentid, label, parentHandler,
         ph = true;
     }
 
+    useEffect( () => {
+        controlicon.current.hidden = true;
+    }, [] );
+
     function clearInput() {
-        controlicon.current.src = "/png/cross-mark-32.png";
+        controlicon.current.hidden = true;
         feedback.current.textContent = '';  
         feedback.current.hidden = true;
         emailinput.current.value = '';
@@ -24,8 +28,13 @@ export default function InputEmail({componentid, label, parentHandler,
     }
     
     function checkInput(e) {
+        if(e.target.value === '') {
+            controlicon.current.hidden = true;
+            return;
+        }
         if(delayedInput.current) clearTimeout(delayedInput.current);
         delayedInput.current = setTimeout(() => {
+            controlicon.current.hidden = false;
             try {
                 checkEmail(e.target.value);
                 controlicon.current.src = "/png/check-mark-32.png";
