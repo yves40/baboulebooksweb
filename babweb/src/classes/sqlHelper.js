@@ -94,7 +94,7 @@ export default class sqlHelper {
   }
   
   
-    // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
   startTransactionRW() {
     return new Promise((resolve, reject) => {
       (async () => {
@@ -109,7 +109,21 @@ export default class sqlHelper {
     });
   }
   // ------------------------------------------------------------------------
-  rollbackTransaction() {
+  startTransactionRO() {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+              await this.pool.execute('set transaction read only');
+              resolve(true);
+        }
+        catch(err) {
+          reject(`${err.message}`);
+        } 
+      })();
+    });
+  }
+// ------------------------------------------------------------------------
+rollbackTransaction() {
     return new Promise((resolve, reject) => {
       (async () => {
         try {

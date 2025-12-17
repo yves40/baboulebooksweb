@@ -8,38 +8,20 @@
 import { createContext, useEffect, useState } from "react";
 
 export const AppContext =createContext();
-
 export function AppProvider({children}) {
   
-  const version = 'baboulebooks, Dec 16 2025 : 1.42';
-  const [ errors404, setErrors404 ] = useState(0);
-
-  // console.log(`AppContext mounted - version: ${version}`);
+  const version = 'baboulebooks, Dec 17 2025 : 1.43';
 
   useEffect(() => {
-    if(window.localStorage.getItem('errors404') == null) {
-      window.localStorage.setItem('errors404', 0);
-    }
   }, []);
-  
 
-  function incErrors404() {
-    const current =parseInt(window.localStorage.getItem('errors404')) ;
-    setErrors404(current + 1);
-    window.localStorage.setItem('errors404', current + 1);
-  }
   function getVersion() {
     return version;
   }
-  function getErrors404() {
-    return errors404;
-  }
-  
   return (
     <AppContext.Provider value={
-        {incErrors404, 
+        {
           getVersion, 
-          getErrors404, 
         }
       }>
       {children}

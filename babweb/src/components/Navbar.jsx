@@ -1,27 +1,23 @@
 "use client"
-import { useState } from "react";
+
 import Link from "next/link"
-import { useContext, useEffect } from "react";
-import { AuthContext } from "@/app/context/authContext";
 import { useSelector, useStore } from 'react-redux'
 
 const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Dec 15 2025, 1.18";
-  console.log(`${version} render`);
+  const version = "Navbar.jsx Dec 17 2025, 1.19";
   const userstate = useSelector((state) => state.menuProperties);
-  console.log(`***************** ${JSON.stringify(userstate)}`);
   const store = useStore();
-  console.log(`***************** Store state: ${JSON.stringify(store.getState())}`);
-    
+      
   return (
+
     // Look in globals.css for classes definitions
       <nav className="nav">
         <div className="nav__div">
             <Link href="/" className=" mr-2 text-zinc-900">Accueil</Link>
-            <Link href="/books" className=" mx-2 text-zinc-900">Livres</Link>
+            <Link href="/bookshome" className=" mx-2 text-zinc-900">Livres</Link>
             {userstate.logged && <div id="logoutsection">
               <Link href="/logout" className=" mx-2 text-zinc-900 mr-auto">Déconnexion</Link>
             </div>}
