@@ -30,6 +30,10 @@ export default class sqlHelper {
   // ------------------------------------------------------------------------
   //      P U B L I C 
   // ------------------------------------------------------------------------
+  getVersion() {
+    return this.Version;
+  }
+  // ------------------------------------------------------------------------
   Select(query, params = null) {
     return new Promise((resolve, reject) => {
       (async () => {
@@ -42,10 +46,6 @@ export default class sqlHelper {
         }
       })();
     });
-  }
-  // ------------------------------------------------------------------------
-  getVersion() {
-    return this.Version;
   }
   // ------------------------------------------------------------------------
   Insert(sql, params = null) {
@@ -99,8 +99,10 @@ export default class sqlHelper {
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-              await this.pool.execute('set transaction read write');
-              resolve(true);
+          // const conn = this.pool.getConnection();
+          // this.pool.releaseConnection(conn);
+          await this.pool.execute('set transaction read write');
+          resolve(true);
         }
         catch(err) {
           reject(`${err.message}`);
