@@ -16,27 +16,6 @@ export default function Navbar() {
   const store = useStore();
   console.log(`***************** Store state: ${JSON.stringify(store.getState())}`);
     
-  // const [userstatus, setUserStatus] =  useState(userstate);
-  // setUserStatus(userstate);
-
-  // useEffect(() => {    
-  //   setUserStatus(userstate);
-  // }, [userstatus]);
-  
-  // function refreshNavbar() {
-  //   console.log(`${modulename} refreshNavbar called`);
-  //   const loginsection = document.getElementById("loginsection");
-  //   const logoutsection = document.getElementById("logoutsection");
-  //   if(userstatus.logged) {
-  //     loginsection.hidden = true;
-  //     logoutsection.hidden = false;
-  //   }
-  //   else {
-  //     loginsection.hidden = false;
-  //     logoutsection.hidden = true;
-  //   }
-  // }
-    
   return (
     // Look in globals.css for classes definitions
       <nav className="nav">
