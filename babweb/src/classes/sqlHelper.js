@@ -34,11 +34,19 @@ export default class sqlHelper {
     return this.Version;
   }
   // ------------------------------------------------------------------------
-  Select(query, params = null) {
+  Select(query, params = null, conn = null) {
     return new Promise((resolve, reject) => {
       (async () => {
+        let gotconnection = false;
         try {
-          const [ rows ] = await this.pool.query(query, params);
+          if(conn == null) {
+            conn = this.pool.getConnection();
+            gotconnection = true;
+          }
+          const [ rows ] = await conn.query(query, params);
+          if(gotconnection) {
+            this.pool.releaseConnection(conn);
+          }
           resolve(rows) ;
         }
         catch(error) {
@@ -98,13 +106,16 @@ export default class sqlHelper {
   startTransactionRW() {
     return new Promise((resolve, reject) => {
       (async () => {
+        let theconnection = null;
         try {
-          // const conn = this.pool.getConnection();
-          // this.pool.releaseConnection(conn);
-          await this.pool.execute('set transaction read write');
-          resolve(true);
+          theconnection = this.pool.getConnection();
+          await theconnection.execute('set transaction read write');
+          resolve(theconnection);
         }
         catch(err) {
+          if(theconnection != null) {
+            this.pool.releaseConnection(theconnection);
+          }
           reject(`${err.message}`);
         } 
       })();
@@ -114,22 +125,27 @@ export default class sqlHelper {
   startTransactionRO() {
     return new Promise((resolve, reject) => {
       (async () => {
+        let theconnection = null;
         try {
-              await this.pool.execute('set transaction read only');
-              resolve(true);
+          let theconnection = await this.pool.getConnection();
+          await theconnection.execute('set transaction read only');
+          resolve(theconnection);
         }
         catch(err) {
+          if(theconnection != null) {
+            this.pool.releaseConnection(theconnection);
+          }
           reject(`${err.message}`);
         } 
       })();
     });
   }
-// ------------------------------------------------------------------------
-rollbackTransaction() {
+  // ------------------------------------------------------------------------
+  rollbackTransaction(conn) {
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-              await this.pool.execute('rollback');
+              await conn.execute('rollback');
               resolve(true);
         }
         catch(err) {
@@ -139,11 +155,12 @@ rollbackTransaction() {
     });
   }
   // ------------------------------------------------------------------------
-  commitTransaction() {
+  commitTransaction(conn) {
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-              await this.pool.execute('commit');
+              await conn.execute('commit');
+              this.pool.releaseConnection(conn);
               resolve(true);
         }
         catch(err) {

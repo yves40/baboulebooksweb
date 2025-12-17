@@ -12,9 +12,11 @@ const Version = "authors.js Dec 17 2025, 1.00";
 export async function getAuthorsCount() {
     try {
         const sqlh = new sqlHelper();
-        await sqlh.startTransactionRO();
-        const result = await sqlh.Select('select count(*) as authorscount from babouledb.authors');
-        sqlh.commitTransaction;
+        let conn = await sqlh.startTransactionRO();
+        const result = await sqlh.Select('select count(*) as authorscount from babouledb.authors', 
+                                        null, 
+                                        conn);
+        sqlh.commitTransaction(conn);
         if(result.length > 0) {
             return result[0].authorscount;
         }
