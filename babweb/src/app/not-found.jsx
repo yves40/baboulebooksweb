@@ -11,14 +11,12 @@ export default function NotFound() {
   const appctx = useContext(AppContext);
 
   useEffect(() => {
-    appctx.incErrors404();
   }, []);
 
   return (
     <div className="news">
-        <h1 className=" text-4xl py-4">404 - Not found</h1>
-        <h2 className=" mb-4">You are using version : {appctx.getVersion()}</h2>
-        <p className="mb-2 text-red-500 ">La page demandée n'a pas été trouvée</p>
+        <h1 className=" text-4xl py-4">Page non trouvée</h1>
+        <h2 className=" mb-4">Vous utilisez la version : {appctx.getVersion()}</h2>
         <p className="my-4 text-gray-700 px-8">Contactez l'administrateur au 06.88.33.55.66<br/>
           Il est très disponible et s'efforcera de résoudre ce problème dans les meilleurs délais.
           En dépit de son immense charge de travail pour développer cette application. 
