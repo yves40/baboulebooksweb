@@ -121,30 +121,30 @@ export default function page() {
         <p>Bienvenue dans la section livres. Ici, vous pouvez interroger votre collection de livres.</p>
         <p>Faire des recherches par titre, auteur, éditeur</p>
         <p className=' my-3 underline'>Quelques statistiques sur vos livres dans la base :</p>
-        <div className='flex flex-col'>
-          <ul className='max-w-1/2 m-6' hidden ref={stats} >
-            <li className='flex'>
-              <span className='flex-6 mx-4'>Nombre total de livres</span>
-              <span className='flex-2 text-red-700 mx-2'>{bookscount}</span>
-              <span className='flex-1 ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleBookselector}/></span>
+        <div>
+          <ul className='' hidden ref={stats} > 
+            <li className='gridcols511 mt-4'>
+              <span className=' mx-4'>Nombre total de livres</span>
+              <span className=' text-red-700 mx-4'>{bookscount}</span>
+              <span className=' ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleBookselector}/></span>
             </li>
             <div ref={bookselector} hidden className=' mx-4 my-2'>
               <InputText className=' mx-4' componentid="booktitle" label="Rechercher par le titre" parentHandler={setBooktitle} timeout={2000}> </InputText>
             </div>
 
-            <li  className='flex'>
-              <span className='flex-6 mx-4'>Nombre d'auteurs</span>
-              <span className='flex-2 text-red-700 mx-4'>{authorscount}</span>
-              <span className='flex-1 ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleAuthorselector}/></span>             
+            <li  className='gridcols511 mt-4'>
+              <span className=' mx-4 '>Nombre d'auteurs</span>
+              <span className=' text-red-700 mx-4'>{authorscount}</span>
+              <span className=' ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleAuthorselector}/></span>             
             </li>
             <div ref={authorselector} hidden className=' mx-4 my-2'>
               <InputText componentid="bookauthor" label="Rechercher par l' auteur"  parentHandler={setBookauthor} timeout={2000}> </InputText>
             </div>
 
-            <li  className='flex'>
-              <span className='flex-6 mx-4'>Nombre d'éditeurs</span>
-              <span className='flex-2 text-red-700 mx-4'>{editorscount}</span>
-              <span className='flex-1 ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleEditorselector}/></span>
+            <li  className='gridcols511 mt-4'>
+              <span className=' mx-4'>Nombre d'éditeurs</span>
+              <span className=' text-red-700 mx-4'>{editorscount}</span>
+              <span className=' ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleEditorselector}/></span>
             </li>
             <div ref={editorselector} hidden className=' mx-4 my-2'>
               <InputText componentid="bookeditor" label="Rechercher par l'éditeur"  parentHandler={setBookeditor} timeout={2000}> </InputText>
