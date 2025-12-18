@@ -52,11 +52,11 @@ export default function page() {
     }
     if(validInput.email && validInput.password) {
         submitButton.current.disabled = false;
-        submitButton.current.className = "w-full bg-blue-800 text-white my-4 rounded-lg border p-2";
+        submitButton.current.className = "w-[180px] bg-blue-800 text-white my-4 rounded-lg border p-2";
     }
     else {
         submitButton.current.disabled = true;
-        submitButton.current.className = "w-full bg-blue-200 text-white my-4 rounded-lg border p-2";
+        submitButton.current.className = "w-[180px] bg-blue-200 text-white my-4 rounded-lg border p-2";
     }
   }
 
@@ -109,10 +109,12 @@ export default function page() {
         <form onSubmit={handleSubmit}>
             <InputEmail componentid="mail" label="Email" placeholder="false" parentHandler={setEmail} ></InputEmail>
             <InputPassword componentid="password" label="Mot de passe" placeholder="false" parentHandler={setPassword}></InputPassword>
-            <button className='w-full bg-blue-200 hover:bg-blue-800 
-              text-white mt-6 rounded-lg border p-4' ref={submitButton}>
-              Connexion
-            </button>
+            <div className="text-center">
+              <button className='w-[180px] bg-blue-200 hover:bg-blue-800 
+                text-white mt-6 rounded-lg border p-4' ref={submitButton}>
+                Connexion
+              </button>
+            </div>
         </form>
         <p ref={feedback} hidden className='mb-2 text-red-600'>Message</p>
       </div>

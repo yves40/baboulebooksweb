@@ -41,9 +41,12 @@ export default function page() {
       <div className='w-7/8 md:w-1/3 border rounded shadow-md background-slate-900 text-left mx-auto
           m-4 p-4'>
         <form onSubmit={handleLogout}>
-            <button className='w-full bg-blue-800 text-white my-4 rounded-lg border p-2'>
-              Déconnexion confirmée ?
-            </button>
+            <div className="text-center">
+              <button className='w-[180px] bg-blue-800 text-white my-4 rounded-lg border p-2'>
+                Confirmée ?
+              </button>
+            </div>
+
         </form>
       </div>
       <Link href={"/"} className=' mt-6 text-gray-700 underline'>Abandon</Link>
