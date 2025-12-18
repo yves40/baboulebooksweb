@@ -45,6 +45,13 @@ export default function page() {
     } 
   })
   // -----------------------------------------------------------------------------
+  // Get book list based on criterias
+  // -----------------------------------------------------------------------------
+  function getBookslist() {
+    console.log(`Get books list with criterias: title=${booktitle}, author=${bookauthor}, editor=${bookeditor}`);
+    // To be implemented
+  }
+  // -----------------------------------------------------------------------------
   // Get editors count from server
   // -----------------------------------------------------------------------------
   const geteditors = ( async () => {
@@ -56,7 +63,30 @@ export default function page() {
       console.log(`Error in geteditors: ${error}`);
     } 
   })
-
+  // -----------------------------------------------------------------------------
+  // Manage search boxes visibility
+  // -----------------------------------------------------------------------------
+  const toggleBookselector = ( () => {
+    if (bookselector.current.hidden === true) {
+      bookselector.current.hidden = false;
+    } else {
+      bookselector.current.hidden = true;
+    }   
+  })
+  const toggleAuthorselector = ( () => {
+    if (authorselector.current.hidden === true) {
+      authorselector.current.hidden = false;
+    } else {
+      authorselector.current.hidden = true;
+    }   
+  })
+  const toggleEditorselector = ( () => {
+    if (editorselector.current.hidden === true) {
+      editorselector.current.hidden = false;
+    } else {
+      editorselector.current.hidden = true;
+    }   
+  })
   // -----------------------------------------------------------------------------
   // On page load
   // -----------------------------------------------------------------------------
@@ -72,12 +102,15 @@ export default function page() {
   // -----------------------------------------------------------------------------
   useEffect( () => {
     console.log(`Title search update, now find: =================== ${booktitle}`);
+    getBookslist();
   }, [booktitle]);
   useEffect( () => {
     console.log(`Author search update, now find: =================== ${bookauthor}`);
+    getBookslist();
   }, [bookauthor]);
   useEffect( () => {
     console.log(`Editor search update, now find: =================== ${bookeditor}`);
+    getBookslist();
   }, [bookeditor]);
 
 
@@ -89,24 +122,33 @@ export default function page() {
         <p>Faire des recherches par titre, auteur, éditeur</p>
         <p className=' my-3 underline'>Quelques statistiques sur vos livres dans la base :</p>
         <ul className=' max-w-1/2 m-6' hidden ref={stats}>
+
           <li className='flex justify-end'>
             <span className=' mx-4'>Nombre total de livres</span>
             <span className='text-red-700 mx-4'>{bookscount}</span>
-            <span ref={bookselector}><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" /></span>
+            <span className=' ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleBookselector}/></span>
           </li>
-          <InputText className=' mx-4' componentid="booktitle" label="Rechercher un titre"  parentHandler={setBooktitle} timeout={2000}> </InputText>
+          <div ref={bookselector} hidden>
+            <InputText className=' mx-4' componentid="booktitle" label="Rechercher un titre"  parentHandler={setBooktitle} timeout={2000}> </InputText>
+          </div>
+
           <li  className='flex justify-end'>
             <span className=' mx-4'>Nombre d'auteurs</span>
             <span className='text-red-700 mx-4'>{authorscount}</span>
-            <span ref={authorselector}><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" /></span>             
+            <span className=' ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleAuthorselector}/></span>             
           </li>
-          <InputText componentid="booktitle" label="Rechercher un auteur"  parentHandler={setBookauthor} timeout={2000}> </InputText>
+          <div ref={authorselector} hidden>
+            <InputText componentid="bookauthor" label="Rechercher un auteur"  parentHandler={setBookauthor} timeout={2000}> </InputText>
+          </div>
+
           <li  className='flex justify-end'>
             <span className=' mx-4'>Nombre d'éditeurs</span>
             <span className='text-red-700 mx-4'>{editorscount}</span>
-            <span ref={editorselector}><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" /></span>
+            <span className=' ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleEditorselector}/></span>
           </li>
-          <InputText componentid="booktitle" label="Rechercher un éditeur"  parentHandler={setBookeditor} timeout={2000}> </InputText>
+          <div ref={editorselector} hidden>
+            <InputText componentid="bookeditor" label="Rechercher un éditeur"  parentHandler={setBookeditor} timeout={2000}> </InputText>
+          </div>
         </ul>
       </div>
     </div>
