@@ -7,7 +7,7 @@ import AppError from '@/classes/customError';
 import { checkEmail, checkPassword, hashPassword, validatePassword } from '@/libs/controls';
 
 const modulename = "serverSession # ";
-const Version = "Users.js Nov 26 2025, 1.08";
+const Version = "Users.js Dec 18 2025, 1.09";
 const DBExpirationDelay = 60;  // One hour expiration date for DBSession (msec )
 const CookieExpirationDelay = 1 * 24 * 60 * 60; // One day expiration date for Cookie (sec)
 
@@ -26,23 +26,23 @@ export async function register(formData) {
         const hashedPassword = await hashPassword(password);
         // Now SQL Insert
         const sqlh = new sqlHelper();
-        await sqlh.startTransactionRW();
+        let conn = await sqlh.startTransactionRW();
         // Assign a default role to the new user
-        const roleanonymous = await sqlh.Select('select role_id from babouledb.roles where role_name = ?', 'ROLE_ANONYMOUS');
+        const roleanonymous = await sqlh.Select('select role_id from babouledb.roles where role_name = ?', 'ROLE_ANONYMOUS', conn );
         const result = await sqlh.Insert(`insert into babouledb.users 
             (usr_email, usr_password, usr_firstname, usr_lastname, usr_created) 
-            values ( ?, ?, ?, ?, now())`,  [mail, hashedPassword, firstname, lastname ] );
+            values ( ?, ?, ?, ?, now())`,  [mail, hashedPassword, firstname, lastname ], conn );
         console.log(`${modulename} User registered with id ${result.insertId}`);
         // Assign role
         if(roleanonymous.length > 0) {
             const { role_id } = roleanonymous[0];
             await sqlh.Insert(`insert into babouledb.users_roles (ur_userid, ur_roleid) values ( ?, ? )`, 
-                [result.insertId, role_id] );
+                [result.insertId, role_id], conn );
         }
         else {
             throw new AppError("Rôle par défaut introuvable, contactez l'administrateur");
         }
-        sqlh.commitTransaction;
+        sqlh.commitTransaction(conn);
         return { mail, password,hashedpassword: hashedPassword, firstname, lastname };
       }
     catch(error) {
@@ -64,22 +64,24 @@ export async function login(email, password) {
     console.log(`Log as : ${email}/${password}`);
     try {
         const sqlh = new sqlHelper();
+        let conn = await sqlh.startTransactionRW();
         let result = await sqlh.Select('select usr_id, usr_email, \
                     usr_password, usr_lastname, usr_firstname from babouledb.users \
-                    where usr_email = ? ', email);
+                    where usr_email = ? ', email, conn);
         console.log(result);
         if(result.length > 0) {
             const { usr_id, usr_email, usr_password, usr_lastname, usr_firstname} = result[0];
             console.log(`Found ${usr_email}`);
             await validatePassword(password, usr_password);
             // Good credentials, update the lastlogin column
-            await sqlh.Update('update babouledb.users set usr_lastlogin = now() where usr_id = ?', [usr_id]);
+            await sqlh.Update('update babouledb.users set usr_lastlogin = now() where usr_id = ?', [usr_id], conn);
             revalidateTag("auth-session");  // gestion du cache NextJS
-            return result[0];
         }
         else {
             throw new AppError('Connexion rejetée'); // Unknown user
         }
+        sqlh.commitTransaction(conn);
+        return result[0];
     }
     catch(error) {
       if(error instanceof AppError) {        

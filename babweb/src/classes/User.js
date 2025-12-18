@@ -1,8 +1,6 @@
 "use strict";
 
 import {login, logout, register, createUserCookie} from '../server/security/Users'
-import Session from '@/classes/Session';
-import AppError from './customError';
 
 export default class User {
 
@@ -14,7 +12,7 @@ export default class User {
   
   // ------------------------------------------------------------------------
   constructor(id=0, email="", fname="", lname="", ) {
-    this.Version = "user.js Nov 27 2025, 1.15";
+    this.Version = "user.js Dec 18 2025, 1.16";
     this.id = id;
     this.email= email;
     this.firstname = fname;

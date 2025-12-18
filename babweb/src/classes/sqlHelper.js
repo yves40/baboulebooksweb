@@ -2,6 +2,7 @@
 
 import mysqlPromise from "mysql2/promise.js";
 import dotenv from 'dotenv';
+import AppError from "./customError";
 
 // TODO study singleton, check instance
 
@@ -14,7 +15,7 @@ export default class sqlHelper {
   #dbpass = process.env.DBPASS;
   
   constructor() {
-    this.Version = "sqlHelper.js Nov 20 2025, 1.58";
+    this.Version = "sqlHelper.js Dec 18 2025, 1.59";
 
     dotenv.config({ quiet: true });
     this.#dbhost = process.env.DBHOST;
@@ -34,19 +35,14 @@ export default class sqlHelper {
     return this.Version;
   }
   // ------------------------------------------------------------------------
-  Select(query, params = null, conn = null) {
+  Select(query, params = null, conn) {
+    if(conn === null || conn === undefined ) {
+      throw new AppError("SQLHelper statement requires a valid connection");
+    }
     return new Promise((resolve, reject) => {
       (async () => {
-        let gotconnection = false;
         try {
-          if(conn == null) {
-            conn = this.pool.getConnection();
-            gotconnection = true;
-          }
           const [ rows ] = await conn.query(query, params);
-          if(gotconnection) {
-            this.pool.releaseConnection(conn);
-          }
           resolve(rows) ;
         }
         catch(error) {
@@ -56,11 +52,14 @@ export default class sqlHelper {
     });
   }
   // ------------------------------------------------------------------------
-  Insert(sql, params = null) {
+  Insert(sql, params = null, conn) {
+    if(conn == null) {
+      throw new AppError("SQLHelper statement requires a valid connection");
+    }
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-          const [ result, fields ] = await this.pool.execute(sql, params);
+          const [ result, fields ] = await conn.execute(sql, params);
           resolve(result) ;
         }
         catch(error) {
@@ -71,11 +70,14 @@ export default class sqlHelper {
     });
   }
   // ------------------------------------------------------------------------
-  Delete(sql, params = null) {
+  Delete(sql, params = null, conn) {
+    if(conn == null) {
+      throw new AppError("SQLHelper statement requires a valid connection");
+    }
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-          const [ result, fields ] = await this.pool.execute(sql, params);
+          const [ result, fields ] = await conn.execute(sql, params);
           resolve(result) ;
         }
         catch(error) {
@@ -86,11 +88,14 @@ export default class sqlHelper {
     });
   }
   // ------------------------------------------------------------------------
-  Update(sql, params = null) {
+  Update(sql, params = null, conn ) {
+    if(conn == null) {
+      throw new AppError("SQLHelper statement requires a valid connection");
+    }
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-          const [ result, fields ] = await this.pool.execute(sql, params);
+          const [ result, fields ] = await conn.execute(sql, params);
           resolve(result) ;
         }
         catch(error) {
@@ -108,7 +113,10 @@ export default class sqlHelper {
       (async () => {
         let theconnection = null;
         try {
-          theconnection = this.pool.getConnection();
+          theconnection = await this.pool.getConnection();
+          if(theconnection == null) {
+            throw new AppError("SQLHelper startRW cannot get a connection");
+          }
           await theconnection.execute('set transaction read write');
           resolve(theconnection);
         }
@@ -127,7 +135,10 @@ export default class sqlHelper {
       (async () => {
         let theconnection = null;
         try {
-          let theconnection = await this.pool.getConnection();
+          theconnection = await this.pool.getConnection();
+          if(theconnection == null) {
+            throw new AppError("SQLHelper startRO cannot get a connection");
+          }
           await theconnection.execute('set transaction read only');
           resolve(theconnection);
         }
@@ -142,10 +153,14 @@ export default class sqlHelper {
   }
   // ------------------------------------------------------------------------
   rollbackTransaction(conn) {
+    if(conn == null) {
+      throw new AppError("SQLHelper statement requires a valid connection");
+    }
     return new Promise((resolve, reject) => {
       (async () => {
         try {
               await conn.execute('rollback');
+              this.pool.releaseConnection(conn);
               resolve(true);
         }
         catch(err) {
@@ -156,6 +171,9 @@ export default class sqlHelper {
   }
   // ------------------------------------------------------------------------
   commitTransaction(conn) {
+    if(conn == null) {
+      throw new AppError("SQLHelper statement requires a valid connection");
+    }
     return new Promise((resolve, reject) => {
       (async () => {
         try {

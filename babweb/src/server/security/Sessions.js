@@ -33,10 +33,11 @@ export async function isPrivatePage(pathname) {
 // ------------------------------------------------------------------------
 export async function createDBSession(userid) {
   const sqlh = new sqlHelper();
-  await sqlh.startTransactionRW();
+  let conn = await sqlh.startTransactionRW();
   const result = await sqlh.Insert(`insert into babouledb.sessions (ses_userid, ses_created, ses_expired) \
-    values ( ?, now(), now() + INTERVAL ${DBExpirationDelay} MINUTE )`, [parseInt( userid)] );
-  sqlh.commitTransaction;
+    values ( ?, now(), now() + INTERVAL ${DBExpirationDelay} MINUTE )`, [parseInt( userid)],
+    conn );
+  sqlh.commitTransaction(conn);
   const {insertId} = result;
   return insertId;
 }
@@ -82,9 +83,9 @@ export async function createSessionCookie(sessionid) {
       try {
         // Shoot the DB session
         const sqlh = new sqlHelper();
-        await sqlh.startTransactionRW();
-        await sqlh.Delete('delete from babouledb.sessions where ses_id = ?', [sessionid]);
-        sqlh.commitTransaction()
+        let conn = await sqlh.startTransactionRW();
+        await sqlh.Delete('delete from babouledb.sessions where ses_id = ?', [sessionid], conn);
+        sqlh.commitTransaction(conn)
         revalidateTag("auth-session");  // gestion du cache NextJS
         return { success: true }
       }
