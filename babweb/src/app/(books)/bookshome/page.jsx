@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react'
-import { getBooksCount } from '@/server/books/books';
+import { getBooksCount, getSelectedBooks } from '@/server/books/books';
 import { getAuthorsCount } from '@/server/books/authors';
 import { getEditorsCount } from '@/server/books/editors';
 import InputText from '@/components/InputText';
@@ -15,6 +15,7 @@ export default function page() {
   const [booktitle, setBooktitle] = useState('');
   const [bookauthor, setBookauthor] = useState('');
   const [bookeditor, setBookeditor] = useState('');
+  const [selectedbooks, setSelectedbooks] = useState([]);
   const stats = useRef('stats');
   const bookselector = useRef('bookselector');
   const authorselector = useRef('authorselector');
@@ -47,10 +48,12 @@ export default function page() {
   // -----------------------------------------------------------------------------
   // Get book list based on criterias
   // -----------------------------------------------------------------------------
-  function getBookslist() {
+  const getBookslist = ( async () => {
     console.log(`Get books list with criterias: title=${booktitle}, author=${bookauthor}, editor=${bookeditor}`);
-    // To be implemented
-  }
+    const rows = await getSelectedBooks({title: booktitle, author: bookauthor, editor: bookeditor});
+    console.log(rows);
+    setSelectedbooks(rows);
+  })
   // -----------------------------------------------------------------------------
   // Get editors count from server
   // -----------------------------------------------------------------------------
@@ -150,6 +153,23 @@ export default function page() {
               <InputText componentid="bookeditor" label="Rechercher par l'éditeur"  parentHandler={setBookeditor} timeout={2000}> </InputText>
             </div>
           </ul>
+        </div>
+      </div>
+      <div className=' border-t-2 mt-6 pt-4 mx-4 text-gray-500'>
+        <p className=' border-b-2 text-gray-500 pb-6 w-full'>Résultats</p>
+        <div>
+          {selectedbooks.length === 0 &&
+            <p className=' mt-4'>Aucun livre trouvé avec les critères sélectionnés.</p>
+          }
+          {selectedbooks.length > 0 &&
+            <ul className=' mt-4'>
+              {selectedbooks.map( (book, index) => (
+                <li key={index} className=' mb-2'>
+                  <span className=' font-bold'>{book.bk_title}</span> - <span>{book.auth_fname} {book.auth_lname}</span> - <span><i>{book.ed_name}</i></span>
+                </li> 
+              ))}
+            </ul>
+          }
         </div>
       </div>
     </div>
