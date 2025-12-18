@@ -39,7 +39,7 @@ export async function getSelectedBooks(criteria) {
     console.log(`Now search for books : User input criterias : ${JSON.stringify(criteria)}`);
     // 1st, normalize user inputs
     let title = criteria.title ? criteria.title.trim().toLowerCase() : '';
-    title = title.charAt(0).toUpperCase() + title.slice(1);
+    // title = title.charAt(0).toUpperCase() + title.slice(1);
     let author = criteria.author ? criteria.author.trim().toUpperCase() : '';
     let editor = criteria.editor ? criteria.editor.trim().toUpperCase() : '';
     console.log(`Now search for books with these criterias : ${title} : ${author} : ${editor}`);
