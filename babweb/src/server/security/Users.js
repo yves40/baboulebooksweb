@@ -5,11 +5,13 @@ import { cookies } from "next/headers";
 import { revalidateTag } from "next/cache";
 import AppError from '@/classes/customError';
 import { checkEmail, checkPassword, hashPassword, validatePassword } from '@/libs/controls';
+import Logger from '@/classes/logger';
 
 const modulename = "serverSession # ";
 const Version = "Users.js Dec 18 2025, 1.09";
 const DBExpirationDelay = 60;  // One hour expiration date for DBSession (msec )
 const CookieExpirationDelay = 1 * 24 * 60 * 60; // One day expiration date for Cookie (sec)
+const logger = new Logger();
 
 // -----------------------------------------------------------------------------------------
 // Register
@@ -32,7 +34,7 @@ export async function register(formData) {
         const result = await sqlh.Insert(`insert into babouledb.users 
             (usr_email, usr_password, usr_firstname, usr_lastname, usr_created) 
             values ( ?, ?, ?, ?, now())`,  [mail, hashedPassword, firstname, lastname ], conn );
-        console.log(`${modulename} User registered with id ${result.insertId}`);
+        logger.info(`${modulename} User registered with id ${result.insertId}`);
         // Assign role
         if(roleanonymous.length > 0) {
             const { role_id } = roleanonymous[0];
@@ -46,7 +48,7 @@ export async function register(formData) {
         return { mail, password,hashedpassword: hashedPassword, firstname, lastname };
       }
     catch(error) {
-        console.log(`${module} ${error}`);
+        logger.error(`${module} ${error}`);
         if(error instanceof AppError) {
             throw error;      // Send this application error to the caller
         }
@@ -61,17 +63,16 @@ export async function register(formData) {
 // -----------------------------------------------------------------------------------------
 export async function login(email, password) {
 
-    console.log(`Log as : ${email}/${password}`);
+    logger.info(`Log as : ${email}/${password}`);
     try {
         const sqlh = new sqlHelper();
         let conn = await sqlh.startTransactionRW();
         let result = await sqlh.Select('select usr_id, usr_email, \
                     usr_password, usr_lastname, usr_firstname from babouledb.users \
                     where usr_email = ? ', email, conn);
-        console.log(result);
         if(result.length > 0) {
             const { usr_id, usr_email, usr_password, usr_lastname, usr_firstname} = result[0];
-            console.log(`Found ${usr_email}`);
+            logger.info(`Found ${usr_email}`);
             await validatePassword(password, usr_password);
             // Good credentials, update the lastlogin column
             await sqlh.Update('update babouledb.users set usr_lastlogin = now() where usr_id = ?', [usr_id], conn);
@@ -134,7 +135,7 @@ export async function logout() {
         return { success: true }
     }
     catch(error) {
-        console.log(error);        
+        logger.error(error);        
         throw error
     }
 }

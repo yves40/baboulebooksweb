@@ -13,8 +13,7 @@ import User  from "@/classes/User";
 export const AuthContext = createContext();
 
 export function AuthProvider({children}) {
-  
-  const version = "authContext Dec 06 2025, 1.30";
+    const version = "authContext Dec 06 2025, 1.30";
   const module = "AuthContext";  
   const [user, dispatchUser] = useReducer(manageUser,null);
   const [session, dispatchSession] = useReducer(manageSession, null);
@@ -32,7 +31,6 @@ export function AuthProvider({children}) {
 
   // ------------------------------------------------------------------------
   function manageUser(prevUser, action) {
-    // console.log(`${module} manageUser called with action ${action.type}`);
     switch(action.type) {
       case 'SET_USER':
         const u = new User();
@@ -49,7 +47,6 @@ export function AuthProvider({children}) {
   }
   // ------------------------------------------------------------------------
   function manageSession(prevSession, action) {
-    // console.log(`${module} manageSession called with action ${action.type}`);
     switch(action.type) {
       case 'SET_SESSION':
         const s = new Session();

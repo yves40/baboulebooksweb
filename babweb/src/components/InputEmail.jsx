@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { checkEmail } from '@/libs/controls';
+import Logger from '@/classes/logger';
 
 export default function InputEmail({componentid, label, parentHandler, 
     placeholder=true, timeout=800}) {
@@ -9,6 +10,7 @@ export default function InputEmail({componentid, label, parentHandler,
     const controlicon = useRef('controlicon');
     const emailinput = useRef('emailinput');
     const feedback = useRef('feedback');
+    const logger = new Logger();
 
     let ph = false;
     if(placeholder === true) {
@@ -46,7 +48,7 @@ export default function InputEmail({componentid, label, parentHandler,
                 controlicon.current.src = "/png/cross-mark-32.png";
                 feedback.current.textContent = error.message;
                 feedback.current.hidden = false;
-                console.log (`*** ${module} ${error.message}`);
+                logger.error(`*** ${module} ${error.message}`);
             }
         }, timeout);
     }

@@ -8,6 +8,7 @@ import { deleteUserCookie } from '@/server/security/Users';
 import { closeDBSession } from '@/server/security/Sessions';
 import { useDispatch } from "react-redux";
 import { disconnectUser } from "@/redux/menuProperties";
+import Logger from '@/classes/logger';
 
 
 export default function page() {
@@ -15,18 +16,18 @@ export default function page() {
   const {getUser, logoutUser, closeSession, getSession} = getAuthContext();
   const router = useRouter(); 
   const dispatch = useDispatch();
+  const logger = new Logger();
 
   async function handleLogout(e) {
     e.preventDefault();
-    console.log(`Log out for : ${getUser().getEmail()}`);
+    logger.info(`Log out for : ${getUser().getEmail()}`);
     // AuthContext update
     await logoutUser();
     await closeSession();
     // DB and cookies update
     const session = getSession();
-    console.log(`${JSON.stringify(session)}`);
     const sessionid = await session.getSessionId();
-    console.log(`Shoot DB session with ID : ${sessionid} `);
+    logger.info(`Shoot DB session with ID : ${sessionid} `);
     await closeDBSession(sessionid);
     await deleteSessionCookie();
     await deleteUserCookie();

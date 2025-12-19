@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import Logger from "@/classes/logger";
 
 const initialState =      
     {
@@ -6,6 +7,7 @@ const initialState =
         useremail : "",
     }
 
+const logger = new Logger();
 const menuSlice = createSlice(
     {
         name: "menuProperties",
@@ -15,12 +17,12 @@ const menuSlice = createSlice(
             loginUser: (state, action) => {       
               state.logged = true;
               state.useremail = action.payload.useremail;    
-              console.log('User login');              
+              logger.info('Redux slice : User login');              
             },
             disconnectUser: (state, action) => {           
               state.logged = false;
               state.useremail = "";
-              console.log('User logout');              
+              logger.info('Redux slice : User logout');              
             },
         }
     }

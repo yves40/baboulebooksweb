@@ -6,14 +6,16 @@
 */
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import Logger from "@/classes/logger";
 
 
 export async function GET() {
-  console.log('GET request to check user session');
+  const logger = new Logger();
+  logger.info('GET request to check user session');
   try {
     const cookieStore = await cookies();
     const userid = cookieStore.get("userid")?.value;
-    console.log(`******************* ${userid}`);
+    logger.info(`******************* ${userid}`);
     if(!userid) {
       return NextResponse.json({authorized: false, status:401});
     }
@@ -38,7 +40,7 @@ export async function GET() {
     return NextResponse.json({authorized: true, status:200});
   }
   catch(error) {
-    // console.log("Error while validating session", error);
+    logger.error(`Error while validating session: ${error}`);
     return NextResponse.json({authorized: false, status:500});
   }
 }

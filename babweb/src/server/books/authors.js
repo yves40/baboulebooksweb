@@ -2,9 +2,11 @@
 
 import sqlHelper from '@/classes/sqlHelper';
 import AppError from '@/classes/customError';
+import Logger from '@/classes/logger';
 
 const modulename = "serverAuthors # ";
 const Version = "authors.js Dec 17 2025, 1.00";
+const logger = new Logger();
 
 // -----------------------------------------------------------------------------------------
 // Search authors count
@@ -25,7 +27,7 @@ export async function getAuthorsCount() {
         }   
     }
     catch(error) {
-        console.log(`${modulename} ${error}`);
+        logger.error(`${modulename} ${error}`);
         throw new Error('Erreur lors de la récupération du nombre d\'auteurs');
     }   
 }

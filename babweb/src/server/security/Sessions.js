@@ -3,19 +3,20 @@
 import sqlHelper from '@/classes/sqlHelper';
 import { cookies } from "next/headers";
 import { revalidateTag } from 'next/cache';
+import Logger from '@/classes/logger';
 
 const modulename = "serverSession # ";
 const Version = "Sessions.js Nov 26 2025, 1.08";
 const DBExpirationDelay = 60;  // One hour expiration date for DBSession (msec )
 const CookieExpirationDelay = 1 * 24 * 60 * 60; // One day expiration date for Cookie (sec)
-
+const logger = new Logger();
 
 // ------------------------------------------------------------------------
 // S E S S I O N S
 // ------------------------------------------------------------------------
 export async function isPrivatePage(pathname) {
 
-    console.log(`${modulename} check ${pathname} privacy`);
+    logger.info(`${modulename} check ${pathname} privacy`);
     
     const privateSegments = [ 
         "/dashboard", 
@@ -25,22 +26,44 @@ export async function isPrivatePage(pathname) {
         "/signout"];   // Protected paths
 
     privateSegments.map(path => {
-        console.log(`${modulename} will check ${path} privacy`)
+        logger.info(`${modulename} will check ${path} privacy`)
     });
     return privateSegments.some(segment => pathname === segment || 
         pathname.startsWith(segment + "/")); // Waouh !!!
 }
 // ------------------------------------------------------------------------
 export async function createDBSession(userid) {
-  const sqlh = new sqlHelper();
-  let conn = await sqlh.startTransactionRW();
-  const result = await sqlh.Insert(`insert into babouledb.sessions (ses_userid, ses_created, ses_expired) \
-    values ( ?, now(), now() + INTERVAL ${DBExpirationDelay} MINUTE )`, [parseInt( userid)],
-    conn );
-  sqlh.commitTransaction(conn);
-  const {insertId} = result;
-  return insertId;
+    const sqlh = new sqlHelper();
+    let conn = await sqlh.startTransactionRW();
+    const result = await sqlh.Insert(`insert into babouledb.sessions (ses_userid, ses_created, ses_expired) \
+        values ( ?, now(), now() + INTERVAL ${DBExpirationDelay} MINUTE )`, [parseInt( userid)],
+        conn );
+    sqlh.commitTransaction(conn);
+    const {insertId} = result;
+    return insertId;
 }
+
+/**
+ * 
+ * @param {*} sessionid The current user session ID in local storage
+ * @returns false : Invalid or expired session
+ *          true  : Valid session    
+ */
+export async function checkDBSession(sessionid) {
+    const sqlh = new sqlHelper(); 
+    let conn = await sqlh.startTransactionRW();
+    const rows = await sqlh.Select('select * from babouledb.sessions where ses_id = ? and ses_expired > now()', [sessionid], conn);
+    sqlh.commitTransaction(conn);
+    if(rows.length === 0) {
+        logger.info(`${modulename} session KO : invalid or expired sessionID ${sessionid}`);      
+        return false;
+    }
+    else {
+        logger.info(`${modulename} session OK : valid sessionID ${sessionid}`);      
+        return true;
+    }
+}
+
 // ------------------------------------------------------------------------
 export async function createSessionCookie(sessionid) {
     const cookieStore = await cookies();
@@ -68,11 +91,11 @@ export async function createSessionCookie(sessionid) {
       const cookieStore = await cookies();
       const sessionCookieId = cookieStore.get("sessionid")?.value;
       if (!sessionCookieId) {  // No cookie yet !
-          console.log(`${modulename} user KO : No sessionCookie`);      
+          logger.info(`${modulename} user KO : No sessionCookie`);      
           return { success: false, cookie: undefined };
       }
       else {
-          console.log(`${modulename} user OK : sessionCookie`);      
+          logger.info(`${modulename} user OK : sessionCookie`);      
           return { success: true, cookie: sessionCookieId };
       }
   }
@@ -82,6 +105,7 @@ export async function createSessionCookie(sessionid) {
   export async function closeDBSession(sessionid) {
       try {
         // Shoot the DB session
+        logger.info(`${modulename} closeDBSession for sessionID ${sessionid}`);
         const sqlh = new sqlHelper();
         let conn = await sqlh.startTransactionRW();
         await sqlh.Delete('delete from babouledb.sessions where ses_id = ?', [sessionid], conn);
@@ -90,7 +114,7 @@ export async function createSessionCookie(sessionid) {
         return { success: true }
       }
       catch(error) {
-          console.log(error);
+          logger.error(error);
       }
   }
   

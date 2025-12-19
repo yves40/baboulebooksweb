@@ -3,6 +3,7 @@
 import mysqlPromise from "mysql2/promise.js";
 import dotenv from 'dotenv';
 import AppError from "./customError";
+import Logger from "./logger";
 
 // TODO study singleton, check instance
 
@@ -31,15 +32,12 @@ export default class sqlHelper {
     this.#dbname = process.env.DBNAME;
     this.#dbuser = process.env.DBUSER;
     this.#dbpass = process.env.DBPASS;
+    this.logger = new Logger();
     
     (async () => {
       this.pool = this.#createPool();
     })();
     
-    if(tracer) {
-      console.log(`****************** SQLHelper tracer activated ${tracer}`);
-    }
-
     sqlHelper.instance = this;
     return this;
   }
@@ -78,7 +76,7 @@ export default class sqlHelper {
           resolve(result) ;
         }
         catch(error) {
-          console.log(`INSERT ERROR ${error}`);
+          this.logger.error(`INSERT ERROR ${error}`);
           reject(error);
         }
       })();
@@ -96,7 +94,7 @@ export default class sqlHelper {
           resolve(result) ;
         }
         catch(error) {
-          console.log(`DELETE ERROR ${error}`);
+          this.logger.error(`DELETE ERROR ${error}`);
           reject(error);
         }
       })();
@@ -114,7 +112,7 @@ export default class sqlHelper {
           resolve(result) ;
         }
         catch(error) {
-          console.log(`UPDATE ERROR ${error}`);
+          this.logger.error(`UPDATE ERROR ${error}`);
           reject(error);
         }
       })();

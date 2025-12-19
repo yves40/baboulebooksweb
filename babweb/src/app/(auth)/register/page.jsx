@@ -7,11 +7,11 @@ import User from '@/classes/User';
 import InputEmail from '@/components/InputEmail';
 import InputPassword from '@/components/InputPassword';
 import InputText from '@/components/InputText';
+import Logger from '@/classes/logger';
 
 export default function page() {
         
     const module = "RegisterPage";
-    console.log(`*** ${module} : render`);
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,6 +25,7 @@ export default function page() {
         password: false
     };
     const router = useRouter();    // To be used after succesful registration
+    const logger = new Logger
     
     useEffect(() => {
         checkMandatoryFields();
@@ -65,7 +66,7 @@ export default function page() {
             }
         } 
         catch (error) {
-            console.log(`*** ${module} ${error.message}`);
+            logger.info(`*** ${module} ${error.message}`);
             feedback.current.textContent = error.message;
             feedback.current.hidden = false;
             submitButton.current.disabled = true;
@@ -91,7 +92,6 @@ export default function page() {
         }
         const formData = new FormData(e.target);
         const formdataObj = Object.fromEntries(formData);
-        console.log(JSON.stringify(formdataObj));
         feedback.current.textContent = ""
         feedback.current.hidden = false;
         submitButton.current.disabled = true;   // No multiple server request when one is running
@@ -99,7 +99,7 @@ export default function page() {
             const user = new User();
             submitButton.current.textContent = 'Saving...';
             const result = await user.register(formData);
-            console.log(result);             
+            logger.info(result);             
             submitButton.current.textContent = 'User saved ✅';
             let countdown = 3;
             feedback.current.textContent = `Redirecting ${countdown}...`;

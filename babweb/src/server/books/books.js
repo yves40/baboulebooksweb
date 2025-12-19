@@ -5,8 +5,8 @@ import AppError from '@/classes/customError';
 import Logger from '@/classes/logger';
 
 const modulename = "serverBooks # ";
-const Version = "books.js Dec 19 2025, 1.02";
-
+const Version = "books.js Dec 19 2025, 1.03";
+const logger = new Logger(modulename);
 // -----------------------------------------------------------------------------------------
 // Search books count
 // -----------------------------------------------------------------------------------------
@@ -26,14 +26,12 @@ export async function getBooksCount() {
         }   
     }
     catch(error) {
-        console.log(`${modulename} ${error}`);
+        logger.error(`${modulename} ${error}`);
         throw new Error('Erreur lors de la récupération du nombre de livres');
     }   
 }
 export async function getSelectedBooks(criteria) {
 
-    const logger = new Logger(modulename);
-    logger.setAction('Search books with criteria');
     logger.info(`Search books with criteria: ${JSON.stringify(criteria)}`);
 
     if(!criteria) {
@@ -47,7 +45,7 @@ export async function getSelectedBooks(criteria) {
     // title = title.charAt(0).toUpperCase() + title.slice(1);
     let author = criteria.author ? criteria.author.trim().toUpperCase() : '';
     let editor = criteria.editor ? criteria.editor.trim().toUpperCase() : '';
-    console.log(`Now search for books with these criterias : ${title} : ${author} : ${editor}`);
+    logger.info(`Now search for books with these criterias : ${title} : ${author} : ${editor}`);
     /**
      // Build the query
      * SELECT * FROM `books` WHERE bk_title like '%AL%';

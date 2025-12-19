@@ -8,17 +8,12 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 export const dbContext =createContext();
-console.log(`dbContext triggered`);
 
 export function DbProvider({children}) {
 
   const [dbStatus, setDbStatus] = useState( {
     isConnected: false,
   })
-
-  // useEffect( () => {
-  //   console.log(`useEffect() in dbContext`);
-  // }, []);
 
   return (
     <dbContext.Provider value={{dbStatus, setDbStatus}}>

@@ -1,7 +1,7 @@
 "use strict";
 
 import {login, logout, register, createUserCookie} from '../server/security/Users'
-
+import Logger from './logger';
 export default class User {
 
   id = 0;
@@ -17,6 +17,7 @@ export default class User {
     this.email= email;
     this.firstname = fname;
     this.lastname = lname;
+    this.logger = new Logger();
   }  
   // ------------------------------------------------------------------------
   //      P U B L I C 
@@ -58,7 +59,7 @@ export default class User {
       this.lastname = "";
     }
     catch(error) {
-      console.log(`User logout failed: ${error}`);       
+      this.logger.error(`User logout failed: ${error}`);       
     }
   }
   // ------------------------------------------------------------------------

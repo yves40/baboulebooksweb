@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useContext } from 'react'
 import { getBooksCount, getSelectedBooks } from '@/server/books/books';
 import { getAuthorsCount } from '@/server/books/authors';
 import { getEditorsCount } from '@/server/books/editors';
 import InputText from '@/components/InputText';
 import Logger from '@/classes/logger';
+import { AuthContext } from '@/app/context/authContext';
 
 export default function page() {
-
+  
   const version = "bookshome/page.jsx Dec 19 2025, 1.03";
   const [bookscount, setBookscount] = useState(0);
   const [authorscount, setAuthorscount] = useState(0);
@@ -22,20 +23,21 @@ export default function page() {
   const authorselector = useRef('authorselector');
   const editorselector = useRef('editorselector');
   const results = useRef('results');
+  const logger = new Logger();
+  const authcontext = useContext(AuthContext);
 
   // -----------------------------------------------------------------------------
   // Get books count from server
   // -----------------------------------------------------------------------------
   const getbooks = ( async () => {
     try {
-      const logger = new Logger();
       logger.info('Get total books count from server');
       const count = await getBooksCount();
       logger.info(`Total books count retrieved: ${count}`);
       setBookscount(count);
     }
     catch(error) {
-      console.log(`Error in getbooks: ${error}`);
+      logger.error(`Error in getbooks: ${error}`);
     } 
   })
   // -----------------------------------------------------------------------------
@@ -47,14 +49,20 @@ export default function page() {
       setAuthorscount(count);
     }
     catch(error) {
-      console.log(`Error in getauthors: ${error}`);
+      logger.error(`Error in getauthors: ${error}`);
     } 
   })
   // -----------------------------------------------------------------------------
   // Get book list based on criterias
   // -----------------------------------------------------------------------------
   const getBookslist = ( async () => {
-    const logger = new Logger();
+    const session = authcontext.getSession();
+    if(!session || !session.getSessionState()) {
+      logger.info(`***** Anonymous user`);
+    }
+    else {
+      logger.info(`***** Authenticated user with session ID : ${session.getSessionId()}`);
+    }
     logger.info(`Get books list with criterias: title=${booktitle}, author=${bookauthor}, editor=${bookeditor}`);
     try {
       const rows = await getSelectedBooks({title: booktitle, author: bookauthor, editor: bookeditor});
@@ -80,7 +88,7 @@ export default function page() {
       setEditorscount(count);
     }
     catch(error) {
-      console.log(`Error in geteditors: ${error}`);
+      logger.error(`Error in geteditors: ${error}`);
     } 
   })
   // -----------------------------------------------------------------------------

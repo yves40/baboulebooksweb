@@ -11,6 +11,7 @@ import User from "@/classes/User";
 import Session from "@/classes/Session";
 import { useDispatch } from "react-redux";
 import { loginUser } from "@/redux/menuProperties";
+import Logger from "@/classes/logger";
 
 export default function page() {
 
@@ -30,6 +31,7 @@ export default function page() {
   const {setUser, setSession} = getAuthContext();
   const dispatch = useDispatch();
   const { refreshNavbar } =  AppContext;
+  const logger = new Logger();
 
   useEffect(() => {
     checkMandatoryFields();
@@ -83,9 +85,9 @@ export default function page() {
       // Update the authorization context
       setUser(loggeduser);
       setSession(session);
-      console.log(`${module} - Dispatching loginUser action to redux store`);
+      logger.info(`${module} - Dispatching loginUser action to redux store`);
       const dispatchObj =  dispatch(loginUser({useremail: loggeduser.getEmail()}));
-      console.log(`Result of the dispatch : ${JSON.stringify(dispatchObj)}`);
+      logger.info(`Result of the dispatch : ${JSON.stringify(dispatchObj)}`);
       
       // refreshNavbar();
       // Redirect to home page
