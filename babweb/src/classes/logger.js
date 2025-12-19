@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 //----------------------------------------------------------------------------
 //    logger.js
 //----------------------------------------------------------------------------
 import timeHelper from './timeHelper.js';
-import sqlHelper from './sqlHelper.js'
 
 export default class Logger {
+
 
     static LOGGERLEVEL = 1; // Default logger level is informational
 
@@ -15,16 +14,26 @@ export default class Logger {
     static WARNING = 2;
     static ERROR = 3;
     static FATAL = 4;
-    static Version = 'logger:1.56, Aug 30 2025';
+    static Version = 'logger:1.57, Dec 19 2025';
     static OUTFILE = '/tmp/' + this.Version.replace(/[,:]/g,'_').replace(/ /g, '_') + '.log'
 
     constructor(module = 'logger') {
+        /**
+         * Implement singleton pattern
+         */
+        if(!!Logger.instance) {
+            return Logger.instance;
+        }
+
         this.dateHelper = new timeHelper();
         this.module = module;   // Trace the caller module signature : default is logger
         this.action = '';
         this.dbtrace = false;   // Should we also trace to a dblog table ? 
-        this.sqlh = new sqlHelper();
+
+        Logger.instance = this;
+        return this;
     }
+
     setModule(module) {this.module = module;}
     setAction(action) {this.action = action;}
     setDatabaseTrace(activatedblog) {
@@ -81,40 +90,5 @@ export default class Logger {
             this.logToDatabase(mess, level);
         }
         return;
-    }
-    /**
-     * @param {*} mess The message 
-     * @param {*} level The message level in the DIWEF specification
-     * @returns 
-    */
-    logToDatabase(mess, level) {
-        const now = this.dateHelper.getDateTime();
-        ( async () => {
-            try {
-                await this.sqlh.startTransactionRW();
-                const status = await this.sqlh.Insert(`insert into bomerledb.dblog (action, logtime, message, module, severity, useremail, utctime ) 
-                    values ( ?, str_to_date(?, '%M-%d-%Y %H:%i:%s'), ?, ?, ?, ?, str_to_date(?, '%M-%d-%Y %H:%i:%s') )`,
-                        [ this.action, 
-                            now, 
-                            mess, 
-                            this.module, 
-                            level,
-                            'logger@nomail.com', 
-                            now
-                        ]
-                );
-                await this.sqlh.commitTransaction();
-            }
-            catch(error) {
-                await this.sqlh.rollbackTransaction();
-                console.log(error);
-            }
-        })();
-    }
-    async getLatestDBlogs(range) {
-        const result = await this.sqlh.Select("SELECT * FROM dblog order by logtime desc limit ?",
-            [range]
-        );
-        return result;
     }
 }

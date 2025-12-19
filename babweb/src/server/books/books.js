@@ -2,6 +2,7 @@
 
 import sqlHelper from '@/classes/sqlHelper';
 import AppError from '@/classes/customError';
+import Logger from '@/classes/logger';
 
 const modulename = "serverBooks # ";
 const Version = "books.js Dec 19 2025, 1.02";
@@ -30,6 +31,11 @@ export async function getBooksCount() {
     }   
 }
 export async function getSelectedBooks(criteria) {
+
+    const logger = new Logger(modulename);
+    logger.setAction('Search books with criteria');
+    logger.info(`Search books with criteria: ${JSON.stringify(criteria)}`);
+
     if(!criteria) {
         throw new AppError('No criteria provided');
     }

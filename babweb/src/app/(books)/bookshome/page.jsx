@@ -5,10 +5,11 @@ import { getBooksCount, getSelectedBooks } from '@/server/books/books';
 import { getAuthorsCount } from '@/server/books/authors';
 import { getEditorsCount } from '@/server/books/editors';
 import InputText from '@/components/InputText';
+import Logger from '@/classes/logger';
 
 export default function page() {
 
-  const version = "bookshome/page.jsx Dec 19 2025, 1.02";
+  const version = "bookshome/page.jsx Dec 19 2025, 1.03";
   const [bookscount, setBookscount] = useState(0);
   const [authorscount, setAuthorscount] = useState(0);
   const [editorscount, setEditorscount] = useState(0);
@@ -27,7 +28,10 @@ export default function page() {
   // -----------------------------------------------------------------------------
   const getbooks = ( async () => {
     try {
+      const logger = new Logger();
+      logger.info('Get total books count from server');
       const count = await getBooksCount();
+      logger.info(`Total books count retrieved: ${count}`);
       setBookscount(count);
     }
     catch(error) {
@@ -50,9 +54,11 @@ export default function page() {
   // Get book list based on criterias
   // -----------------------------------------------------------------------------
   const getBookslist = ( async () => {
-    console.log(`Get books list with criterias: title=${booktitle}, author=${bookauthor}, editor=${bookeditor}`);
+    const logger = new Logger();
+    logger.info(`Get books list with criterias: title=${booktitle}, author=${bookauthor}, editor=${bookeditor}`);
     try {
       const rows = await getSelectedBooks({title: booktitle, author: bookauthor, editor: bookeditor});
+      logger.info(`Books found with criterias: ${rows.length}`);
       setSelectedbooks(rows);
       if(rows.length === 0) {
         results.current.innerText = `Pas de livre sélectionné.`;
