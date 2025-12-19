@@ -8,7 +8,7 @@ import InputText from '@/components/InputText';
 
 export default function page() {
 
-  const version = "bookshome/page.jsx Dec 17 2025, 1.01";
+  const version = "bookshome/page.jsx Dec 19 2025, 1.02";
   const [bookscount, setBookscount] = useState(0);
   const [authorscount, setAuthorscount] = useState(0);
   const [editorscount, setEditorscount] = useState(0);
@@ -20,6 +20,7 @@ export default function page() {
   const bookselector = useRef('bookselector');
   const authorselector = useRef('authorselector');
   const editorselector = useRef('editorselector');
+  const results = useRef('results');
 
   // -----------------------------------------------------------------------------
   // Get books count from server
@@ -50,8 +51,19 @@ export default function page() {
   // -----------------------------------------------------------------------------
   const getBookslist = ( async () => {
     console.log(`Get books list with criterias: title=${booktitle}, author=${bookauthor}, editor=${bookeditor}`);
-    const rows = await getSelectedBooks({title: booktitle, author: bookauthor, editor: bookeditor});
-    setSelectedbooks(rows);
+    try {
+      const rows = await getSelectedBooks({title: booktitle, author: bookauthor, editor: bookeditor});
+      setSelectedbooks(rows);
+      if(rows.length === 0) {
+        results.current.innerText = `Pas de livre sélectionné.`;
+        return;
+      } 
+      results.current.innerText = `Résultats - ${rows.length} livre(s) trouvé(s)`;
+    }
+    catch(error) {
+      setSelectedbooks([]);
+      results.current.innerText = `Résultats : ${error.message}`;
+    }
   })
   // -----------------------------------------------------------------------------
   // Get editors count from server
@@ -155,11 +167,8 @@ export default function page() {
         </div>
       </div>
       <div className=' border-t-2 mt-6 pt-4 mx-4 text-gray-500'>
-        <p className=' border-b-2 text-gray-500 pb-6 w-full'>Résultats</p>
+        <p className=' border-b-2 text-gray-500 pb-6 w-full' ref={results}>Résultats</p>
         <div>
-          {selectedbooks.length === 0 &&
-            <p className=' mt-4'>Aucun livre trouvé avec les critères sélectionnés.</p>
-          }
           {selectedbooks.length > 0 &&
             <ul className=' mt-4'>
               {selectedbooks.map( (book, index) => (
