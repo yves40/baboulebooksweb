@@ -14,19 +14,34 @@ export default class sqlHelper {
   #dbuser = process.env.DBUSER;
   #dbpass = process.env.DBPASS;
   
-  constructor() {
-    this.Version = "sqlHelper.js Dec 18 2025, 1.59";
+  constructor(tracer = null) {
 
+    this.Version = "sqlHelper.js Dec 19 2025, 1.61";
+
+    /**
+     * Implement singleton pattern
+     */
+    if(!!sqlHelper.instance) {
+      return sqlHelper.instance;
+    }
+    
     dotenv.config({ quiet: true });
     this.#dbhost = process.env.DBHOST;
     this.#dbport = process.env.DBPORT;
     this.#dbname = process.env.DBNAME;
     this.#dbuser = process.env.DBUSER;
     this.#dbpass = process.env.DBPASS;
-
+    
     (async () => {
       this.pool = this.#createPool();
     })();
+    
+    if(tracer) {
+      console.log(`****************** SQLHelper tracer activated ${tracer}`);
+    }
+
+    sqlHelper.instance = this;
+    return this;
   }
   // ------------------------------------------------------------------------
   //      P U B L I C 
