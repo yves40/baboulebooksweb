@@ -51,7 +51,6 @@ export default function page() {
   const getBookslist = ( async () => {
     console.log(`Get books list with criterias: title=${booktitle}, author=${bookauthor}, editor=${bookeditor}`);
     const rows = await getSelectedBooks({title: booktitle, author: bookauthor, editor: bookeditor});
-    console.log(rows);
     setSelectedbooks(rows);
   })
   // -----------------------------------------------------------------------------
@@ -141,7 +140,7 @@ export default function page() {
               <span className=' ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleAuthorselector}/></span>             
             </li>
             <div ref={authorselector} hidden className=' mx-4 my-2'>
-              <InputText componentid="bookauthor" label="Rechercher par l' auteur"  parentHandler={setBookauthor} timeout={2000}> </InputText>
+              <InputText componentid="bookauthor" label="Rechercher par l'auteur (nom de famille)"  parentHandler={setBookauthor} timeout={2000}> </InputText>
             </div>
 
             <li  className='gridcols511 mt-4'>
