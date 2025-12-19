@@ -22,19 +22,6 @@ export async function GET() {
     /**
      * TODO
      * Check the user session on the DB
-     * 
-     * await connectToDB();
-      const session = await Session.findOne({ userId: userId });
-      if(!session || session.expiresAt < new Date()) {
-        return NextResponse.json({authorized: false, status:401});
-      }
-      const user = await User.findById(session.userId);
-      if(!user) {
-        return NextResponse.json({authorized: false, status:401});
-      }
-      return NextResponse.json({authorized: true, userId: user._id.toString()});
-     * 
-     * 
      */
 
     return NextResponse.json({authorized: true, status:200});
@@ -45,3 +32,25 @@ export async function GET() {
   }
 }
 
+export async function POST() {
+  const logger = new Logger();
+  logger.info('POST request to check user session');
+  try {
+    const cookieStore = await cookies();
+    const userid = cookieStore.get("userid")?.value;
+    logger.info(`******************* ${userid}`);
+    if(!userid) {
+      return NextResponse.json({authorized: false, status:401});
+    }
+    /**
+     * TODO
+     * Check the user session on the DB
+     */
+
+    return NextResponse.json({authorized: true, status:200});
+  }
+  catch(error) {
+    logger.error(`Error while validating session: ${error}`);
+    return NextResponse.json({authorized: false, status:500});
+  }
+}

@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useSelector, useStore } from 'react-redux'
+import NavbarDropdown from "./NavbarDropdown";
 
 const modulename = 'Navbar.jsx # ';
 
@@ -18,7 +19,8 @@ export default function Navbar() {
         <div className="nav__div">
             <Link href="/" className=" mr-2 text-zinc-900">Accueil</Link>
             <Link href="/bookshome" className=" mx-2 text-zinc-900">Livres</Link>
-            {userstate.logged && <div id="logoutsection">
+            {userstate.logged && <div id="logoutsection" className="flex">
+              <NavbarDropdown/>
               <Link href="/logout" className=" mx-2 text-zinc-900 mr-auto">Déconnexion</Link>
             </div>}
             {!userstate.logged && <div id="loginsection">

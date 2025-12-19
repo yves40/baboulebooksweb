@@ -65,6 +65,7 @@ export default function page() {
     }
     logger.info(`Get books list with criterias: title=${booktitle}, author=${bookauthor}, editor=${bookeditor}`);
     try {
+      results.current.innerText = `Recherche...`;
       const rows = await getSelectedBooks({title: booktitle, author: bookauthor, editor: bookeditor});
       logger.info(`Books found with criterias: ${rows.length}`);
       setSelectedbooks(rows);

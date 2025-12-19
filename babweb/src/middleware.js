@@ -4,8 +4,12 @@
 */
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import Logger from "@/classes/logger";
 
 export async function middleware(req) {
+
+  const logger = new Logger();
+  logger.info(`Middleware invoked for ${req.nextUrl.pathname}`);
 
   const sessionCheck = new URL(`${req.nextUrl.origin}/api/security/checkSession`, req.url);
   const authResponse = await fetch(sessionCheck, 
@@ -28,6 +32,6 @@ export async function middleware(req) {
 // Filter dashboard and any underlying route
 export const config = {
   // matcher: [ "/admin/:path*"]
-  matcher: [ "/admin"]
+  matcher: ["/adminusers/:path*", "/adminbooks/:path*"]
 }
 
