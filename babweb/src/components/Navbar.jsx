@@ -1,13 +1,12 @@
 "use client"
 
-import Link from "next/link"
 import { useSelector, useStore } from 'react-redux'
 import { useState as usestate } from "react"
 const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Dec 20 2025, 1.20";
+  const version = "Navbar.jsx Dec 20 2025, 1.21";
   const userstate = useSelector((state) => state.menuProperties);
   const [adminpage, setAdminpage] = usestate(false);
   const store = useStore();
@@ -16,7 +15,7 @@ export default function Navbar() {
 
     // Look in globals.css for classes definitions
       <nav className="nav">
-        <div className="nav__div">
+        {/* <div className="nav__div">
             <Link href="/" className="svgnormal-blue nav__title text-zinc-900 mr-6"
               onClick={() => setAdminpage(false)}><img src="/svg/house-solid.svg" alt="" /></Link>
             {(userstate.logged && !adminpage) && 
@@ -39,13 +38,33 @@ export default function Navbar() {
               <Link href="/register" className=" mx-2 text-zinc-900">S'enregister</Link>
             </div>}
             <p className=" ml-auto font-semibold">{userstate.useremail} </p>
-        </div>
-        <div className="nav__links">
-          <ul>
-            <li><a href="#">One</a></li>
-            <li><a href="#">Two</a></li>
-            <li><a href="#">Three</a></li>
-          </ul>
+        </div> */}
+        <div className="topmenu">
+          <div className="nav-links">
+            <ul>
+              <li><a href="/" onClick={() => setAdminpage(false)}><img className="svg-bigwhite"  src="/svg/house-solid.svg" alt=""/></a></li>
+              {(userstate.logged && !adminpage) && 
+                <>
+                  <li><a href="/bookshome">Livres</a></li>
+                  <li><a href="#" onClick={() => setAdminpage(true)}>Administrer</a></li>
+                  <li><a href="/logout">Déconnexion</a></li>
+                  <li><p>{userstate.useremail}</p></li>
+                </>}
+              {(userstate.logged && adminpage) && 
+                <>
+                <li><a href="/adminbooks">Gérer les livres</a></li>
+                <li><a href="/adminusers" >Gérer les utilisateurs</a></li>
+                  <li><a href="/logout">Déconnexion</a></li>
+                  <li><p>{userstate.useremail}</p></li>
+                </>}
+              {!userstate.logged && 
+                <>
+                  <li><a href="/bookshome">Livres</a></li>
+                  <li><a href="/login">Connexion</a></li>
+                  <li><a href="/register">S'enregister</a></li>
+                </>}
+            </ul>
+          </div>
 
         </div>
       </nav>

@@ -1,8 +1,9 @@
 /*--------------------------------------------------------------------------------------
   Tout ce code est généré par npx
 --------------------------------------------------------------------------------------*/
+import "./globals.css";
+import "../../public/css/sassglobals.css"
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css"; /* Permet de centraliser les constantes, les classe css, etc. */
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/app/context/authContext";

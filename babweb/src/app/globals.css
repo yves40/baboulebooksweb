@@ -19,51 +19,6 @@
     --foreground: #ededed;
   }
 }
-.topmenu {
-  #homelink {
-    margin: 1rem;
-    @include for-desktop {
-      display: none;
-    }
-  }
-  .logozone {
-    width: 40%;
-    .logo {
-      width: 50px;
-    }  
-    .debug {
-      margin-top: .4rem;
-      color: white;
-      font-size: .7rem;
-    }
-  }
-}
-.nav__links ul {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  ul {
-    display: flex;
-    gap: 2px;
-  }
-  li {
-    color: white;
-    a {
-      font-size: 1.2rem;
-      text-decoration: none;
-      &::after {
-        content: '';
-        width: 0%;
-        height: 2px;
-        background: white;
-        display: block;
-        margin: auto;
-        transition: 0.5s;                    
-      } 
-    }  
-  }
-}
-
 
 body {
   background: var(--background);
@@ -122,29 +77,6 @@ body {
 }
 .form__input {
   @apply px-3 focus:bg-blue-200 w-full h-7;
-}
-.svgsmall-green {
-  width: 18px;
-  height: 18px;
-  filter: brightness(0) saturate(100%) invert(75%) sepia(54%) saturate(7355%) hue-rotate(85deg) brightness(124%) contrast(119%);
-}
-.svgsmall-red {
-  width: 18px;
-  height: 18px;
-  filter: invert(19%) sepia(96%) saturate(6102%) hue-rotate(357deg) brightness(98%) contrast(117%); }
-
-.svgsmall-blue {
-  width: 18px;
-  height: 18px;
-  filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(2790%) hue-rotate(236deg) brightness(86%) contrast(176%);
-}
-.svgnormal-blue {
-  width: 24px;
-  height: 24px;
-  filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(2790%) hue-rotate(236deg) brightness(86%) contrast(176%);
-}
-.svg-white {
-  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(131deg) brightness(102%) contrast(102%);
 }
 .gridcols511 {
   display: grid;

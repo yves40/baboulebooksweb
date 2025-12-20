@@ -1,11 +1,93 @@
+// Colors
+$menu-background:#363330;
 
+// Sizes, heights, widths...
+$menu-height: 100px;
 
-nav {
-    color: chocolate;
-    background-color: red;
-    width: 12rem;
+// svg section
+.svgsmall-green {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) saturate(100%) invert(75%) sepia(54%) saturate(7355%) hue-rotate(85deg) brightness(124%) contrast(119%);
+}
+.svgsmall-red {
+  width: 18px;
+  height: 18px;
+  filter: invert(19%) sepia(96%) saturate(6102%) hue-rotate(357deg) brightness(98%) contrast(117%); 
 }
 
-.specialcolor {
-  color: blueviolet;
+.svgsmall-blue {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(2790%) hue-rotate(236deg) brightness(86%) contrast(176%);
+}
+.svgnormal-blue {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(2790%) hue-rotate(236deg) brightness(86%) contrast(176%);
+}
+.svg-smallwhite {
+  width: 24px;
+  height: 24px;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(131deg) brightness(102%) contrast(102%);
+}
+.svg-bigwhite {
+  width: 32px;
+  height: 32px;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(131deg) brightness(102%) contrast(102%);
+}
+
+/** 
+  C L A S S E S 
+*/
+
+.topmenu {
+  position: fixed; 
+  top: 0;
+  z-index: 10;
+  padding: 50px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: $menu-height;
+  align-items: center;
+  background: $menu-background;
+  a { 
+    color: white;
+  }
+  .nav-links {
+    display: flex;
+    ul {
+      display: flex;
+      gap: 2px;
+      justify-content: center;
+    }
+    li {
+      color: white;
+      align-items: center;
+      margin: 0 10 0 10;
+      font-size: 1.5rem;
+      a {
+        text-decoration: none;
+        &::after {
+          content: '';
+          width: 0%;
+          height: 2px;
+          background: white;
+          display: block;
+          margin: auto;
+          transition: 0.5s;                    
+        } 
+        &:hover {
+          color: white; 
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+      p {
+        margin-left: auto;
+      }  
+    }
+  }
 }
