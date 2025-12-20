@@ -40,6 +40,14 @@ export default function Navbar() {
             </div>}
             <p className=" ml-auto font-semibold">{userstate.useremail} </p>
         </div>
+        <div className="nav__links">
+          <ul>
+            <li><a href="#">One</a></li>
+            <li><a href="#">Two</a></li>
+            <li><a href="#">Three</a></li>
+          </ul>
+
+        </div>
       </nav>
   )
 }
