@@ -5,7 +5,7 @@ $menu-background:#363330;
 $menu-height: 100px;
 
 // svg section
-.svgsmall-green {
+.svgsmall-green { 
   width: 18px;
   height: 18px;
   filter: brightness(0) saturate(100%) invert(75%) sepia(54%) saturate(7355%) hue-rotate(85deg) brightness(124%) contrast(119%);
@@ -59,14 +59,13 @@ $menu-height: 100px;
     display: flex;
     ul {
       display: flex;
-      gap: 2px;
+      gap: 20px;
       justify-content: center;
     }
     li {
       color: white;
       align-items: center;
-      margin: 0 10 0 10;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       a {
         text-decoration: none;
         &::after {
@@ -89,5 +88,23 @@ $menu-height: 100px;
         margin-left: auto;
       }  
     }
+  }
+}
+.footer {
+  position: fixed;
+  display: flex;
+  z-index: 10;
+  bottom: 0;
+  width:100%;
+  color: white;
+  height: $menu-height; 
+  background: $menu-background;
+  align-content: center;
+  ul {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+    align-content: center;
   }
 }

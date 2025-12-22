@@ -11,7 +11,10 @@ function Footer() {
   const appctx = useContext(AppContext);
   return (
     <footer className="footer">
-      <Link href="#">&copy;  {`${appctx.getVersion()}`}</Link>
+      <ul>
+        <li><a href="/">&copy;  {`${appctx.getVersion()}`}</a></li>
+        <li className=" ml-auto"><a><img className="svg-bigwhite sm:hidden" src="/svg/bars-solid.svg" alt="" /></a></li>        
+      </ul>
     </footer>
   )
 }

@@ -90,18 +90,14 @@
 .footer {
   position: fixed;
   display: flex;
-  z-index: 10;
   bottom: 0;
   width: 100%;
-  color: white;
   height: 100px;
   background: #363330;
-  align-content: center;
 }
-.footer ul {
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  flex-wrap: wrap;
-  align-content: center;
+.footer img {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  width: 40px;
 }/*# sourceMappingURL=sassglobals.css.map */

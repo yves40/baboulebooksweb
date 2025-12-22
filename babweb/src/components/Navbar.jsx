@@ -6,7 +6,7 @@ const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Dec 20 2025, 1.21";
+  const version = "Navbar.jsx Dec 22 2025, 1.22";
   const userstate = useSelector((state) => state.menuProperties);
   const [adminpage, setAdminpage] = usestate(false);
   const store = useStore();

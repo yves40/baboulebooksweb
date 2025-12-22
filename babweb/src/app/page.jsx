@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
           <Header></Header>
-          <h1 className="text-4xl mb-6">Baboule</h1>
+          <h1 className="text-4xl mb-6">Baboule's Books</h1>
           <p className=" mx-auto p-6 text-white bg-gray-700 text-center border-0 rounded-2xl">
             Je cherche un livre, car je suis en vadrouille et je ne sais pas si je l'ai déjà. 
             Cela peut vous sembler idiot mais j'en possède 1600 et je doute parfois d'en avoir déjà lu un !
