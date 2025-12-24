@@ -52,9 +52,9 @@ $menu-height: 100px;
   height: $menu-height;
   align-items: center;
   background: $menu-background;
-  a { 
-    color: white;
-  }
+  // a { 
+  //   color: white;
+  // }
   .nav-links {
     display: flex;
     ul {

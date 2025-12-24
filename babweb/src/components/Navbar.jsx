@@ -1,15 +1,14 @@
 "use client"
 
-import { useSelector, useStore } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useState as usestate } from "react"
 const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Dec 22 2025, 1.22";
+  const version = "Navbar.jsx Dec 24 2025, 1.23";
   const userstate = useSelector((state) => state.menuProperties);
   const [adminpage, setAdminpage] = usestate(false);
-  const store = useStore();
       
   return (
 
@@ -44,25 +43,25 @@ export default function Navbar() {
             <ul>
               <li><a href="/" onClick={() => setAdminpage(false)}><img className="svg-bigwhite"  src="/svg/house-solid.svg" alt=""/></a></li>
               {(userstate.logged && !adminpage) && 
-                <>
+              <>
                   <li><a href="/bookshome">Livres</a></li>
                   <li><a href="#" onClick={() => setAdminpage(true)}>Administrer</a></li>
                   <li><a href="/logout">Déconnexion</a></li>
                   <li><p>{userstate.useremail}</p></li>
-                </>}
+              </>}
               {(userstate.logged && adminpage) && 
-                <>
+              <>
                 <li><a href="/adminbooks">Gérer les livres</a></li>
                 <li><a href="/adminusers" >Gérer les utilisateurs</a></li>
                   <li><a href="/logout">Déconnexion</a></li>
                   <li><p>{userstate.useremail}</p></li>
-                </>}
+              </>}
               {!userstate.logged && 
-                <>
+              <>
                   <li><a href="/bookshome">Livres</a></li>
-                  <li><a href="/login">Connexion</a></li>
-                  <li><a href="/register">S'enregister</a></li>
-                </>}
+                  <li ><a className='hidden sm:block' href="/login">Connexion</a></li>
+                  <li ><a className='hidden sm:block' href="/register">S'enregister</a></li>
+              </>}
             </ul>
           </div>
 

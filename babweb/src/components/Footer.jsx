@@ -1,19 +1,29 @@
 "use client"
 
 import Link from "next/link"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "@/app/context/appContext"
-
+import { useDispatch } from "react-redux";
+import { toggleMenuStatus } from "@/redux/menuProperties"
 
 
 function Footer() {
+
+  const [menustatus, setMenustatus] = useState(false);
+  const dispatch = useDispatch();
+  
+  function toggleMenu(e) {
+    e.preventDefault();
+    setMenustatus(!menustatus);
+    const dispatchObj =  dispatch(toggleMenuStatus({menuvisible: menustatus}));    
+  }
 
   const appctx = useContext(AppContext);
   return (
     <footer className="footer">
       <ul>
         <li><a href="/">&copy;  {`${appctx.getVersion()}`}</a></li>
-        <li className=" ml-auto"><a><img className="svg-bigwhite sm:hidden" src="/svg/bars-solid.svg" alt="" /></a></li>        
+        <li className=" ml-auto"><a onClick={toggleMenu}><img className="svg-bigwhite sm:hidden" src="/svg/bars-solid.svg" alt="" /></a></li>        
       </ul>
     </footer>
   )

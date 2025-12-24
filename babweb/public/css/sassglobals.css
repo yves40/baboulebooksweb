@@ -49,9 +49,6 @@
   align-items: center;
   background: #363330;
 }
-.topmenu a {
-  color: white;
-}
 .topmenu .nav-links {
   display: flex;
 }

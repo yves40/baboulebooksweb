@@ -10,7 +10,7 @@ import { createContext, useEffect, useState } from "react";
 export const AppContext =createContext();
 export function AppProvider({children}) {
   
-  const version = 'baboulebooks, Dec 22 2025 : 1.47';
+  const version = 'baboulebooks, Dec 24 2025 : 1.49';
 
   useEffect(() => {
   }, []);

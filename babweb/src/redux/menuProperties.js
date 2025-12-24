@@ -5,6 +5,7 @@ const initialState =
     {
         logged : false,
         useremail : "",
+        menustatus: false   // used to manage menu pop up on phones
     }
 
 const logger = new Logger();
@@ -24,9 +25,13 @@ const menuSlice = createSlice(
               state.useremail = "";
               logger.info('Redux slice : User logout');              
             },
+            toggleMenuStatus: (state, action) => {
+                state.menustatus = state.menuvisible;
+                logger.info(`Redux slice : ToggleMenu status ${action.payload.menuvisible}`);              
+            }
         }
     }
 )
-export const { loginUser, disconnectUser } = menuSlice.actions;
+export const { loginUser, disconnectUser, toggleMenuStatus } = menuSlice.actions;
 export default menuSlice.reducer;
 
