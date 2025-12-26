@@ -7,6 +7,7 @@ import { getEditorsCount } from '@/server/books/editors';
 import InputText from '@/components/InputText';
 import Logger from '@/classes/logger';
 import { AuthContext } from '@/app/context/authContext';
+import { usePathname } from 'next/navigation';
 
 export default function page() {
   
@@ -25,6 +26,11 @@ export default function page() {
   const results = useRef('results');
   const logger = new Logger();
   const authcontext = useContext(AuthContext);
+
+  const pathname = usePathname();
+  const segments = pathname.split('/');
+  console.log(`Pathname Segments ${segments}`);
+
 
   // -----------------------------------------------------------------------------
   // Get books count from server
@@ -183,7 +189,7 @@ export default function page() {
       </div>
       <div className=' border-t-2 mt-6 pt-4 mx-4 text-gray-500'>
         <p className=' border-b-2 text-gray-500 pb-6 w-full' ref={results}>Résultats</p>
-        <div>
+        <div className=' mb-24'>
           {selectedbooks.length > 0 &&
             <ul className=' mt-4'>
               {selectedbooks.map( (book, index) => (
