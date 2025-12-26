@@ -2,30 +2,17 @@
   Tout ce code est généré par npx
 --------------------------------------------------------------------------------------*/
 import "@/app/globals.css";
-import "../../../../public/css/sassglobals.css"
-import { Geist, Geist_Mono } from "next/font/google";
+import "../../../public/css/sassglobals.css"
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { AuthProvider } from "@/app/context/authContext";
 import { AppProvider } from "@/app/context/appContext";
-import Providers from "@/app/providers";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Providers from "@/app//providers";
 
 export const metadata = {
   title: "BabouleBooks",
   description: "Petit outil de vérification pour baboule",
 };
-/*--------------------------------------------------------------------------------------
-  Section d'où tout se construit !
---------------------------------------------------------------------------------------*/
 export default function layout({ children }) {
   return (
     <html lang="fr">
