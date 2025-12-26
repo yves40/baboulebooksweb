@@ -1,24 +1,13 @@
 /*--------------------------------------------------------------------------------------
   Tout ce code est généré par npx
 --------------------------------------------------------------------------------------*/
-import "./globals.css";
-import "../../public/css/sassglobals.css"
-import { Geist, Geist_Mono } from "next/font/google";
+import "@/app/globals.css";
+import "../../../public/css/sassglobals.css"
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/app/context/authContext";
-import { AppProvider } from "./context/appContext";
-import Providers from "./providers";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { AppProvider } from "@/app/context/appContext";
+import Providers from "@/app//providers";
 
 export const metadata = {
   title: "BabouleBooks",
