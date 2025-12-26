@@ -5,32 +5,31 @@ import { getTopAuthors } from "@/server/books/authors";
 
 export default function page() {
 
-  const version = "authors/page.jsx Dec 26 2025, 1.00";
+  const version = "authors/page.jsx Dec 26 2025, 1.01";
   const [selectedAuthors, setSelectedAuthors] = useState([]);
   const results = useRef('results');
-  const toplimit = 10;
+  const toplimit = 20;
 
-    // -----------------------------------------------------------------------------
-    // Get top authors list
-    // -----------------------------------------------------------------------------
-    const topAuthors = ( async () => {
-      try {
-        results.current.innerText = `Recherche...`;
-        const rows = await getTopAuthors(toplimit);
-        setSelectedAuthors(rows);
-        if(rows.length === 0) {
-          results.current.innerText = `Pas d\'auteurs sélectionnés !`;
-          return;
-        } 
-        results.current.innerText = `Résultats - ${rows.length} auteurs`;
-      }
-      catch(error) {
-        setSelectedAuthors([]);
-        results.current.innerText = `Résultats : ${error.message}`;
-      }
-    })
+  // -----------------------------------------------------------------------------
+  // Get top authors list
+  // -----------------------------------------------------------------------------
+  const topAuthors = ( async () => {
+    try {
+      results.current.innerText = `Recherche...`;
+      const rows = await getTopAuthors(toplimit);
+      setSelectedAuthors(rows);
+      if(rows.length === 0) {
+        results.current.innerText = `Pas d\'auteurs sélectionnés !`;
+        return;
+      } 
+      results.current.innerText = `Résultats - ${rows.length} auteurs`;
+    }
+    catch(error) {
+      setSelectedAuthors([]);
+      results.current.innerText = `Résultats : ${error.message}`;
+    }
+  })
   
-
   // Load data 
   useEffect( () => {
     topAuthors();
@@ -54,7 +53,6 @@ export default function page() {
           }
         </div>
       </div>
-
     </div>
   )
 }

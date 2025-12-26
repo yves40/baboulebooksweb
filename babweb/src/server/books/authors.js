@@ -36,8 +36,6 @@ export async function getAuthorsCount() {
 // -----------------------------------------------------------------------------------------
 export async function getTopAuthors(limit) {
     try {
-        console.log(`Get top authors. Limit set to ${limit}`);
-        
         const sqlh = new sqlHelper();
         let conn = await sqlh.startTransactionRO();
         const result = await sqlh.Select('select count(b.bk_id) bookcount , a.auth_lname nom, a.auth_fname prenom\
