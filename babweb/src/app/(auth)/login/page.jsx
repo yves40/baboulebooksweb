@@ -3,13 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import Link from 'next/link';
+
 import { getAuthContext } from '@/app/context/authContext';
 import { AppContext } from "@/app/context/appContext";
 import InputEmail from '@/components/InputEmail';
 import InputPassword from '@/components/InputPassword'; 
 import User from "@/classes/User";
 import Session from "@/classes/Session";
-import { useDispatch } from "react-redux";
 import { loginUser } from "@/redux/menuProperties";
 import Logger from "@/classes/logger";
 
@@ -85,16 +87,13 @@ export default function page() {
       // Update the authorization context
       setUser(loggeduser);
       setSession(session);
-      logger.info(`${module} - Dispatching loginUser action to redux store`);
+      submitButton.current.disabled = false;
       const dispatchObj =  dispatch(loginUser({useremail: loggeduser.getEmail()}));
-      logger.info(`Result of the dispatch : ${JSON.stringify(dispatchObj)}`);
       
       // refreshNavbar();
       // Redirect to home page
-      submitButton.current.disabled = false;
       //
-
-      router.push('/');
+      // router.push('/');
     }
     catch(error) {
       feedback.current.textContent = `${error.message}`;
