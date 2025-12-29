@@ -91,7 +91,7 @@
   bottom: 0;
   width: 100%;
   color: white;
-  height: 100px;
+  height: 50px;
   background: #363330;
   align-content: center;
 }
@@ -101,4 +101,10 @@
   width: 100%;
   flex-wrap: wrap;
   align-content: center;
+}
+.footer ul li {
+  justify-self: center;
+}
+.footer ul p {
+  font-size: 1rem;
 }/*# sourceMappingURL=sassglobals.css.map */

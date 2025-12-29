@@ -4,16 +4,10 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 import Session  from "@/classes/Session";
 import User  from "@/classes/User";
 
-
-// Check later why it's breaking the server !!!!!!!!!!!!!!!!!!!!!!!
-// import Logger from "@/classes/logger";
-// const log = new Logger("AuthContext");
-// log.info(`Initializing ${module} - ${version}`);
-
 export const AuthContext = createContext();
 
 export function AuthProvider({children}) {
-    const version = "authContext Dec 06 2025, 1.30";
+    const version = "authContext Dec 29 2025, 1.31";
   const module = "AuthContext";  
   const [user, dispatchUser] = useReducer(manageUser,null);
   const [session, dispatchSession] = useReducer(manageSession, null);
@@ -70,14 +64,13 @@ export function AuthProvider({children}) {
   function getUser() {return user;}
   function getSession() {  return session;}
   function isUserLogged() {
-    const readuser = JSON.parse(sessionStorage.getItem("currentUser"));
-    if(readuser && readuser.id && readuser.id > 0) {
-      // dispatchUser({type: 'SET_USER', payload: readuser})
-      return true;
-    }
-    else { 
-      return false; 
-    }
+      const readuser = JSON.parse(sessionStorage.getItem("currentUser"));
+      if(readuser && readuser.id && readuser.id > 0) {
+        return true;
+      }
+      else { 
+        return false; 
+      }
   }
 
   return (

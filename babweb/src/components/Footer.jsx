@@ -22,7 +22,7 @@ function Footer() {
   return (
     <footer className="footer">
       <ul>
-        <li><a href="/">&copy;  {`${appctx.getVersion()}`}</a></li>
+        <li><p>&copy;  {`${appctx.getVersion()}`}</p></li>
         <li className=" ml-auto"><a onClick={toggleMenu}><img className="svg-bigwhite sm:hidden" src="/svg/bars-solid.svg" alt="" /></a></li>        
       </ul>
     </footer>
