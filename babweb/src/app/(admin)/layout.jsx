@@ -2,12 +2,11 @@
   Tout ce code est généré par npx
 --------------------------------------------------------------------------------------*/
 import "@/app/globals.css";
-import "../../../public/css/sassglobals.css"
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import "../../../../public/css/sassglobals.css"
+import NavbarBooks from "@/components/NavbarBooks";
 import { AuthProvider } from "@/app/context/authContext";
 import { AppProvider } from "@/app/context/appContext";
-import Providers from "@/app//providers";
+import Providers from "@/app/providers";
 
 export const metadata = {
   title: "BabouleBooks",
@@ -16,17 +15,16 @@ export const metadata = {
 /*--------------------------------------------------------------------------------------
   Section d'où tout se construit !
 --------------------------------------------------------------------------------------*/
-export default function RootLayout({ children }) {
+export default function layout({ children }) {
   return (
         <Providers>
           <AppProvider>
             <AuthProvider>
-              <Navbar></Navbar>
+              <NavbarBooks></NavbarBooks>
               <main className="page__container">
                 {children}
               </main>
             </AuthProvider>
-            <Footer></Footer>
           </AppProvider>
         </Providers>
   );

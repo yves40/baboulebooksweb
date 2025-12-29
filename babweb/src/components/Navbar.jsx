@@ -3,12 +3,13 @@
 import { useSelector } from 'react-redux'
 import { useContext, useState, useEffect } from "react"
 import { AuthContext } from '@/app/context/authContext';
+import Link from 'next/link';
 
 const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Dec 29 2025, 1.28";
+  const version = "Navbar.jsx Dec 29 2025, 1.29";
   const menustate = useSelector((state) => state.menuProperties);
   const {getUser, isUserLogged} = useContext(AuthContext);
   const [adminpage, setAdminpage] = useState(false);
@@ -19,8 +20,6 @@ export default function Navbar() {
     setUserstatus(userstate);
   }, [])
 
-
-  console.log(userstatus);
   
   return (
 
@@ -29,26 +28,26 @@ export default function Navbar() {
         <div className="topmenu">
           <div className="nav-links">
             <ul>
-              <li><a href="/" onClick={() => setAdminpage(false)}><img className="svg-bigwhite"  src="/svg/house-solid.svg" alt=""/></a></li>
+              <li><Link href="/" onClick={() => setAdminpage(false)}><img className="svg-bigwhite"  src="/svg/house-solid.svg" alt=""/></Link></li>
               {(userstatus && !adminpage) && 
               <>
-                  <li><a href="/bookshome">Livres</a></li>
-                  <li><a href="#" onClick={() => setAdminpage(true)}>Administrer</a></li>
-                  <li><a href="/logout">Déconnexion</a></li>
+                  <li><Link href="/bookshome">Livres</Link></li>
+                  <li><Link href="#" onClick={() => setAdminpage(true)}>Administrer</Link></li>
+                  <li><Link href="/logout">Déconnexion</Link></li>
                   <li><p>{menustate.useremail}</p></li>
               </>}
               {(userstatus && adminpage) && 
               <>
-                <li><a href="/adminbooks">Gérer les livres</a></li>
-                <li><a href="/adminusers" >Gérer les utilisateurs</a></li>
-                  <li><a href="/logout">Déconnexion</a></li>
+                <li><Link href="/adminbooks">Gérer les livres</Link></li>
+                <li><Link href="/adminusers" >Gérer les utilisateurs</Link></li>
+                  <li><Link href="/logout">Déconnexion</Link></li>
                   <li><p>{menustate.useremail}</p></li>
               </>}
               {!userstatus && 
               <>
-                  <li><a href="/bookshome">Livres</a></li>
-                  <li ><a className='hidden sm:block' href="/login">Connexion</a></li>
-                  <li ><a className='hidden sm:block' href="/register">S'enregister</a></li>
+                  <li><Link href="/bookshome">Livres</Link></li>
+                  <li ><Link className='hidden sm:block' href="/login">Connexion</Link></li>
+                  <li ><Link className='hidden sm:block' href="/register">S'enregister</Link></li>
               </>}
             </ul>
           </div>

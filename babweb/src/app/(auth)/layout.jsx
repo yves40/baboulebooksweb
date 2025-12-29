@@ -15,9 +15,6 @@ export const metadata = {
 };
 export default function layout({ children }) {
   return (
-    <html lang="fr">
-      <body className="body__container">
-        {/* The redux store is available throughout the app, thanks to providers.jsx */}
         <Providers>
           <AppProvider>
             <AuthProvider>
@@ -28,8 +25,6 @@ export default function layout({ children }) {
             </AuthProvider>
           </AppProvider>
         </Providers>
-      </body>
-    </html>
   );
 }
  

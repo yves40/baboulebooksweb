@@ -17,21 +17,16 @@ export const metadata = {
 --------------------------------------------------------------------------------------*/
 export default function layout({ children }) {
   return (
-    <html lang="fr">
-      <body className="body__container">
-        {/* The redux store is available throughout the app, thanks to providers.jsx */}
-        <Providers>
-          <AppProvider>
-            <AuthProvider>
-              <NavbarBooks></NavbarBooks>
-              <main className="page__container">
-                {children}
-              </main>
-            </AuthProvider>
-          </AppProvider>
-        </Providers>
-      </body>
-    </html>
+    <Providers>
+      <AppProvider>
+        <AuthProvider>
+          <NavbarBooks></NavbarBooks>
+          <main>
+            {children}
+          </main>
+        </AuthProvider>
+      </AppProvider>
+    </Providers>
   );
 }
  
