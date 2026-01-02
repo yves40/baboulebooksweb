@@ -16,7 +16,7 @@ export const metadata = {
 /*--------------------------------------------------------------------------------------
   Section d'où tout se construit !
 --------------------------------------------------------------------------------------*/
-export default function RootLayout({ children }) {
+export default function layout({ children }) {
   return (
         <Providers>
           <AppProvider>

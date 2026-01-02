@@ -15,7 +15,7 @@ export const metadata = {
 /*--------------------------------------------------------------------------------------
   Section d'où tout se construit !
 --------------------------------------------------------------------------------------*/
-export default function layout({ children }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <body className="body__container">
