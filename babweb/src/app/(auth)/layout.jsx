@@ -20,6 +20,7 @@ export default function layout({ children }) {
             <AuthProvider>
               <Navbar></Navbar>
               <main className="page__container">
+                <h1 className=" text-2xl font-bold page__container">Auth Layout</h1>
                 {children}
               </main>
             </AuthProvider>

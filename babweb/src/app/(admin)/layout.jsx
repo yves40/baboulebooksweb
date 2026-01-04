@@ -3,7 +3,7 @@
 --------------------------------------------------------------------------------------*/
 import "@/app/globals.css";
 import "../../../../public/css/sassglobals.css"
-import NavbarBooks from "@/components/NavbarBooks";
+import NavbarAdmin from "@/components/NavbarAdmin";
 import { AuthProvider } from "@/app/context/authContext";
 import { AppProvider } from "@/app/context/appContext";
 import Providers from "@/app/providers";
@@ -20,8 +20,9 @@ export default function layout({ children }) {
         <Providers>
           <AppProvider>
             <AuthProvider>
-              <NavbarBooks></NavbarBooks>
+              <NavbarAdmin></NavbarAdmin>
               <main className="page__container">
+                <h1 className=" text-2xl font-bold page__container">Admin Layout</h1>
                 {children}
               </main>
             </AuthProvider>

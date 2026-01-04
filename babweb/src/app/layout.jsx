@@ -19,6 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <body className="body__container">
+        <h1 className=" text-2xl font-bold page__container">Root Layout</h1>
         {/* The redux store is available throughout the app, thanks to providers.jsx */}
         <Providers>
           <AppProvider>

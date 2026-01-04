@@ -3,23 +3,24 @@
 import { useSelector } from 'react-redux'
 import { useContext, useState, useEffect } from "react"
 import { AuthContext } from '@/app/context/authContext';
+import { AppContext } from '@/app/context/appContext';
 import Link from 'next/link';
 
 const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Dec 29 2025, 1.29";
+  const version = "Navbar.jsx Jan 04 2026, 1.30";
   const menustate = useSelector((state) => state.menuProperties);
   const {getUser, isUserLogged} = useContext(AuthContext);
-  const [adminpage, setAdminpage] = useState(false);
+  const { getNavigationstate, setOnAdminPages } = useContext(AppContext); 
+  const adminpage = getNavigationstate().onAdminPages;
   const [userstatus, setUserstatus] = useState(false) // Not logged
 
   useEffect(() => {
     const userstate = isUserLogged();
     setUserstatus(userstate);
   }, [])
-
   
   return (
 
@@ -28,11 +29,11 @@ export default function Navbar() {
         <div className="topmenu">
           <div className="nav-links">
             <ul>
-              <li><Link href="/" onClick={() => setAdminpage(false)}><img className="svg-bigwhite"  src="/svg/house-solid.svg" alt=""/></Link></li>
+              <li><Link href="/" onClick={() => setOnAdminPages(false)}><img className="svg-bigwhite"  src="/svg/house-solid.svg" alt=""/></Link></li>
               {(userstatus && !adminpage) && 
               <>
                   <li><Link href="/bookshome">Livres</Link></li>
-                  <li><Link href="#" onClick={() => setAdminpage(true)}>Administrer</Link></li>
+                  <li><Link href="/adminhome" onClick={() => setOnAdminPages(true)}>Administrer</Link></li>
                   <li><Link href="/logout">Déconnexion</Link></li>
                   <li><p>{menustate.useremail}</p></li>
               </>}

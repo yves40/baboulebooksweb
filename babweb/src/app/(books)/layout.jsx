@@ -22,6 +22,7 @@ export default function layout({ children }) {
         <AuthProvider>
           <NavbarBooks></NavbarBooks>
           <main>
+            <h1 className=" text-2xl font-bold page__container">Books Layout</h1>
             {children}
           </main>
         </AuthProvider>

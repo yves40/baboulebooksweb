@@ -10,18 +10,28 @@ import { createContext, useEffect, useState } from "react";
 export const AppContext =createContext();
 export function AppProvider({children}) {
   
-  const version = 'baboulebooks, Dec 29 2025 : 1.53';
+  const version = 'baboulebooks, Jan 04 2026 : 1.54';
+  const [navigationstate, setNavigationstate] = useState({
+    onAdminPages: false,
+  });
 
   useEffect(() => {
   }, []);
 
-  function getVersion() {
-    return version;
+  function getVersion() {return version;}
+  function setOnAdminPages(value) {
+    setNavigationstate((prevState) => ({
+      ...prevState,
+      onAdminPages: value,
+    }));
+  }
+  function getNavigationstate() {
+    return navigationstate;
   }
   return (
     <AppContext.Provider value={
         {
-          getVersion, 
+          getVersion, getNavigationstate, setOnAdminPages
         }
       }>
       {children}

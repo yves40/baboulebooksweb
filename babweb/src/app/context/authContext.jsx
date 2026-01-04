@@ -61,8 +61,16 @@ export function AuthProvider({children}) {
   function setSession(newSession) {dispatchSession({type: 'SET_SESSION', payload: newSession});}
   function logoutUser() {dispatchUser({type: 'CLEAR_USER'});}
   function closeSession() {dispatchSession({type: 'CLEAR_SESSION'});}
-  function getUser() {return user;}
   function getSession() {  return session;}
+  function getUser() {
+      const readuser = JSON.parse(sessionStorage.getItem("currentUser"));
+      if(readuser && readuser.id && readuser.id > 0) {
+        return readuser;
+      }
+      else { 
+        return new User();
+      }
+  }
   function isUserLogged() {
       const readuser = JSON.parse(sessionStorage.getItem("currentUser"));
       if(readuser && readuser.id && readuser.id > 0) {
