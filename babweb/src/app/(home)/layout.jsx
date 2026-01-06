@@ -13,6 +13,11 @@ export const metadata = {
   title: "BabouleBooks",
   description: "Petit outil de vérification pour baboule",
 };
+
+const version = "Home Layout Jan 06 2026, 1.31";
+
+
+
 /*--------------------------------------------------------------------------------------
   Section d'où tout se construit !
 --------------------------------------------------------------------------------------*/
@@ -22,8 +27,8 @@ export default function layout({ children }) {
           <AppProvider>
             <AuthProvider>
               <Navbar></Navbar>
-              <main className="page__container">
-                <h1 className=" text-2xl font-bold ">Home Layout</h1>
+              <main>
+                <h1 className=" text-sm font-bold ">{version}</h1>
                 {children}
               </main>
             </AuthProvider>
