@@ -28,7 +28,7 @@ export default function layout({ children }) {
             <AuthProvider>
               <Navbar></Navbar>
               <main>
-                <h1 className=" text-sm font-bold ">{version}</h1>
+                <h1 className=" text-sm font-bold">{version}</h1>
                 {children}
               </main>
             </AuthProvider>
