@@ -20,7 +20,7 @@ export default function page() {
 
   async function handleLogout(e) {
     e.preventDefault();
-    logger.info(`Log out for : ${getUser().getEmail()}`);
+    logger.info(`Log out for : ${getUser().email}`);
     // AuthContext update
     await logoutUser();
     await closeSession();

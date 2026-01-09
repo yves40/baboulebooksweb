@@ -60,6 +60,7 @@ body {
 }
 .footer {
   bottom: 0;
+  left: 0;
   @apply fixed z-10 w-full 
     text-center bg-white p-4 border-t border-t-zinc-300;
 }
