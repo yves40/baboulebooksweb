@@ -22,8 +22,11 @@ function Footer() {
   return (
     <footer className="footer">
       <ul>
-        <li><p>&copy;  {`${appctx.getVersion()}`}</p></li>
-        <li className=" ml-auto"><a onClick={toggleMenu}><img className="svg-bigwhite sm:hidden" src="/svg/bars-solid.svg" alt="" /></a></li>        
+        <li className=" ml-4"><p >&copy;  {`${appctx.getVersion()}`}</p></li>
+        <li className=" ml-auto mr-4">
+            <img onClick={toggleMenu} className="svg-bigwhite sm:hidden" 
+                  src="/svg/bars-solid.svg" alt="" />
+        </li>        
       </ul>
     </footer>
   )

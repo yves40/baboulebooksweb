@@ -96,22 +96,19 @@ $footer-height: 50px;
   display: flex;
   z-index: 10;
   bottom: 0;
+  left: 0;
   width:100%;
   color: white;
   height: $footer-height; 
   background: $menu-background;
   align-content: center;
   ul {
-    li {
-      justify-self: center;
-    }
     p {
       font-size: 1rem;
     }
     display: flex;
+    align-items: center;
     gap: 20px;
     width: 100%;
-    flex-wrap: wrap;
-    align-content: center;
   }
 }

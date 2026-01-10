@@ -3,15 +3,17 @@
 import { useContext, useEffect } from "react"
 import Link from 'next/link';
 import { AuthContext } from '@/app/context/authContext';
+import { AppContext } from "@/app/context/appContext";
+
 
 const modulename = 'Navbar.jsx # ';
 
 export default function NavbarAdmin() {
-
-  const version = "NavbarAdmin.jsx Dec 26 2025, 1.00";
+  
+  const version = "NavbarAdmin.jsx jan 09 2026, 1.01";
   const {isUserLogged, getUser} = useContext(AuthContext);
+  const { setOnAdminPages } = useContext(AppContext); 
   let userstatus = isUserLogged();;
-  let user;
 
   useEffect(() => {
     console.log(`******************* ${userstatus}`);
