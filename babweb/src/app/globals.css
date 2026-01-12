@@ -1,9 +1,12 @@
 @import "tailwindcss";
-
+/* Variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
   --menuheight: 8rem;
+  --menutextsize: 1.6rem;
+  --footerheight: 4rem;
+  --footertextsize: 1rem;
 }
 
 @theme inline {
@@ -19,7 +22,9 @@
     --foreground: #ededed;
   }
 }
-
+/* ------------------------------------------------------------------------
+  Main page structure 
+------------------------------------------------------------------------*/
 body {
   background: var(--background);
   color: var(--foreground);
@@ -28,17 +33,97 @@ body {
 .body__container {
   @apply flex flex-col;
 }
+/* ------------------------------------------------------------------------
+  The menu section  
+  ------------------------------------------------------------------------*/
 .nav {
-  height: var(--menuheight);
-  top:0;
-  left: 0;
-  @apply fixed z-10 w-full bg-slate-50 
-  ;
-            
+  @apply 
+    hidden
+    z-10
+      sm:fixed 
+      sm:w-full
+      sm:top-0 
+      sm:left-0 
+      sm:h-[calc(var(--menuheight))]  
+      sm:flex 
+      sm:flex-row;
 }
-.nav__div {
-  @apply max-w-6xl mx-auto px-12 flex py-4;
+.topmenu {
+  @apply sm:flex sm:items-center
+    sm:justify-start sm:ml-auto
+    sm:bg-slate-800
+    sm:w-full;
 }
+.nav-links {
+  @apply sm:flex;
+}
+.nav-links ul {
+  @apply sm:flex sm:space-x-4 sm:ml-3 sm:justify-center;
+}
+.nav-links ul li {
+  @apply  text-white items-center text-[calc(var(--menutextsize))]
+    sm:list-none sm:mx-4 sm:my-2;
+} 
+.nav-links ul li a {
+        :hover {
+          color: white; 
+          ::after {
+            width: 100%;
+          }
+        }
+  @apply no-underline;
+}
+.nav-links ul li a::after {
+          content: '';
+          width: 0%;
+          height: 2px;
+          background: white;
+          display: block;
+          margin: auto;
+          transition: 0.5s;                    
+}
+.nav-links ul li a:hover::after {
+  color: white;
+  width: 100%;
+}
+/* ------------------------------------------------------------------------
+  Footer section
+------------------------------------------------------------------------ */
+.footer {
+  @apply 
+      text-center p-4 mt-8 z-10
+      sm:w-full 
+      sm:bg-slate-800 
+      sm:fixed
+      sm:bottom-0 sm:left-0
+      sm:h-[calc(var(--footerheight))]
+      sm:flex sm:flex-row sm:items-center 
+      sm:justify-center 
+      sm:text-[calc(var(--footertextsize))];
+}
+.footer ul {
+  @apply 
+   text-white
+    sm:flex 
+    sm:flex-grow 
+    sm:justify-center 
+    sm:items-center 
+    sm:gap-8;
+  }
+.footer__version {
+  @apply 
+    hidden
+    sm:ml-4
+    sm:block
+    sm:italic;
+} 
+.footer__pizzabox {
+  @apply block fixed bottom-0 right-0 mr-4 mb-4
+    sm:hidden;
+}
+/* ------------------------------------------------------------------------
+  Les news 
+------------------------------------------------------------------------ */
 .news {
   @apply w-full;
 }
@@ -51,6 +136,9 @@ body {
 .news__div--right {
   @apply text-right bg-white p-4 border-t border-t-zinc-300;
 }
+/* ------------------------------------------------------------------------
+  The page container 
+  ------------------------------------------------------------------------*/
 .page__container {
   margin-top: var(--menuheight);
   @apply mx-auto text-center w-[30rem]
@@ -58,16 +146,12 @@ body {
       md:w-[50rem]
       lg:w-[60rem];
 }
-.footer {
-  bottom: 0;
-  left: 0;
-  @apply fixed z-10 w-full 
-    text-center bg-white p-4 border-t border-t-zinc-300;
-}
 .form__label {
   @apply flex mb-2 text-gray-700 font-semibold;
 }
-/* Register page */
+/* ------------------------------------------------------------------------
+  Register page 
+------------------------------------------------------------------------*/
 .form__div {
   display: flex;
   justify-content: space-between;
@@ -83,7 +167,9 @@ body {
   display: grid;
   grid-template-columns:5fr 1fr 1fr;
 }
-
+/* ------------------------------------------------------------------------
+  Animations and transformations 
+------------------------------------------------------------------------*/
 @keyframes slideUp {
     0% { transform: translateY(-100%);}
     50%{transform: translateY(-50%);}
@@ -92,4 +178,53 @@ body {
 }
 .slide-up {
     animation: slideUp 1s ease-in-out;
+}
+/* ------------------------------------------------------------------------
+  svg section 
+  ------------------------------------------------------------------------*/
+.svg-green18 { 
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) saturate(100%) invert(75%) sepia(54%) saturate(7355%) hue-rotate(85deg) brightness(124%) contrast(119%);
+}
+.svg-red18 {
+  width: 18px;
+  height: 18px;
+  filter: invert(19%) sepia(96%) saturate(6102%) hue-rotate(357deg) brightness(98%) contrast(117%); 
+}
+
+.svg-blue18 {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(2790%) hue-rotate(236deg) brightness(86%) contrast(176%);
+}
+.svg-blue24 {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(2790%) hue-rotate(236deg) brightness(86%) contrast(176%);
+}
+.svg-blue32 {
+  width: 32px;
+  height: 32px;
+  filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(2790%) hue-rotate(236deg) brightness(86%) contrast(176%);
+}
+.svg-white24 {
+  width: 24px;
+  height: 24px;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(131deg) brightness(102%) contrast(102%);
+}
+.svg-white32 {
+  width: 32px;
+  height: 32px;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(131deg) brightness(102%) contrast(102%);
+}
+.svg-gray24 {
+  width: 24px;
+  height: 24px;
+  filter: invert(38%) sepia(4%) saturate(517%) hue-rotate(131deg) brightness(92%) contrast(87%);
+}
+.svg-gray32 {
+  width: 32px;
+  height: 32px;
+  filter: invert(38%) sepia(4%) saturate(517%) hue-rotate(131deg) brightness(92%) contrast(87%);
 }

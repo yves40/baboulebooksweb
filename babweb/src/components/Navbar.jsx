@@ -1,7 +1,7 @@
 "use client"
 
 import { useSelector } from 'react-redux'
-import { useContext, useState, useEffect } from "react"
+import { useContext, useState, useEffect, useRef } from "react"
 import { AuthContext } from '@/app/context/authContext';
 import { AppContext } from '@/app/context/appContext';
 import Link from 'next/link';
@@ -10,26 +10,36 @@ const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Jan 04 2026, 1.30";
+  const version = "Navbar.jsx Jan 10 2026, 1.31";
   const menustate = useSelector((state) => state.menuProperties);
-  const {getUser, isUserLogged} = useContext(AuthContext);
+  const {isUserLogged} = useContext(AuthContext);
   const { getNavigationstate, setOnAdminPages } = useContext(AppContext); 
   const adminpage = getNavigationstate().onAdminPages;
   const [userstatus, setUserstatus] = useState(false) // Not logged
+  const thenav = useRef(null);
 
   useEffect(() => {
     const userstate = isUserLogged();
     setUserstatus(userstate);
   }, [])
+  useEffect(() => {    
+    if(menustate.menustatus) {
+      thenav.current.style.display = "flex";
+    } else {
+      thenav.current.style.display = "flex"; // Should be none
+    }
+  }, [menustate.menustatus])
   
+
   return (
 
     // Look in globals.css for classes definitions
-      <nav className="nav">
+
+      <nav ref={thenav} className="nav">
         <div className="topmenu">
           <div className="nav-links">
             <ul>
-              <li><Link href="/" onClick={() => setOnAdminPages(false)}><img className="svg-bigwhite"  src="/svg/house-solid.svg" alt=""/></Link></li>
+              <li><Link href="/" onClick={() => setOnAdminPages(false)}><img className="svg-white32"  src="/svg/house-solid.svg" alt=""/></Link></li>
               {(userstatus && !adminpage) && 
               <>
                   <li><Link href="/bookshome">Livres</Link></li>

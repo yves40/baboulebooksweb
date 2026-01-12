@@ -25,7 +25,6 @@ const initialState =
             },
             toggleMenuStatus: (state, action) => {
                 state.menustatus = action.payload.menuvisible;
-                console.log(`Menu status changed to : ${state.menustatus}`);
             }
         }
     }
