@@ -24,7 +24,7 @@ function Footer() {
       <ul>
         <li className=" ml-4"><p >&copy;  {`${appctx.getVersion()}`}</p></li>
         <li className=" ml-auto mr-4">
-            <img onClick={toggleMenu} className="svg-bigwhite sm:hidden" 
+            <img onClick={toggleMenu} className="svg-bigwhite" 
                   src="/svg/bars-solid.svg" alt="" />
         </li>        
       </ul>

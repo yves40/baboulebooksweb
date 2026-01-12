@@ -26,7 +26,7 @@ export default function Navbar() {
     if(menustate.menustatus) {
       thenav.current.style.display = "flex";
     } else {
-      thenav.current.style.display = "none";
+      thenav.current.style.display = "flex"; // Should be none
     }
   }, [menustate.menustatus])
   

@@ -2,7 +2,7 @@
   Tout ce code est généré par npx
 --------------------------------------------------------------------------------------*/
 import "@/app/globals.css";
-import "../../../../public/css/sassglobals.css"
+// import "../../../../public/css/sassglobals.css"
 import NavbarBooks from "@/components/NavbarBooks";
 import { AuthProvider } from "@/app/context/authContext";
 import { AppProvider } from "@/app/context/appContext";
