@@ -39,7 +39,7 @@ export default function Navbar() {
         <div className="topmenu">
           <div className="nav-links">
             <ul>
-              <li><Link href="/" onClick={() => setOnAdminPages(false)}><img className="svg-bigwhite"  src="/svg/house-solid.svg" alt=""/></Link></li>
+              <li><Link href="/" onClick={() => setOnAdminPages(false)}><img className="svg-white32"  src="/svg/house-solid.svg" alt=""/></Link></li>
               {(userstatus && !adminpage) && 
               <>
                   <li><Link href="/bookshome">Livres</Link></li>

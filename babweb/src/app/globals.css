@@ -5,7 +5,8 @@
   --foreground: #171717;
   --menuheight: 8rem;
   --menutextsize: 1.6rem;
-  --footertextsize: 1.2rem;
+  --footerheight: 4rem;
+  --footertextsize: 1rem;
 }
 
 @theme inline {
@@ -36,14 +37,16 @@ body {
   The menu section  
   ------------------------------------------------------------------------*/
 .nav {
-  @apply z-10
-    sm:fixed 
-    sm:w-full
-    sm:top-0 
-    sm:left-0 
-    sm:h-[calc(var(--menuheight))]  
-    sm:flex 
-    sm:flex-row;
+  @apply 
+    hidden
+    z-10
+      sm:fixed 
+      sm:w-full
+      sm:top-0 
+      sm:left-0 
+      sm:h-[calc(var(--menuheight))]  
+      sm:flex 
+      sm:flex-row;
 }
 .topmenu {
   @apply sm:flex sm:items-center
@@ -84,23 +87,40 @@ body {
   width: 100%;
 }
 /* ------------------------------------------------------------------------
-  Les footer section
+  Footer section
 ------------------------------------------------------------------------ */
 .footer {
-  @apply w-full bg-slate-700 text-center p-4 mt-8 z-10 fixed text-white
-  sm:bottom-0 sm:left-0
-  sm:h-[calc(var(--menuheight))]
-  sm:flex sm:flex-row sm:items-center 
-  sm:justify-center 
-  sm:text-[calc(var(--footertextsize))];
+  @apply 
+      text-center p-4 mt-8 z-10
+      sm:w-full 
+      sm:bg-slate-800 
+      sm:fixed
+      sm:bottom-0 sm:left-0
+      sm:h-[calc(var(--footerheight))]
+      sm:flex sm:flex-row sm:items-center 
+      sm:justify-center 
+      sm:text-[calc(var(--footertextsize))];
 }
 .footer ul {
-  @apply sm:flex flex-grow sm:justify-center sm:items-center sm:gap-8;
-}
-.footer ul li {
-  @apply sm:list-none
-    sm:gap-4;
+  @apply 
+   text-white
+    sm:flex 
+    sm:flex-grow 
+    sm:justify-center 
+    sm:items-center 
+    sm:gap-8;
+  }
+.footer__version {
+  @apply 
+    hidden
+    sm:ml-4
+    sm:block
+    sm:italic;
 } 
+.footer__pizzabox {
+  @apply block fixed bottom-0 right-0 mr-4 mb-4
+    sm:hidden;
+}
 /* ------------------------------------------------------------------------
   Les news 
 ------------------------------------------------------------------------ */
@@ -162,34 +182,49 @@ body {
 /* ------------------------------------------------------------------------
   svg section 
   ------------------------------------------------------------------------*/
-.svgsmall-green { 
+.svg-green18 { 
   width: 18px;
   height: 18px;
   filter: brightness(0) saturate(100%) invert(75%) sepia(54%) saturate(7355%) hue-rotate(85deg) brightness(124%) contrast(119%);
 }
-.svgsmall-red {
+.svg-red18 {
   width: 18px;
   height: 18px;
   filter: invert(19%) sepia(96%) saturate(6102%) hue-rotate(357deg) brightness(98%) contrast(117%); 
 }
 
-.svgsmall-blue {
+.svg-blue18 {
   width: 18px;
   height: 18px;
   filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(2790%) hue-rotate(236deg) brightness(86%) contrast(176%);
 }
-.svgnormal-blue {
+.svg-blue24 {
   width: 24px;
   height: 24px;
   filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(2790%) hue-rotate(236deg) brightness(86%) contrast(176%);
 }
-.svg-smallwhite {
+.svg-blue32 {
+  width: 32px;
+  height: 32px;
+  filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(2790%) hue-rotate(236deg) brightness(86%) contrast(176%);
+}
+.svg-white24 {
   width: 24px;
   height: 24px;
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(131deg) brightness(102%) contrast(102%);
 }
-.svg-bigwhite {
+.svg-white32 {
   width: 32px;
   height: 32px;
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(131deg) brightness(102%) contrast(102%);
+}
+.svg-gray24 {
+  width: 24px;
+  height: 24px;
+  filter: invert(38%) sepia(4%) saturate(517%) hue-rotate(131deg) brightness(92%) contrast(87%);
+}
+.svg-gray32 {
+  width: 32px;
+  height: 32px;
+  filter: invert(38%) sepia(4%) saturate(517%) hue-rotate(131deg) brightness(92%) contrast(87%);
 }
