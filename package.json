@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "create-next-app": "^15.5.5",
+    "create-next-app": "^16.1.1",
     "install": "^0.13.0",
-    "next": "^15.5.5",
+    "next": "^16.1.1",
     "sass": "^1.97.1"
   }
 }
