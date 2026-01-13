@@ -24,6 +24,7 @@ const initialState =
                 state.useremail = "";
             },
             toggleMenuStatus: (state, action) => {
+                // console.log(`*********** ${action.payload.menuvisible}`);                
                 state.menustatus = action.payload.menuvisible;
             }
         }
