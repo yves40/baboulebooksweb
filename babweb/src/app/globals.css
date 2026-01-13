@@ -3,7 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --menuheight: 8rem;
+  --menuheight: 6rem;
   --menutextsize: 1.6rem;
   --footerheight: 4rem;
   --footertextsize: 1rem;
@@ -38,31 +38,69 @@ body {
   ------------------------------------------------------------------------*/
 .nav {
   @apply 
-    hidden
+    /* Mobile  */
+    fixed
+    top-0 left-0 w-full h-[100vh]
     z-10
+    /* Desktop */
       sm:fixed 
       sm:w-full
       sm:top-0 
       sm:left-0 
       sm:h-[calc(var(--menuheight))]  
       sm:flex 
-      sm:flex-row;
+      sm:flex-row
+      ;
 }
 .topmenu {
-  @apply sm:flex sm:items-center
-    sm:justify-start sm:ml-auto
+  @apply 
+    /* Mobile  */
+    w-full h-[100vh] flex flex-row items-center justify-between
+    /* Desktop */
+    sm:fixed 
+    sm:w-full
+    sm:top-0 
+    sm:left-0 
+    sm:h-[calc(var(--menuheight))]  
+    sm:flex
     sm:bg-slate-800
-    sm:w-full;
+    ;
 }
 .nav-links {
-  @apply sm:flex;
+  @apply 
+    /* Mobile  */
+    top-0 left-0 w-full h-[100vh]
+    flex flex-col items-center justify-center
+    /* Desktop */
+      sm:fixed
+      sm:top-0
+      sm:left-0
+      sm:w-full
+      sm:flex
+      sm:flex-row
+      sm:justify-start
+      sm:h-[calc(var(--menuheight))]
+      ;
 }
 .nav-links ul {
-  @apply sm:flex sm:space-x-4 sm:ml-3 sm:justify-center;
+  @apply 
+    /* Mobile  */
+    bg-amber-700
+    flex flex-col
+    /* Desktop */
+      sm:flex
+      sm:flex-row
+      sm:space-x-4 
+      ;
 }
 .nav-links ul li {
-  @apply  text-white items-center text-[calc(var(--menutextsize))]
-    sm:list-none sm:mx-4 sm:my-2;
+  @apply  
+    /* Mobile  */
+  text-white items-center text-[calc(var(--menutextsize))]
+    mx-4 my-4
+    /* Desktop */
+    sm:list-none 
+    sm:mx-4 sm:my-2;
 } 
 .nav-links ul li a {
         :hover {
@@ -226,5 +264,10 @@ body {
 .svg-gray32 {
   width: 32px;
   height: 32px;
+  filter: invert(38%) sepia(4%) saturate(517%) hue-rotate(131deg) brightness(92%) contrast(87%);
+}
+.svg-gray48 {
+  width: 48px;
+  height: 48px;
   filter: invert(38%) sepia(4%) saturate(517%) hue-rotate(131deg) brightness(92%) contrast(87%);
 }

@@ -57,8 +57,8 @@ export default function Navbar() {
               {!userstatus && 
               <>
                   <li><Link href="/bookshome">Livres</Link></li>
-                  <li ><Link className='hidden sm:block' href="/login">Connexion</Link></li>
-                  <li ><Link className='hidden sm:block' href="/register">S'enregister</Link></li>
+                  <li ><Link className=' sm:block' href="/login">Connexion</Link></li>
+                  <li ><Link className=' sm:block' href="/register">S'enregister</Link></li>
               </>}
             </ul>
           </div>
