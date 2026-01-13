@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --menubackground: #1d293d;
   --menuheight: 6rem;
   --menutextsize: 1.6rem;
   --footerheight: 4rem;
@@ -42,6 +43,7 @@ body {
     fixed
     top-0 left-0 w-full h-[100vh]
     z-10
+    backdrop-blur-xs
     /* Desktop */
       sm:fixed 
       sm:w-full
@@ -63,15 +65,16 @@ body {
     sm:left-0 
     sm:h-[calc(var(--menuheight))]  
     sm:flex
-    sm:bg-slate-800
     ;
 }
 .nav-links {
   @apply 
     /* Mobile  */
+    fixed 
     top-0 left-0 w-full h-[100vh]
     flex flex-col items-center justify-center
     /* Desktop */
+      sm:bg-[var(--menubackground)] 
       sm:fixed
       sm:top-0
       sm:left-0
@@ -85,8 +88,10 @@ body {
 .nav-links ul {
   @apply 
     /* Mobile  */
-    bg-amber-700
-    flex flex-col
+    bg-[var(--menubackground)] 
+    items-center justify-center
+    flex flex-col p-[20px] min-w-fit
+    border-0 rounded-2xl
     /* Desktop */
       sm:flex
       sm:flex-row
@@ -96,10 +101,9 @@ body {
 .nav-links ul li {
   @apply  
     /* Mobile  */
-  text-white items-center text-[calc(var(--menutextsize))]
-    mx-4 my-4
+  text-white text-[calc(var(--menutextsize))] text-left
+    mx-4 my-2
     /* Desktop */
-    sm:list-none 
     sm:mx-4 sm:my-2;
 } 
 .nav-links ul li a {
@@ -131,7 +135,7 @@ body {
   @apply 
       text-center p-4 mt-8 z-10
       sm:w-full 
-      sm:bg-slate-800 
+      sm:bg-[var(--menubackground)]
       sm:fixed
       sm:bottom-0 sm:left-0
       sm:h-[calc(var(--footerheight))]
