@@ -5,7 +5,7 @@ const initialState =
     {
         logged : false,
         useremail : "",
-        menustatus: false   // used to manage menu pop up on phones
+        menustatus: true   // used to manage menu pop up on phones
     }
     
     const logger = new Logger();
