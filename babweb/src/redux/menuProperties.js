@@ -29,7 +29,7 @@ const initialState =
                 state.menustatus = action.payload.menuvisible;
             },
             setActiveBreakpoint: (state, action) => {
-                console.log(`*********** tailwind mode :  ${action.payload.activebreakpoint}`);                
+                // console.log(`*********** tailwind mode :  ${action.payload.activebreakpoint}`);                
                 state.activebreakpoint = action.payload.activebreakpoint;
             }
         }
