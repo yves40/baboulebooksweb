@@ -43,7 +43,10 @@ export default function Navbar() {
       dispatch(setActiveBreakpoint({activebreakpoint: breakpoint}));
       if(breakpoint !== 'mobile') {
         thenav.current.style.display = "flex";
-        const dispatchObj =  dispatch(toggleMenuStatus({menuvisible: true}));    
+        dispatch(toggleMenuStatus({menuvisible: true}));    
+      }else {
+        thenav.current.style.display = "none";
+        dispatch(toggleMenuStatus({menuvisible: false}));  
       }
     }
     window.addEventListener('resize', updateSize);
