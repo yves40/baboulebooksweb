@@ -133,15 +133,15 @@ body {
 ------------------------------------------------------------------------ */
 .footer {
   @apply 
-      text-center p-4 mt-8 z-10
-      sm:w-full 
-      sm:bg-[var(--menubackground)]
-      sm:fixed
-      sm:bottom-0 sm:left-0
-      sm:h-[calc(var(--footerheight))]
-      sm:flex sm:flex-row sm:items-center 
-      sm:justify-center 
-      sm:text-[calc(var(--footertextsize))];
+      text-center p-4 mt-8 z-20
+      w-full 
+      bg-[var(--menubackground)]
+      fixed
+      bottom-0 left-0
+      h-[calc(var(--footerheight))]
+      flex flex-row items-center 
+      justify-center 
+      text-[calc(var(--footertextsize))];
 }
 .footer ul {
   @apply 
@@ -160,7 +160,8 @@ body {
     sm:italic;
 } 
 .footer__pizzabox {
-  @apply block fixed bottom-0 right-0 mr-4 mb-4
+  @apply block fixed bottom-0 right-0 mr-4 mb-2
+    ml-auto
     sm:hidden;
 }
 /* ------------------------------------------------------------------------
@@ -258,6 +259,11 @@ body {
 .svg-white32 {
   width: 32px;
   height: 32px;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(131deg) brightness(102%) contrast(102%);
+}
+.svg-white48 {
+  width: 48px;
+  height: 48px;
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(131deg) brightness(102%) contrast(102%);
 }
 .svg-gray24 {
