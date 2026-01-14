@@ -1,20 +1,25 @@
 "use client"
 
-import Link from "next/link"
 import { useContext, useState } from "react";
 import { AppContext } from "@/app/context/appContext"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenuStatus } from "@/redux/menuProperties"
 
 
 function Footer() {
 
-  const [menustatus, setMenustatus] = useState(false);
+  const menustate = useSelector((state) => state.menuProperties);
+  const [menustatus, setMenustatus] = useState(menustate.menustatus);
   const dispatch = useDispatch();
+
   
   function toggleMenu(e) {
     e.preventDefault();
-    setMenustatus(!menustatus);
+    if(menustatus) {
+      setMenustatus(false);
+    } else {
+      setMenustatus(true);
+    }
     const dispatchObj =  dispatch(toggleMenuStatus({menuvisible: menustatus}));    
   }
 
@@ -23,8 +28,8 @@ function Footer() {
     <footer className="footer">
       <ul>
         <li className="footer__version ml-4"><p >&copy;  {`${appctx.getVersion()}`}</p></li>
-        <li className="footer__pizzabox ml-auto mr-4">
-            <img className="svg-gray32" onClick={toggleMenu}
+        <li className="footer__pizzabox">
+            <img className="svg-white48" onClick={toggleMenu}
                   src="/svg/bars-solid.svg" alt="" />
         </li>        
       </ul>

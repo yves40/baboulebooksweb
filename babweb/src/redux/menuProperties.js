@@ -5,12 +5,13 @@ const initialState =
     {
         logged : false,
         useremail : "",
-        menustatus: false   // used to manage menu pop up on phones
+        menustatus: true,   // used to manage menu pop up on phones
+        activebreakpoint: "mobile"
     }
     
     const logger = new Logger();
     const menuSlice = createSlice(
-        {
+    {
         name: "menuProperties",
         initialState,
         reducers: 
@@ -24,11 +25,16 @@ const initialState =
                 state.useremail = "";
             },
             toggleMenuStatus: (state, action) => {
+                console.log(`*********** Menu visibility : ${action.payload.menuvisible}`);                
                 state.menustatus = action.payload.menuvisible;
+            },
+            setActiveBreakpoint: (state, action) => {
+                console.log(`*********** tailwind mode :  ${action.payload.activebreakpoint}`);                
+                state.activebreakpoint = action.payload.activebreakpoint;
             }
         }
     }
 )
-export const { loginUser, disconnectUser, toggleMenuStatus } = menuSlice.actions;
+export const { loginUser, disconnectUser, toggleMenuStatus, setActiveBreakpoint } = menuSlice.actions;
 export default menuSlice.reducer;
 

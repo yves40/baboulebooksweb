@@ -161,7 +161,7 @@ export default function page() {
             <li className='gridcols511 mt-4'>
               <span className=' mx-4'>Nombre total de livres</span>
               <span className=' text-red-700 mx-4'>{bookscount}</span>
-              <span className=' ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleBookselector}/></span>
+              <span className=' ml-4'><img className='svg-blue32' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleBookselector}/></span>
             </li>
             <div ref={bookselector} hidden className=' mx-4 my-2'>
               <InputText className=' mx-4' componentid="booktitle" label="Rechercher par le titre" parentHandler={setBooktitle} timeout={2000}> </InputText>
@@ -170,7 +170,7 @@ export default function page() {
             <li  className='gridcols511 mt-4'>
               <span className=' mx-4 '>Nombre d'auteurs</span>
               <span className=' text-red-700 mx-4'>{authorscount}</span>
-              <span className=' ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleAuthorselector}/></span>             
+              <span className=' ml-4'><img className='svg-blue32' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleAuthorselector}/></span>             
             </li>
             <div ref={authorselector} hidden className=' mx-4 my-2'>
               <InputText componentid="bookauthor" label="Rechercher par l'auteur (nom de famille)"  parentHandler={setBookauthor} timeout={2000}> </InputText>
@@ -179,7 +179,7 @@ export default function page() {
             <li  className='gridcols511 mt-4'>
               <span className=' mx-4'>Nombre d'éditeurs</span>
               <span className=' text-red-700 mx-4'>{editorscount}</span>
-              <span className=' ml-4'><img className='svgsmall-blue' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleEditorselector}/></span>
+              <span className=' ml-4'><img className='svg-blue32' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleEditorselector}/></span>
             </li>
             <div ref={editorselector} hidden className=' mx-4 my-2'>
               <InputText componentid="bookeditor" label="Rechercher par l'éditeur"  parentHandler={setBookeditor} timeout={2000}> </InputText>
