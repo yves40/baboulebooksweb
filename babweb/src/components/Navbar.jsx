@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useContext, useState, useEffect, useRef, useLayoutEffect } from "react"
 import { AuthContext } from '@/app/context/authContext';
 import { AppContext } from '@/app/context/appContext';
-import { toggleMenuStatus } from "@/redux/menuProperties"
+import { toggleMenuStatus, setActiveBreakpoint } from "@/redux/menuProperties"
 
 import Link from 'next/link';
 
@@ -39,12 +39,12 @@ export default function Navbar() {
   useLayoutEffect(() => {
     function updateSize() {
       setSize([window.innerWidth, window.innerHeight]);
-      console.log(`********** Windown size changed, width is now ${window.innerWidth}`); 
-      console.log(`********** Current active breakpoint is ${getActiveBreakpoint()}`);   
-      if(getActiveBreakpoint() !== 'mobile') {
+      const breakpoint= getActiveBreakpoint();
+      dispatch(setActiveBreakpoint({activebreakpoint: breakpoint}));
+      if(breakpoint !== 'mobile') {
         thenav.current.style.display = "flex";
         const dispatchObj =  dispatch(toggleMenuStatus({menuvisible: true}));    
-      }                
+      }
     }
     window.addEventListener('resize', updateSize);
     updateSize();
@@ -63,7 +63,7 @@ export default function Navbar() {
     } else {
         return 'mobile';
     }
-};
+  };
 
 
   return (
