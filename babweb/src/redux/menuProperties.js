@@ -25,11 +25,11 @@ const initialState =
                 state.useremail = "";
             },
             toggleMenuStatus: (state, action) => {
-                console.log(`*********** ${action.payload.menuvisible}`);                
+                console.log(`*********** Menu visibility : ${action.payload.menuvisible}`);                
                 state.menustatus = action.payload.menuvisible;
             },
             setActiveBreakpoint: (state, action) => {
-                console.log(`*********** ${action.payload.activebreakpoint}`);                
+                console.log(`*********** tailwind mode :  ${action.payload.activebreakpoint}`);                
                 state.activebreakpoint = action.payload.activebreakpoint;
             }
         }

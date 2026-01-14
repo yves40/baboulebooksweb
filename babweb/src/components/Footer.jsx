@@ -1,20 +1,25 @@
 "use client"
 
-import Link from "next/link"
 import { useContext, useState } from "react";
 import { AppContext } from "@/app/context/appContext"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenuStatus } from "@/redux/menuProperties"
 
 
 function Footer() {
 
-  const [menustatus, setMenustatus] = useState(false);
+  const menustate = useSelector((state) => state.menuProperties);
+  const [menustatus, setMenustatus] = useState(menustate.menustatus);
   const dispatch = useDispatch();
+
   
   function toggleMenu(e) {
     e.preventDefault();
-    setMenustatus(!menustatus);
+    if(menustatus) {
+      setMenustatus(false);
+    } else {
+      setMenustatus(true);
+    }
     const dispatchObj =  dispatch(toggleMenuStatus({menuvisible: menustatus}));    
   }
 
