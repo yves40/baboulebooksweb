@@ -1,35 +1,70 @@
 "use client"
 
-import { useSelector } from 'react-redux'
-import { useContext, useState, useEffect, useRef } from "react"
+import { useSelector, useDispatch } from 'react-redux'
+import { useContext, useState, useEffect, useRef, useLayoutEffect } from "react"
 import { AuthContext } from '@/app/context/authContext';
 import { AppContext } from '@/app/context/appContext';
+import { toggleMenuStatus } from "@/redux/menuProperties"
+
 import Link from 'next/link';
 
 const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Jan 10 2026, 1.31";
+  const version = "Navbar.jsx Jan 14 2026, 1.34";
   const menustate = useSelector((state) => state.menuProperties);
   const {isUserLogged} = useContext(AuthContext);
   const { getNavigationstate, setOnAdminPages } = useContext(AppContext); 
   const adminpage = getNavigationstate().onAdminPages;
   const [userstatus, setUserstatus] = useState(false) // Not logged
   const thenav = useRef(null);
+  const [size, setSize] = useState([0, 0]);
+  const dispatch = useDispatch();
 
+  // On component mount, check if user is logged
   useEffect(() => {
     const userstate = isUserLogged();
     setUserstatus(userstate);
   }, [])
+  // Show or hide menu based on menustatus in redux store
   useEffect(() => {    
     if(menustate.menustatus) {
       thenav.current.style.display = "flex";
     } else {
-      thenav.current.style.display = "flex"; // Should be none
+      thenav.current.style.display = "none";
     }
   }, [menustate.menustatus])
-  
+  // Handle window resize to get current size
+  useLayoutEffect(() => {
+    function updateSize() {
+      setSize([window.innerWidth, window.innerHeight]);
+      console.log(`********** Windown size changed, width is now ${window.innerWidth}`); 
+      console.log(`********** Current active breakpoint is ${getActiveBreakpoint()}`);   
+      if(getActiveBreakpoint() !== 'mobile') {
+        thenav.current.style.display = "flex";
+        const dispatchObj =  dispatch(toggleMenuStatus({menuvisible: true}));    
+      }                
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+  // Determine active breakpoint, based on tailwind standard definitions
+  function getActiveBreakpoint() {
+    if (window.matchMedia('(min-width: 1280px)').matches) {
+        return 'xl';
+    } else if (window.matchMedia('(min-width: 1024px)').matches) {
+        return 'lg';
+    } else if (window.matchMedia('(min-width: 768px)').matches) {
+        return 'md';
+    } else if (window.matchMedia('(min-width: 640px)').matches) {
+        return 'sm';
+    } else {
+        return 'mobile';
+    }
+};
+
 
   return (
 
