@@ -31,7 +31,11 @@ export default function Navbar() {
   useEffect(() => {    
     if(menustate.menustatus) {
       thenav.current.style.display = "flex";
+      thenav.current.classList.add("slide-right-in");
+      thenav.current.classList.remove("slide-right-out");
     } else {
+      thenav.current.classList.remove("slide-right-in");
+      thenav.current.classList.add("slide-right-out");
       thenav.current.style.display = "none";
     }
   }, [menustate.menustatus])
@@ -73,7 +77,7 @@ export default function Navbar() {
 
     // Look in globals.css for classes definitions
 
-      <nav ref={thenav} className="nav">
+      <nav ref={thenav} className="nav slideRightIn">
         <div className="topmenu">
           <div className="nav-links">
             <ul>

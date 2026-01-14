@@ -17,10 +17,11 @@ function Footer() {
     e.preventDefault();
     if(menustatus) {
       setMenustatus(false);
+      dispatch(toggleMenuStatus({menuvisible: false}));    
     } else {
       setMenustatus(true);
+      dispatch(toggleMenuStatus({menuvisible: true}));    
     }
-    const dispatchObj =  dispatch(toggleMenuStatus({menuvisible: menustatus}));    
   }
 
   const appctx = useContext(AppContext);

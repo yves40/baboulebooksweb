@@ -281,3 +281,18 @@ body {
   height: 48px;
   filter: invert(38%) sepia(4%) saturate(517%) hue-rotate(131deg) brightness(92%) contrast(87%);
 }
+/* Animations and transformations */
+@keyframes slideRightIn {
+  0% {transform: translateX(-100%);} 
+  100% {transform: translateX(0%);}		
+}
+@keyframes slideRightOut {
+  0% {transform: translateX(0%);} 
+  100% {transform: translateX(-100%);}		
+}
+.slide-right-in {
+  animation: slideRightIn 0.5s ease-in-out;
+}
+.slide-right-out {
+  animation: slideRightOut 0.5s ease-in-out;
+}
