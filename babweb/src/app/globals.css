@@ -40,8 +40,10 @@ body {
 .nav {
   @apply 
     /* Mobile  */
-    fixed
-    top-0 left-0 w-full h-[100vh]
+    absolute
+    top-0 left-0 
+    ml-[-100%]
+    w-full h-[100vh]
     z-10
     backdrop-blur-xs
     /* Desktop */
@@ -292,6 +294,7 @@ body {
 }
 .slide-right-in {
   animation: slideRightIn 0.5s ease-in-out;
+  margin-left: 0;
 }
 .slide-right-out {
   animation: slideRightOut 0.5s ease-in-out;

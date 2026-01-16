@@ -30,13 +30,12 @@ export default function Navbar() {
   // Show or hide menu based on menustatus in redux store
   useEffect(() => {    
     if(menustate.menustatus) {
-      thenav.current.style.display = "flex";
-      thenav.current.classList.add("slide-right-in");
       thenav.current.classList.remove("slide-right-out");
+      thenav.current.classList.add("slide-right-in");
     } else {
       thenav.current.classList.remove("slide-right-in");
       thenav.current.classList.add("slide-right-out");
-      thenav.current.style.display = "none";
+      // thenav.current.style.display = "none";
     }
   }, [menustate.menustatus])
   // Handle window resize to get current size
@@ -49,7 +48,7 @@ export default function Navbar() {
         thenav.current.style.display = "flex";
         dispatch(toggleMenuStatus({menuvisible: true}));    
       }else {
-        thenav.current.style.display = "none";
+        // thenav.current.style.display = "none";
         dispatch(toggleMenuStatus({menuvisible: false}));  
       }
     }
@@ -77,7 +76,7 @@ export default function Navbar() {
 
     // Look in globals.css for classes definitions
 
-      <nav ref={thenav} className="nav slideRightIn">
+      <nav ref={thenav} className="nav">
         <div className="topmenu">
           <div className="nav-links">
             <ul>
