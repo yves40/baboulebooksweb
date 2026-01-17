@@ -9,19 +9,12 @@ import { toggleMenuStatus } from "@/redux/menuProperties"
 function Footer() {
 
   const menustate = useSelector((state) => state.menuProperties);
-  const [menustatus, setMenustatus] = useState(menustate.menustatus);
   const dispatch = useDispatch();
-
+  let menustatus = menustate.menustatus;
   
   function toggleMenu(e) {
-    e.preventDefault();
-    if(menustatus) {
-      setMenustatus(false);
-      dispatch(toggleMenuStatus({menuvisible: false}));    
-    } else {
-      setMenustatus(true);
-      dispatch(toggleMenuStatus({menuvisible: true}));    
-    }
+    dispatch(toggleMenuStatus({menuvisible: !menustatus}));
+    menustatus = !menustatus;
   }
 
   const appctx = useContext(AppContext);
