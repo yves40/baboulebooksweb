@@ -25,7 +25,7 @@ const initialState =
                 state.useremail = "";
             },
             toggleMenuStatus: (state, action) => {
-                console.log(`*********** Menu visibility : ${action.payload.menuvisible}`);                
+                // console.log(`*********** Menu visibility : ${action.payload.menuvisible}`);                
                 state.menustatus = action.payload.menuvisible;
             },
             setActiveBreakpoint: (state, action) => {
