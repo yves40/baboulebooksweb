@@ -26,6 +26,7 @@ export default function Navbar() {
   useEffect(() => {
     const userstate = isUserLogged();
     setUserstatus(userstate);
+    
   }, [])
   // Show or hide menu based on menustatus in redux store
   useEffect(() => {    
@@ -35,20 +36,18 @@ export default function Navbar() {
     } else {
       thenav.current.classList.remove("slide-right-in");
       thenav.current.classList.add("slide-right-out");
-      // thenav.current.style.display = "none";
     }
   }, [menustate.menustatus])
   // Handle window resize to get current size
   useLayoutEffect(() => {
     function updateSize() {
       setSize([window.innerWidth, window.innerHeight]);
-      const breakpoint= getActiveBreakpoint();
+      const breakpoint = getActiveBreakpoint();
       dispatch(setActiveBreakpoint({activebreakpoint: breakpoint}));
       if(breakpoint !== 'mobile') {
-        thenav.current.style.display = "flex";
+        // thenav.current.style.display = "flex";
         dispatch(toggleMenuStatus({menuvisible: true}));    
       }else {
-        // thenav.current.style.display = "none";
         dispatch(toggleMenuStatus({menuvisible: false}));  
       }
     }
@@ -70,42 +69,45 @@ export default function Navbar() {
         return 'mobile';
     }
   };
-
+  // When clicking on a menu link, close the menu if in mobile mode
+  function clickMenuLink(e) {
+    if(menustate.activebreakpoint === 'mobile') {
+      dispatch(toggleMenuStatus({menuvisible: false}));  
+    }
+  }
 
   return (
-
     // Look in globals.css for classes definitions
-
-      <nav ref={thenav} className="nav">
-        <div className="topmenu">
-          <div className="nav-links">
-            <ul>
-              <li><Link href="/" onClick={() => setOnAdminPages(false)}><img className="svg-white32"  src="/svg/house-solid.svg" alt=""/></Link></li>
-              {(userstatus && !adminpage) && 
-              <>
-                  <li><Link href="/bookshome">Livres</Link></li>
-                  <li><Link href="/adminhome" onClick={() => setOnAdminPages(true)}>Administrer</Link></li>
-                  <li><Link href="/logout">Déconnexion</Link></li>
-                  <li><p>{menustate.useremail}</p></li>
-              </>}
-              {(userstatus && adminpage) && 
-              <>
-                <li><Link href="/adminbooks">Gérer les livres</Link></li>
-                <li><Link href="/adminusers" >Gérer les utilisateurs</Link></li>
-                  <li><Link href="/logout">Déconnexion</Link></li>
-                  <li><p>{menustate.useremail}</p></li>
-              </>}
-              {!userstatus && 
-              <>
-                  <li><Link href="/bookshome">Livres</Link></li>
-                  <li ><Link className=' sm:block' href="/login">Connexion</Link></li>
-                  <li ><Link className=' sm:block' href="/register">S'enregister</Link></li>
-              </>}
-            </ul>
-          </div>
-
+    <nav ref={thenav} className="nav" onClick={clickMenuLink}>
+      <div className="topmenu">
+        <div className="nav-links">
+          <ul>
+            <li><Link href="/" onClick={() => setOnAdminPages(false)}><img className="svg-white32"  src="/svg/house-solid.svg" alt=""/></Link></li>
+            {(userstatus && !adminpage) && 
+            <>
+                <li><Link href="/bookshome">Livres</Link></li>
+                <li><Link href="/adminhome" onClick={() => setOnAdminPages(true)}>Administrer</Link></li>
+                <li><Link href="/logout">Déconnexion</Link></li>
+                <li><p>{menustate.useremail}</p></li>
+            </>}
+            {(userstatus && adminpage) && 
+            <>
+              <li><Link href="/adminbooks">Gérer les livres</Link></li>
+              <li><Link href="/adminusers" >Gérer les utilisateurs</Link></li>
+                <li><Link href="/logout">Déconnexion</Link></li>
+                <li><p>{menustate.useremail}</p></li>
+            </>}
+            {!userstatus && 
+            <>
+                <li><Link href="/bookshome">Livres</Link></li>
+                <li ><Link className=' sm:block' href="/login">Connexion</Link></li>
+                <li ><Link className=' sm:block' href="/register">S'enregister</Link></li>
+            </>}
+          </ul>
         </div>
-      </nav>
+
+      </div>
+    </nav>
   )
 }
 
