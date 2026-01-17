@@ -12,14 +12,13 @@ const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Jan 14 2026, 1.34";
+  const version = "Navbar.jsx Jan 17 2026, 1.35";
   const menustate = useSelector((state) => state.menuProperties);
   const {isUserLogged} = useContext(AuthContext);
   const { getNavigationstate, setOnAdminPages } = useContext(AppContext); 
   const adminpage = getNavigationstate().onAdminPages;
   const [userstatus, setUserstatus] = useState(false) // Not logged
   const thenav = useRef(null);
-  const [size, setSize] = useState([0, 0]);
   const dispatch = useDispatch();
 
   // On component mount, check if user is logged
@@ -30,22 +29,26 @@ export default function Navbar() {
   }, [])
   // Show or hide menu based on menustatus in redux store
   useEffect(() => {    
-    if(menustate.menustatus) {
-      thenav.current.classList.remove("slide-right-out");
-      thenav.current.classList.add("slide-right-in");
-    } else {
+    if(menustate.activebreakpoint === 'mobile') {
+      if(menustate.menustatus) {
+        thenav.current.classList.remove("slide-right-out");
+        thenav.current.classList.add("slide-right-in");
+      } else {
+        thenav.current.classList.remove("slide-right-in");
+        thenav.current.classList.add("slide-right-out");
+      }
+    }
+    else {
       thenav.current.classList.remove("slide-right-in");
-      thenav.current.classList.add("slide-right-out");
+      thenav.current.classList.remove("slide-right-out");
     }
   }, [menustate.menustatus])
   // Handle window resize to get current size
   useLayoutEffect(() => {
     function updateSize() {
-      setSize([window.innerWidth, window.innerHeight]);
       const breakpoint = getActiveBreakpoint();
       dispatch(setActiveBreakpoint({activebreakpoint: breakpoint}));
       if(breakpoint !== 'mobile') {
-        // thenav.current.style.display = "flex";
         dispatch(toggleMenuStatus({menuvisible: true}));    
       }else {
         dispatch(toggleMenuStatus({menuvisible: false}));  
@@ -69,7 +72,7 @@ export default function Navbar() {
         return 'mobile';
     }
   };
-  // When clicking on a menu link, close the menu if in mobile mode
+  // When clicking on a menu link or anywhere on screen, close the menu if in mobile mode
   function clickMenuLink(e) {
     if(menustate.activebreakpoint === 'mobile') {
       dispatch(toggleMenuStatus({menuvisible: false}));  
