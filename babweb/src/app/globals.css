@@ -48,6 +48,7 @@ body {
     backdrop-blur-xs
     /* Desktop */
       sm:fixed 
+      sm:ml-[0%]
       sm:w-full
       sm:top-0 
       sm:left-0 
