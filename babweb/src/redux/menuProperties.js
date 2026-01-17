@@ -6,7 +6,7 @@ const initialState =
         logged : false,
         useremail : "",
         menustatus: true,   // used to manage menu pop up on phones
-        activebreakpoint: "mobile"
+        activebreakpoint: "unknown"
     }
     
     const logger = new Logger();
@@ -25,7 +25,7 @@ const initialState =
                 state.useremail = "";
             },
             toggleMenuStatus: (state, action) => {
-                // console.log(`*********** Menu visibility : ${action.payload.menuvisible}`);                
+                console.log(`*********** Menu visibility : ${action.payload.menuvisible}`);                
                 state.menustatus = action.payload.menuvisible;
             },
             setActiveBreakpoint: (state, action) => {
