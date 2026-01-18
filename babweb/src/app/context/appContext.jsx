@@ -10,7 +10,7 @@ import { createContext, useEffect, useState } from "react";
 export const AppContext =createContext();
 export function AppProvider({children}) {
   
-  const version = 'baboulebooks, Jan 17 2026 : 1.58';
+  const version = 'baboulebooks, Jan 18 2026 : 1.59';
   const [navigationstate, setNavigationstate] = useState({
     onAdminPages: false,
   });

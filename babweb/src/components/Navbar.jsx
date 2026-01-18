@@ -7,12 +7,16 @@ import { AppContext } from '@/app/context/appContext';
 import { toggleMenuStatus, setActiveBreakpoint } from "@/redux/menuProperties"
 
 import Link from 'next/link';
+import NavbarAdmin from './NavbarAdmin';
+import NavbarBooks from './NavbarBooks';
+import NavbarLogged from './NavbarLogged';
+import NavbarNotLogged from './NavbarNotLogged';
 
 const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Jan 17 2026, 1.35";
+  const version = "Navbar.jsx Jan 17 2026, 1.36";
   const menustate = useSelector((state) => state.menuProperties);
   const {isUserLogged} = useContext(AuthContext);
   const { getNavigationstate, setOnAdminPages } = useContext(AppContext); 
@@ -85,27 +89,22 @@ export default function Navbar() {
       <div className="topmenu">
         <div className="nav-links">
           <ul>
-            <li><Link href="/" onClick={() => setOnAdminPages(false)}><img className="svg-white32"  src="/svg/house-solid.svg" alt=""/></Link></li>
-            {(userstatus && !adminpage) && 
-            <>
-                <li><Link href="/bookshome">Livres</Link></li>
-                <li><Link href="/adminhome" onClick={() => setOnAdminPages(true)}>Administrer</Link></li>
-                <li><Link href="/logout">Déconnexion</Link></li>
-                <li><p>{menustate.useremail}</p></li>
-            </>}
-            {(userstatus && adminpage) && 
-            <>
-              <li><Link href="/adminbooks">Gérer les livres</Link></li>
-              <li><Link href="/adminusers" >Gérer les utilisateurs</Link></li>
-                <li><Link href="/logout">Déconnexion</Link></li>
-                <li><p>{menustate.useremail}</p></li>
-            </>}
+            <li><Link href="/" onClick={() => setOnAdminPages(false)}>
+                              <img className="svg-white32"  
+                              src="/svg/house-solid.svg" alt=""/></Link></li>
+            <li><Link href="/bookshome">Livres</Link></li>
+            {userstatus && 
+              <>
+                <NavbarAdmin />
+                <NavbarBooks />
+                <NavbarLogged />
+              </>
+            } 
             {!userstatus && 
             <>
-                <li><Link href="/bookshome">Livres</Link></li>
-                <li ><Link className=' sm:block' href="/login">Connexion</Link></li>
-                <li ><Link className=' sm:block' href="/register">S'enregister</Link></li>
-            </>}
+                <NavbarNotLogged />
+            </>
+            }
           </ul>
         </div>
 
