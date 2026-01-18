@@ -31,7 +31,6 @@ export default function page() {
   // Authentication context access
   const {setUser, setSession} = getAuthContext();
   const dispatch = useDispatch();
-  const { refreshNavbar } =  AppContext;
   const logger = new Logger();
 
   useEffect(() => {
@@ -87,11 +86,7 @@ export default function page() {
       setUser(loggeduser);
       setSession(session);
       submitButton.current.disabled = false;
-      const dispatchObj =  dispatch(loginUser({useremail: loggeduser.getEmail()}));
-      
-      // refreshNavbar();
-      // Redirect to home page
-      //
+      dispatch(loginUser({useremail: loggeduser.getEmail()}));
       router.push('/');
     }
     catch(error) {
