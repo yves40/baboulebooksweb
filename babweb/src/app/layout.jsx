@@ -6,6 +6,7 @@ import { AuthProvider } from "@/app/context/authContext";
 import { AppProvider } from "@/app/context/appContext";
 import Providers from "@/app/providers";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "BabouleBooks",
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
                 {children}
               </main>
             </AuthProvider>
+            <Footer />
           </AppProvider>
         </Providers>
       </body>
