@@ -12,40 +12,45 @@ const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Jan 14 2026, 1.34";
+  const version = "Navbar.jsx Jan 17 2026, 1.35";
   const menustate = useSelector((state) => state.menuProperties);
   const {isUserLogged} = useContext(AuthContext);
   const { getNavigationstate, setOnAdminPages } = useContext(AppContext); 
   const adminpage = getNavigationstate().onAdminPages;
   const [userstatus, setUserstatus] = useState(false) // Not logged
   const thenav = useRef(null);
-  const [size, setSize] = useState([0, 0]);
   const dispatch = useDispatch();
 
   // On component mount, check if user is logged
   useEffect(() => {
     const userstate = isUserLogged();
     setUserstatus(userstate);
+    
   }, [])
   // Show or hide menu based on menustatus in redux store
   useEffect(() => {    
-    if(menustate.menustatus) {
-      thenav.current.style.display = "flex";
-    } else {
-      thenav.current.style.display = "none";
+    if(menustate.activebreakpoint === 'mobile') {
+      if(menustate.menustatus) {
+        thenav.current.classList.remove("slide-right-out");
+        thenav.current.classList.add("slide-right-in");
+      } else {
+        thenav.current.classList.remove("slide-right-in");
+        thenav.current.classList.add("slide-right-out");
+      }
+    }
+    else {
+      thenav.current.classList.remove("slide-right-in");
+      thenav.current.classList.remove("slide-right-out");
     }
   }, [menustate.menustatus])
   // Handle window resize to get current size
   useLayoutEffect(() => {
     function updateSize() {
-      setSize([window.innerWidth, window.innerHeight]);
-      const breakpoint= getActiveBreakpoint();
+      const breakpoint = getActiveBreakpoint();
       dispatch(setActiveBreakpoint({activebreakpoint: breakpoint}));
       if(breakpoint !== 'mobile') {
-        thenav.current.style.display = "flex";
         dispatch(toggleMenuStatus({menuvisible: true}));    
       }else {
-        thenav.current.style.display = "none";
         dispatch(toggleMenuStatus({menuvisible: false}));  
       }
     }
@@ -67,42 +72,45 @@ export default function Navbar() {
         return 'mobile';
     }
   };
-
+  // When clicking on a menu link or anywhere on screen, close the menu if in mobile mode
+  function clickMenuLink(e) {
+    if(menustate.activebreakpoint === 'mobile') {
+      dispatch(toggleMenuStatus({menuvisible: false}));  
+    }
+  }
 
   return (
-
     // Look in globals.css for classes definitions
-
-      <nav ref={thenav} className="nav">
-        <div className="topmenu">
-          <div className="nav-links">
-            <ul>
-              <li><Link href="/" onClick={() => setOnAdminPages(false)}><img className="svg-white32"  src="/svg/house-solid.svg" alt=""/></Link></li>
-              {(userstatus && !adminpage) && 
-              <>
-                  <li><Link href="/bookshome">Livres</Link></li>
-                  <li><Link href="/adminhome" onClick={() => setOnAdminPages(true)}>Administrer</Link></li>
-                  <li><Link href="/logout">Déconnexion</Link></li>
-                  <li><p>{menustate.useremail}</p></li>
-              </>}
-              {(userstatus && adminpage) && 
-              <>
-                <li><Link href="/adminbooks">Gérer les livres</Link></li>
-                <li><Link href="/adminusers" >Gérer les utilisateurs</Link></li>
-                  <li><Link href="/logout">Déconnexion</Link></li>
-                  <li><p>{menustate.useremail}</p></li>
-              </>}
-              {!userstatus && 
-              <>
-                  <li><Link href="/bookshome">Livres</Link></li>
-                  <li ><Link className=' sm:block' href="/login">Connexion</Link></li>
-                  <li ><Link className=' sm:block' href="/register">S'enregister</Link></li>
-              </>}
-            </ul>
-          </div>
-
+    <nav ref={thenav} className="nav" onClick={clickMenuLink}>
+      <div className="topmenu">
+        <div className="nav-links">
+          <ul>
+            <li><Link href="/" onClick={() => setOnAdminPages(false)}><img className="svg-white32"  src="/svg/house-solid.svg" alt=""/></Link></li>
+            {(userstatus && !adminpage) && 
+            <>
+                <li><Link href="/bookshome">Livres</Link></li>
+                <li><Link href="/adminhome" onClick={() => setOnAdminPages(true)}>Administrer</Link></li>
+                <li><Link href="/logout">Déconnexion</Link></li>
+                <li><p>{menustate.useremail}</p></li>
+            </>}
+            {(userstatus && adminpage) && 
+            <>
+              <li><Link href="/adminbooks">Gérer les livres</Link></li>
+              <li><Link href="/adminusers" >Gérer les utilisateurs</Link></li>
+                <li><Link href="/logout">Déconnexion</Link></li>
+                <li><p>{menustate.useremail}</p></li>
+            </>}
+            {!userstatus && 
+            <>
+                <li><Link href="/bookshome">Livres</Link></li>
+                <li ><Link className=' sm:block' href="/login">Connexion</Link></li>
+                <li ><Link className=' sm:block' href="/register">S'enregister</Link></li>
+            </>}
+          </ul>
         </div>
-      </nav>
+
+      </div>
+    </nav>
   )
 }
 
