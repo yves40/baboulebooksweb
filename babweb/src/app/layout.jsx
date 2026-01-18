@@ -5,12 +5,13 @@ import "@/app/globals.css";
 import { AuthProvider } from "@/app/context/authContext";
 import { AppProvider } from "@/app/context/appContext";
 import Providers from "@/app/providers";
+import Navbar from "@/components/Navbar";
 
 export const metadata = {
   title: "BabouleBooks",
   description: "Petit outil de vérification pour baboule",
 };
-const version = "Root Layout Jan 06 2026, 1.31";
+const version = "Root Layout Jan 18 2026, 1.32";
 /*--------------------------------------------------------------------------------------
   Section d'où tout se construit !
 --------------------------------------------------------------------------------------*/
@@ -22,8 +23,8 @@ export default function RootLayout({ children }) {
         <Providers>
           <AppProvider>
             <AuthProvider>
+              <Navbar />
               <main className="page__container">
-                <h1 className=" text-sm font-bold text-black">{version}</h1>
                 {children}
               </main>
             </AuthProvider>

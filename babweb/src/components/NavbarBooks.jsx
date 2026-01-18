@@ -12,7 +12,7 @@ export default function NavbarBooks() {
       
   return (
     <>
-        <li><a href="/bookshome">Recherches</a></li>
+        <li><a href="/bookshome">Livres</a></li>
         <li><a href="/authors">Top auteurs</a></li>
         <li><a href="/editors">Top éditeurs</a></li>
     </>

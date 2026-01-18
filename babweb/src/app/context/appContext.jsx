@@ -11,27 +11,26 @@ export const AppContext =createContext();
 export function AppProvider({children}) {
   
   const version = 'baboulebooks, Jan 18 2026 : 1.59';
-  const [navigationstate, setNavigationstate] = useState({
-    onAdminPages: false,
-  });
+  const [applicationSection, setApplicationSection] = useState('public');
 
   useEffect(() => {
   }, []);
 
   function getVersion() {return version;}
-  function setOnAdminPages(value) {
-    setNavigationstate((prevState) => ({
+  // Track the appliation activiy to set menu
+  function setApplicationMode(value) {
+    setApplicationSection((prevState) => ({
       ...prevState,
-      onAdminPages: value,
+      setion: value,
     }));
   }
-  function getNavigationstate() {
-    return navigationstate;
+  function getApplicationMode() {
+    return applicationSection;
   }
   return (
     <AppContext.Provider value={
         {
-          getVersion, getNavigationstate, setOnAdminPages
+          getVersion, getApplicationMode, setApplicationMode
         }
       }>
       {children}
