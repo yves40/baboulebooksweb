@@ -26,7 +26,7 @@ export default function Navbar() {
   useEffect(() => {
     const userstate = isUserLogged();
     setUserstatus(userstate);
-    
+    dispatch(setAppStatus({appstatus: 'mainmenu'}))
   }, [])
   // Show or hide menu based on menustatus in redux store
   useEffect(() => {    
@@ -86,7 +86,7 @@ export default function Navbar() {
       <div className="topmenu">
         <div className="nav-links">
           <ul>
-            <li><Link href="/" onClick={() => dispatch(setAppStatus({appstatus: 'public'}))}>
+            <li><Link href="/" onClick={() => dispatch(setAppStatus({appstatus: 'mainmenu'}))}>
                               <img className="svg-white32"  
                               src="/svg/house-solid.svg" alt=""/></Link></li>
             <NavbarBooks />

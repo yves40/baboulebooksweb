@@ -11,10 +11,6 @@ export default function NavbarBooks() {
   const version = "NavbarBooks.jsx Jan 18 2026, 1.01";
   const menustate = useSelector((state) => state.menuProperties);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setAppStatus({appstatus: 'booksmenu'}));
-  }, [])
   
   return (
     <>
