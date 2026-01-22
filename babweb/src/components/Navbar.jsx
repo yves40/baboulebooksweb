@@ -3,8 +3,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useContext, useState, useEffect, useRef, useLayoutEffect } from "react"
 import { AuthContext } from '@/app/context/authContext';
-import { AppContext } from '@/app/context/appContext';
-import { toggleMenuStatus, setActiveBreakpoint } from "@/redux/menuProperties"
+import { toggleMenuStatus, setActiveBreakpoint, setAppStatus } from "@/redux/menuProperties"
 
 import Link from 'next/link';
 import NavbarAdmin from './NavbarAdmin';
@@ -19,7 +18,6 @@ export default function Navbar() {
   const version = "Navbar.jsx Jan 17 2026, 1.36";
   const menustate = useSelector((state) => state.menuProperties);
   const {isUserLogged} = useContext(AuthContext);
-  const { getApplicationMode, setApplicationMode } = useContext(AppContext); 
   const [userstatus, setUserstatus] = useState(false) // Not logged
   const thenav = useRef(null);
   const dispatch = useDispatch();
@@ -88,7 +86,7 @@ export default function Navbar() {
       <div className="topmenu">
         <div className="nav-links">
           <ul>
-            <li><Link href="/" onClick={() => setApplicationMode('public')}>
+            <li><Link href="/" onClick={() => dispatch(setAppStatus({appstatus: 'public'}))}>
                               <img className="svg-white32"  
                               src="/svg/house-solid.svg" alt=""/></Link></li>
             <NavbarBooks />

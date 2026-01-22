@@ -6,10 +6,10 @@ const initialState =
         logged : false,
         useremail : "",
         menustatus: true,   // used to manage menu pop up on phones
-        activebreakpoint: "unknown"
+        appstatus: "public", // public, user, admin, admindetails, adminbooks, adminusers
+        activebreakpoint: "unknown",        
     }
     
-    const logger = new Logger();
     const menuSlice = createSlice(
     {
         name: "menuProperties",
@@ -25,16 +25,19 @@ const initialState =
                 state.useremail = "";
             },
             toggleMenuStatus: (state, action) => {
-                console.log(`*********** Menu visibility : ${action.payload.menuvisible}`);                
                 state.menustatus = action.payload.menuvisible;
             },
             setActiveBreakpoint: (state, action) => {
                 // console.log(`*********** tailwind mode :  ${action.payload.activebreakpoint}`);                
                 state.activebreakpoint = action.payload.activebreakpoint;
+            },
+            setAppStatus: (state, action) => {
+                console.log(`*********** Application status : ${action.payload.appstatus}`);                
+                state.appstatus = action.payload.appstatus;
             }
         }
     }
 )
-export const { loginUser, disconnectUser, toggleMenuStatus, setActiveBreakpoint } = menuSlice.actions;
+export const { loginUser, disconnectUser, toggleMenuStatus, setActiveBreakpoint, setAppStatus } = menuSlice.actions;
 export default menuSlice.reducer;
 
