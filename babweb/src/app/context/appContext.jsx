@@ -10,7 +10,7 @@ import { createContext, useEffect, useState } from "react";
 export const AppContext =createContext();
 export function AppProvider({children}) {
   
-  const version = 'baboulebooks, Jan 18 2026 : 1.59';
+  const version = 'baboulebooks, Jan 22 2026 : 1.60';
   const [applicationSection, setApplicationSection] = useState('public');
 
   useEffect(() => {

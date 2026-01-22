@@ -92,13 +92,13 @@ export default function Navbar() {
                               <img className="svg-white32"  
                               src="/svg/house-solid.svg" alt=""/></Link></li>
             <NavbarBooks />
-            {userstatus && 
+            {menustate.logged && 
               <>
                 <NavbarAdmin />
                 <NavbarLogged />
               </>
             } 
-            {!userstatus && 
+            {!menustate.logged && 
             <>
                 <NavbarNotLogged />
             </>
