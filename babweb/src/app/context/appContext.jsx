@@ -10,19 +10,17 @@ import { createContext, useEffect, useState } from "react";
 export const AppContext =createContext();
 export function AppProvider({children}) {
   
-  const version = 'baboulebooks, Jan 22 2026 : 1.60';
+  const version = 'baboulebooks, Jan 23 2026 : 1.61';
 
   useEffect(() => {
   }, []);
 
   function getVersion() {return version;}
-  function getApplicationMode() {
-    return applicationSection;
-  }
+
   return (
     <AppContext.Provider value={
         {
-          getVersion, getApplicationMode
+          getVersion
         }
       }>
       {children}
