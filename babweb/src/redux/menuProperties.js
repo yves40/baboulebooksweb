@@ -6,7 +6,7 @@ const initialState =
         logged : false,
         useremail : "",
         menustatus: true,   // used to manage menu pop up on phones
-        appstatus: "public", // public, user, admin, admindetails, adminbooks, adminusers
+        appstatus: "mainmenu", // public, user, admin, admindetails, adminbooks, adminusers, ...
         activebreakpoint: "unknown",        
     }
     
@@ -32,7 +32,6 @@ const initialState =
                 state.activebreakpoint = action.payload.activebreakpoint;
             },
             setAppStatus: (state, action) => {
-                console.log(`*********** Application status : ${action.payload.appstatus}`);                
                 state.appstatus = action.payload.appstatus;
             }
         }
