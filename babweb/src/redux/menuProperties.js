@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit"
-import Logger from "@/classes/logger";
 
 const initialState =      
     {
@@ -28,7 +27,6 @@ const initialState =
                 state.menustatus = action.payload.menuvisible;
             },
             setActiveBreakpoint: (state, action) => {
-                // console.log(`*********** tailwind mode :  ${action.payload.activebreakpoint}`);                
                 state.activebreakpoint = action.payload.activebreakpoint;
             },
             setAppStatus: (state, action) => {
