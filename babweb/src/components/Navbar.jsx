@@ -15,7 +15,7 @@ const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Jan 17 2026, 1.36";
+  const version = "Navbar.jsx Jan 23 2026, 1.37";
   const menustate = useSelector((state) => state.menuProperties);
   const {isUserLogged} = useContext(AuthContext);
   const [userstatus, setUserstatus] = useState(false) // Not logged
@@ -26,7 +26,6 @@ export default function Navbar() {
   useEffect(() => {
     const userstate = isUserLogged();
     setUserstatus(userstate);
-    dispatch(setAppStatus({appstatus: 'mainmenu'}))
   }, [])
   // Show or hide menu based on menustatus in redux store
   useEffect(() => {    
@@ -79,6 +78,9 @@ export default function Navbar() {
       dispatch(toggleMenuStatus({menuvisible: false}));  
     }
   }
+
+  console.log(`Application status : ${menustate.appstatus} User logged : ${menustate.logged}`);
+  
 
   return (
     // Look in globals.css for classes definitions
