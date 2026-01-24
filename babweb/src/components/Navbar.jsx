@@ -15,8 +15,8 @@ const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
 
-  const version = "Navbar.jsx Jan 23 2026, 1.37";
-  const menustate = useSelector((state) => state.menuProperties);
+  const version = "Navbar.jsx Jan 24 2026, 1.38";
+  const menustate = useSelector((state) => state.menuproperties);
   const {isUserLogged} = useContext(AuthContext);
   const [userstatus, setUserstatus] = useState(false) // Not logged
   const thenav = useRef(null);
