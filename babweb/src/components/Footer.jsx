@@ -8,7 +8,7 @@ import { toggleMenuStatus } from "@/redux/menuProperties"
 
 function Footer() {
 
-  const menustate = useSelector((state) => state.menuProperties);
+  const menustate = useSelector((state) => state.menuproperties);
   const dispatch = useDispatch();
   let menustatus = menustate.menustatus;
   

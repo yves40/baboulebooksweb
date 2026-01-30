@@ -11,7 +11,7 @@ const initialState =
     
     const menuSlice = createSlice(
     {
-        name: "menuProperties",
+        name: "menuproperties",
         initialState,
         reducers: 
         {

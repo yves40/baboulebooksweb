@@ -6,30 +6,12 @@
 // https://geekyants.com/blog/unlocking-the-power-of-redux-persistence-benefits-and-example
 
 import {configureStore} from "@reduxjs/toolkit"
-import { persistStore, persistReducer } from "redux-persist"
-import storageEngine from "./redux/storageEngine"
-import menuProperties from './redux/menuProperties'
+import menuPropertiesReducer from './redux/menuProperties'
 
-const persistConfig = {
-  key: "root",
-  storage: storageEngine,
-  whitelist: ["menuProperties"], // only menuProperties will be persisted
-  timeout: 1000
-};
-
-const persistedReducer = persistReducer(persistConfig, menuProperties);
-
-console.log(`*************** ${persistedReducer}`);
-
-export const store = configureStore({
-    reducer: persistedReducer,
-    devTools: process.env.NODE_ENV !== 'production',
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
-            },
-        }), 
+const store = configureStore({
+    reducer: {
+        menuproperties: menuPropertiesReducer,
+    },
 })
 
-export const persistor = persistStore(store);
+export {store}

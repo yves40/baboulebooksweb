@@ -2,11 +2,11 @@
   Tout ce code est généré par npx
 --------------------------------------------------------------------------------------*/
 import "@/app/globals.css";
-import { AuthProvider } from "@/app/context/authContext";
+import { Providers } from "@/app/providers";
 import { AppProvider } from "@/app/context/appContext";
-import Providers from "@/app/providers";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { AuthProvider } from "@/app/context/authContext";
+import  Navbar  from "@/components/Navbar";
+import  Footer  from "@/components/Footer";
 
 export const metadata = {
   title: "BabouleBooks",
@@ -17,6 +17,7 @@ const version = "Root Layout Jan 18 2026, 1.32";
   Section d'où tout se construit !
 --------------------------------------------------------------------------------------*/
 export default function RootLayout({ children }) {
+
   return (
     <html lang="fr">
       <body className="body__container">
