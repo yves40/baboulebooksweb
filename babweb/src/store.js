@@ -7,17 +7,19 @@
 
 import {configureStore} from "@reduxjs/toolkit"
 import { persistStore, persistReducer } from "redux-persist"
-import storage from "redux-persist/lib/storage" // defaults to localStorage for web
+import storageEngine from "./redux/storageEngine"
 import menuProperties from './redux/menuProperties'
 
 const persistConfig = {
   key: "root",
-  storage: storage,
+  storage: storageEngine,
   whitelist: ["menuProperties"], // only menuProperties will be persisted
   timeout: 1000
 };
 
 const persistedReducer = persistReducer(persistConfig, menuProperties);
+
+console.log(`*************** ${persistedReducer}`);
 
 export const store = configureStore({
     reducer: persistedReducer,
