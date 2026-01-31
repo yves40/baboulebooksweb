@@ -7,11 +7,33 @@
 
 import {configureStore} from "@reduxjs/toolkit"
 import menuPropertiesReducer from './redux/menuProperties'
+import { middleware } from "./middleware";
+
+import { persistReducer, persistStore,
+            FLUSH,
+            REHYDRATE,
+            PAUSE,
+            PERSIST,
+            PURGE,
+            REGISTER,
+        } from 'redux-persist';
+import storageEngine from './redux/storageEngine';
+
+const persistConfig = {
+  key: 'root',
+  storage: storageEngine,
+};
+const persistedReducer = persistReducer(persistConfig, menuPropertiesReducer);
 
 const store = configureStore({
-    reducer: {
-        menuproperties: menuPropertiesReducer,
-    },
-})
+    reducer: { menuproperties: persistedReducer },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+        serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+        }).concat(middleware)
+});
 
-export {store}
+const persistor = persistStore(store);
+export {store, persistor}
