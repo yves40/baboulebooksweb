@@ -7,7 +7,6 @@
 
 import {configureStore} from "@reduxjs/toolkit"
 import menuPropertiesReducer from './redux/menuProperties'
-import { middleware } from "./middleware";
 
 import { persistReducer, persistStore,
             FLUSH,
@@ -29,10 +28,10 @@ const store = configureStore({
     reducer: { menuproperties: persistedReducer },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-        serializableCheck: {
-            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-        },
-        }).concat(middleware)
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        })
 });
 
 const persistor = persistStore(store);
