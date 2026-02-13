@@ -29,9 +29,12 @@ export default function Navbar() {
     const userstate = isUserLogged();
     setUserstatus(userstate);
   }, [])
+
   // Show or hide menu based on menustatus in redux store
   useEffect(() => {    
-    if(menustate.activebreakpoint === 'mobile') {
+    if(menustate.activebreakpoint === 'mobile' || menustate.activebreakpoint == "sm" 
+      || menustate.activebreakpoint == 'md'
+    ) {
       if(menustate.menustatus) {
         thenav.current.classList.remove("slide-right-out");
         thenav.current.classList.add("slide-right-in");
@@ -45,6 +48,7 @@ export default function Navbar() {
       thenav.current.classList.remove("slide-right-out");
     }
   }, [menustate.menustatus])
+  
   // Handle window resize to get current size
   useLayoutEffect(() => {
     function updateSize() {
@@ -60,6 +64,7 @@ export default function Navbar() {
     updateSize();
     return () => window.removeEventListener('resize', updateSize);
   }, []);
+  
   // Determine active breakpoint, based on tailwind standard definitions
   function getActiveBreakpoint() {
     if (window.matchMedia('(min-width: 1280px)').matches) {
@@ -74,6 +79,7 @@ export default function Navbar() {
         return 'mobile';
     }
   };
+  
   // When clicking on a menu link or anywhere on screen, close the menu if in mobile mode
   function clickMenuLink(e) {
     if(menustate.activebreakpoint === 'mobile') {
@@ -83,7 +89,6 @@ export default function Navbar() {
 
   console.info(`${logtracker} Application status : ${menustate.appstatus} User logged : ${menustate.logged}`);
   
-
   return (
     // Look in globals.css for classes definitions
     <nav ref={thenav} className="nav" onClick={clickMenuLink}>
