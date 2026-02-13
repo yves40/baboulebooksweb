@@ -1,12 +1,12 @@
-"use server"
+"use server";
 /*
-  The middleware.js file must be located in the project root, 
+  The proxy.js file must be located in the project root, 
   or inside src if applicable, so that it is located at the same level as pages or app.
 */
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export async function middleware(req) {
+export async function proxy(req) {
 
   console.log(`Middleware invoked for ${req.nextUrl.pathname}`);
 
@@ -30,7 +30,7 @@ export async function middleware(req) {
 }
 // Filter dashboard and any underlying route
 export const config = {
-  // matcher: [ "/admin/:path*"]
-  matcher: ["/adminusers/:path*", "/adminbooks/:path*"]
+  matcher: ["/adminhome/:path*", "/adminusers/:path*", "/adminbooks/:path*"]
 }
+
 
