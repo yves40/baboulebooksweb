@@ -29,21 +29,19 @@ export default function page() {
 
   const pathname = usePathname();
   const segments = pathname.split('/');
-  console.log(`Pathname Segments ${segments}`);
-
 
   // -----------------------------------------------------------------------------
   // Get books count from server
   // -----------------------------------------------------------------------------
   const getbooks = ( async () => {
     try {
-      logger.info('Get total books count from server');
+      console.info('Get total books count from server');
       const count = await getBooksCount();
-      logger.info(`Total books count retrieved: ${count}`);
+      console.info(`Total books count retrieved: ${count}`);
       setBookscount(count);
     }
     catch(error) {
-      logger.error(`Error in getbooks: ${error}`);
+      console.error(`Error in getbooks: ${error}`);
     } 
   })
   // -----------------------------------------------------------------------------
@@ -55,7 +53,7 @@ export default function page() {
       setAuthorscount(count);
     }
     catch(error) {
-      logger.error(`Error in getauthors: ${error}`);
+      console.error(`Error in getauthors: ${error}`);
     } 
   })
   // -----------------------------------------------------------------------------
@@ -64,16 +62,16 @@ export default function page() {
   const getBookslist = ( async () => {
     const session = authcontext.getSession();
     if(!session || !session.getSessionState()) {
-      logger.info(`***** Anonymous user`);
+      console.info(`***** Anonymous user`);
     }
     else {
-      logger.info(`***** Authenticated user with session ID : ${session.getSessionId()}`);
+      console.info(`***** Authenticated user with session ID : ${session.getSessionId()}`);
     }
-    logger.info(`Get books list with criterias: title=${booktitle}, author=${bookauthor}, editor=${bookeditor}`);
+    console.info(`Get books list with criterias: title=${booktitle}, author=${bookauthor}, editor=${bookeditor}`);
     try {
       results.current.innerText = `Recherche...`;
       const rows = await getSelectedBooks({title: booktitle, author: bookauthor, editor: bookeditor});
-      logger.info(`Books found with criterias: ${rows.length}`);
+      console.info(`Books found with criterias: ${rows.length}`);
       setSelectedbooks(rows);
       if(rows.length === 0) {
         results.current.innerText = `Pas de livre sélectionné.`;
@@ -95,7 +93,7 @@ export default function page() {
       setEditorscount(count);
     }
     catch(error) {
-      logger.error(`Error in geteditors: ${error}`);
+      console.error(`Error in geteditors: ${error}`);
     } 
   })
   // -----------------------------------------------------------------------------

@@ -20,14 +20,14 @@ export default function page() {
 
   async function handleLogout(e) {
     e.preventDefault();
-    logger.info(`Log out for : ${getUser().email}`);
+    console.info(`Log out for : ${getUser().email}`);
     // AuthContext update
     await logoutUser();
     await closeSession();
     // DB and cookies update
     const session = getSession();
     const sessionid = await session.getSessionId();
-    logger.info(`Shoot DB session with ID : ${sessionid} `);
+    console.info(`Shoot DB session with ID : ${sessionid} `);
     await closeDBSession(sessionid);
     await deleteSessionCookie();
     await deleteUserCookie();

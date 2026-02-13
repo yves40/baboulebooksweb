@@ -66,7 +66,7 @@ export default function page() {
             }
         } 
         catch (error) {
-            logger.info(`*** ${module} ${error.message}`);
+            console.info(`*** ${module} ${error.message}`);
             feedback.current.textContent = error.message;
             feedback.current.hidden = false;
             submitButton.current.disabled = true;
@@ -99,7 +99,7 @@ export default function page() {
             const user = new User();
             submitButton.current.textContent = 'Saving...';
             const result = await user.register(formData);
-            logger.info(result);             
+            console.info(result);             
             submitButton.current.textContent = 'User saved ✅';
             let countdown = 3;
             feedback.current.textContent = `Redirecting ${countdown}...`;
