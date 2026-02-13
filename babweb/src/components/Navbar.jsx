@@ -15,7 +15,8 @@ import NavbarNotLogged from './NavbarNotLogged';
 export default function Navbar() {
   
   const modulename = 'Navbar.jsx # ';
-  const version = "Navbar.jsx Jan 24 2026, 1.38";
+  const logtracker = 'APP # ';
+  const version = "Navbar.jsx Feb 13 2026, 1.39";
 
   const menustate = useSelector((state) => state.menuproperties);
   const {isUserLogged} = useContext(AuthContext);
@@ -80,7 +81,7 @@ export default function Navbar() {
     }
   }
 
-  console.info(`${modulename} Application status : ${menustate.appstatus} User logged : ${menustate.logged}`);
+  console.info(`${logtracker} Application status : ${menustate.appstatus} User logged : ${menustate.logged}`);
   
 
   return (

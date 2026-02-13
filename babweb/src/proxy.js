@@ -8,7 +8,9 @@ import { NextResponse } from "next/server";
 
 export async function proxy(req) {
 
-  console.log(`Proxy middleware invoked for ${req.nextUrl.pathname}`);
+  const logtracker = 'PROXY # ';
+
+  console.log(`${logtracker} Proxy middleware invoked for ${req.nextUrl.pathname}`);
 
   const sessionCheck = new URL(`${req.nextUrl.origin}/api/security/checkSession`, req.url);
   const authResponse = await fetch(sessionCheck, 
