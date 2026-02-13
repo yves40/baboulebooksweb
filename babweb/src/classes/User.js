@@ -59,7 +59,7 @@ export default class User {
       this.lastname = "";
     }
     catch(error) {
-      this.logger.error(`User logout failed: ${error}`);       
+      this.console.error(`User logout failed: ${error}`);       
     }
   }
   // ------------------------------------------------------------------------

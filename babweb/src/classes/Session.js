@@ -18,19 +18,19 @@ export default class Session {
   //      P U B L I C 
   // ------------------------------------------------------------------------
   async createDBSession(userid) {
-        this.Logger.info(`createDBSession with userID : ${userid}`);
+        this.console.info(`createDBSession with userID : ${userid}`);
         this.sessionid = await createDBSession(userid);
         return this.sessionid;
   }
   // ------------------------------------------------------------------------
   async checkDBSession() {
-        this.Logger.info(`checkDBSession with sessionID : ${this.sessionid}`);
+        this.console.info(`checkDBSession with sessionID : ${this.sessionid}`);
         const status = await checkDBSession(this.sessionid);
         return status;
   }
   // ------------------------------------------------------------------------
   async createSessionCookie(sessionid) {
-        this.Logger.info(`createSessionCookie  sessionID : ${sessionid}`);
+        this.console.info(`createSessionCookie  sessionID : ${sessionid}`);
         await createSessionCookie(sessionid);
   } 
   // ------------------------------------------------------------------------
@@ -47,7 +47,7 @@ export default class Session {
         await closeDBSession(this.getSessionId()); // server method
       }
       catch(error) {
-        Logger.error(`Session logout failed: ${error}`);       
+        console.error(`Session logout failed: ${error}`);       
       }    
   }
   // ------------------------------------------------------------------------
