@@ -16,8 +16,6 @@ const logger = new Logger();
 // ------------------------------------------------------------------------
 export async function isPrivatePage(pathname) {
 
-    console.info(`${modulename} check ${pathname} privacy`);
-    
     const privateSegments = [ 
         "/dashboard", 
         "/settings/profile",
@@ -55,11 +53,9 @@ export async function checkDBSession(sessionid) {
     const rows = await sqlh.Select('select * from babouledb.sessions where ses_id = ? and ses_expired > now()', [sessionid], conn);
     sqlh.commitTransaction(conn);
     if(rows.length === 0) {
-        console.info(`${modulename} session KO : invalid or expired sessionID ${sessionid}`);      
         return false;
     }
     else {
-        console.info(`${modulename} session OK : valid sessionID ${sessionid}`);      
         return true;
     }
 }
@@ -91,11 +87,9 @@ export async function createSessionCookie(sessionid) {
       const cookieStore = await cookies();
       const sessionCookieId = cookieStore.get("sessionid")?.value;
       if (!sessionCookieId) {  // No cookie yet !
-          console.info(`${modulename} user KO : No sessionCookie`);      
           return { success: false, cookie: undefined };
       }
       else {
-          console.info(`${modulename} user OK : sessionCookie`);      
           return { success: true, cookie: sessionCookieId };
       }
   }
@@ -105,7 +99,6 @@ export async function createSessionCookie(sessionid) {
   export async function closeDBSession(sessionid) {
       try {
         // Shoot the DB session
-        console.info(`${modulename} closeDBSession for sessionID ${sessionid}`);
         const sqlh = new sqlHelper();
         let conn = await sqlh.startTransactionRW();
         await sqlh.Delete('delete from babouledb.sessions where ses_id = ?', [sessionid], conn);

@@ -34,7 +34,6 @@ export async function register(formData) {
         const result = await sqlh.Insert(`insert into babouledb.users 
             (usr_email, usr_password, usr_firstname, usr_lastname, usr_created) 
             values ( ?, ?, ?, ?, now())`,  [mail, hashedPassword, firstname, lastname ], conn );
-        console.info(`${modulename} User registered with id ${result.insertId}`);
         // Assign role
         if(roleanonymous.length > 0) {
             const { role_id } = roleanonymous[0];
@@ -63,7 +62,6 @@ export async function register(formData) {
 // -----------------------------------------------------------------------------------------
 export async function login(email, password) {
 
-    console.info(`Log as : ${email}/${password}`);
     try {
         const sqlh = new sqlHelper();
         let conn = await sqlh.startTransactionRW();
@@ -72,7 +70,6 @@ export async function login(email, password) {
                     where usr_email = ? ', email, conn);
         if(result.length > 0) {
             const { usr_id, usr_email, usr_password, usr_lastname, usr_firstname} = result[0];
-            console.info(`Found ${usr_email}`);
             await validatePassword(password, usr_password);
             // Good credentials, update the lastlogin column
             await sqlh.Update('update babouledb.users set usr_lastlogin = now() where usr_id = ?', [usr_id], conn);
