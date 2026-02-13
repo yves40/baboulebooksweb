@@ -4,7 +4,7 @@ import sqlHelper from '@/classes/sqlHelper';
 import AppError from '@/classes/customError';
 import Logger from '@/classes/logger';
 
-const modulename = "serverBooks # ";
+const modulename = "books # ";
 const Version = "books.js Dec 19 2025, 1.03";
 const logger = new Logger(modulename);
 // -----------------------------------------------------------------------------------------
@@ -26,13 +26,13 @@ export async function getBooksCount() {
         }   
     }
     catch(error) {
-        logger.error(`${modulename} ${error}`);
+        console.error(`${modulename} ${error}`);
         throw new Error('Erreur lors de la récupération du nombre de livres');
     }   
 }
 export async function getSelectedBooks(criteria) {
 
-    logger.info(`Search books with criteria: ${JSON.stringify(criteria)}`);
+    console.info(`Search books with criteria: ${JSON.stringify(criteria)}`);
 
     if(!criteria) {
         throw new AppError('No criteria provided');
@@ -45,7 +45,7 @@ export async function getSelectedBooks(criteria) {
     // title = title.charAt(0).toUpperCase() + title.slice(1);
     let author = criteria.author ? criteria.author.trim().toUpperCase() : '';
     let editor = criteria.editor ? criteria.editor.trim().toUpperCase() : '';
-    logger.info(`Now search for books with these criterias : ${title} : ${author} : ${editor}`);
+    console.info(`Now search for books with these criterias : ${title} : ${author} : ${editor}`);
     /**
      // Build the query
      * SELECT * FROM `books` WHERE bk_title like '%AL%';

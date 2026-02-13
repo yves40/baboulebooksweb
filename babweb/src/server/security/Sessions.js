@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { revalidateTag } from 'next/cache';
 import Logger from '@/classes/logger';
 
-const modulename = "serverSession # ";
+const modulename = "Sessions # ";
 const Version = "Sessions.js Nov 26 2025, 1.08";
 const DBExpirationDelay = 60;  // One hour expiration date for DBSession (msec )
 const CookieExpirationDelay = 1 * 24 * 60 * 60; // One day expiration date for Cookie (sec)
@@ -16,7 +16,7 @@ const logger = new Logger();
 // ------------------------------------------------------------------------
 export async function isPrivatePage(pathname) {
 
-    logger.info(`${modulename} check ${pathname} privacy`);
+    console.info(`${modulename} check ${pathname} privacy`);
     
     const privateSegments = [ 
         "/dashboard", 
@@ -26,7 +26,7 @@ export async function isPrivatePage(pathname) {
         "/signout"];   // Protected paths
 
     privateSegments.map(path => {
-        logger.info(`${modulename} will check ${path} privacy`)
+        console.info(`${modulename} will check ${path} privacy`)
     });
     return privateSegments.some(segment => pathname === segment || 
         pathname.startsWith(segment + "/")); // Waouh !!!
@@ -55,11 +55,11 @@ export async function checkDBSession(sessionid) {
     const rows = await sqlh.Select('select * from babouledb.sessions where ses_id = ? and ses_expired > now()', [sessionid], conn);
     sqlh.commitTransaction(conn);
     if(rows.length === 0) {
-        logger.info(`${modulename} session KO : invalid or expired sessionID ${sessionid}`);      
+        console.info(`${modulename} session KO : invalid or expired sessionID ${sessionid}`);      
         return false;
     }
     else {
-        logger.info(`${modulename} session OK : valid sessionID ${sessionid}`);      
+        console.info(`${modulename} session OK : valid sessionID ${sessionid}`);      
         return true;
     }
 }
@@ -91,11 +91,11 @@ export async function createSessionCookie(sessionid) {
       const cookieStore = await cookies();
       const sessionCookieId = cookieStore.get("sessionid")?.value;
       if (!sessionCookieId) {  // No cookie yet !
-          logger.info(`${modulename} user KO : No sessionCookie`);      
+          console.info(`${modulename} user KO : No sessionCookie`);      
           return { success: false, cookie: undefined };
       }
       else {
-          logger.info(`${modulename} user OK : sessionCookie`);      
+          console.info(`${modulename} user OK : sessionCookie`);      
           return { success: true, cookie: sessionCookieId };
       }
   }
@@ -105,16 +105,16 @@ export async function createSessionCookie(sessionid) {
   export async function closeDBSession(sessionid) {
       try {
         // Shoot the DB session
-        logger.info(`${modulename} closeDBSession for sessionID ${sessionid}`);
+        console.info(`${modulename} closeDBSession for sessionID ${sessionid}`);
         const sqlh = new sqlHelper();
         let conn = await sqlh.startTransactionRW();
         await sqlh.Delete('delete from babouledb.sessions where ses_id = ?', [sessionid], conn);
         sqlh.commitTransaction(conn)
-        revalidateTag("auth-session");  // gestion du cache NextJS
+        revalidateTag("auth-session","max" );  // gestion du cache NextJS
         return { success: true }
       }
       catch(error) {
-          logger.error(error);
+          console.error(error);
       }
   }
   

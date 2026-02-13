@@ -4,7 +4,7 @@ import sqlHelper from '@/classes/sqlHelper';
 import AppError from '@/classes/customError';
 import Logger from '@/classes/logger';
 
-const modulename = "serverBooks # ";
+const modulename = "editors # ";
 const Version = "editors.js Dec 26 2025, 1.01";
 const logger = new Logger();
 
@@ -27,7 +27,7 @@ export async function getEditorsCount() {
         }   
     }
     catch(error) {
-        logger.error(`${modulename} ${error}`);
+        console.error(`${modulename} ${error}`);
         throw new Error('Erreur lors de la récupération du nombre d\'éditeurs');
     }   
 }
@@ -54,7 +54,7 @@ export async function getTopEditors(limit) {
         }   
     }
     catch(error) {
-        logger.error(`${modulename} ${error}`);
+        console.error(`${modulename} ${error}`);
         throw new Error('Erreur lors de la récupération des éditeurs les plus lus');
     }
 }

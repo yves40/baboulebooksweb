@@ -4,7 +4,7 @@ import sqlHelper from '@/classes/sqlHelper';
 import AppError from '@/classes/customError';
 import Logger from '@/classes/logger';
 
-const modulename = "serverAuthors # ";
+const modulename = "authors # ";
 const Version = "authors.js Dec 17 2025, 1.00";
 const logger = new Logger();
 
@@ -27,7 +27,7 @@ export async function getAuthorsCount() {
         }   
     }
     catch(error) {
-        logger.error(`${modulename} ${error}`);
+        console.error(`${modulename} ${error}`);
         throw new Error('Erreur lors de la récupération du nombre d\'auteurs');
     }   
 }
@@ -54,7 +54,7 @@ export async function getTopAuthors(limit) {
         }   
     }
     catch(error) {
-        logger.error(`${modulename} ${error}`);
+        console.error(`${modulename} ${error}`);
         throw new Error('Erreur lors de la récupération des auteurs les plus lus');
     }   
 }

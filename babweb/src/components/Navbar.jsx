@@ -11,11 +11,12 @@ import NavbarBooks from './NavbarBooks';
 import NavbarLogged from './NavbarLogged';
 import NavbarNotLogged from './NavbarNotLogged';
 
-const modulename = 'Navbar.jsx # ';
 
 export default function Navbar() {
-
+  
+  const modulename = 'Navbar.jsx # ';
   const version = "Navbar.jsx Jan 24 2026, 1.38";
+
   const menustate = useSelector((state) => state.menuproperties);
   const {isUserLogged} = useContext(AuthContext);
   const [userstatus, setUserstatus] = useState(false) // Not logged
@@ -79,7 +80,7 @@ export default function Navbar() {
     }
   }
 
-  console.log(`Application status : ${menustate.appstatus} User logged : ${menustate.logged}`);
+  console.info(`${modulename} Application status : ${menustate.appstatus} User logged : ${menustate.logged}`);
   
 
   return (

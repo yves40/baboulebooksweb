@@ -7,7 +7,7 @@ import AppError from '@/classes/customError';
 import { checkEmail, checkPassword, hashPassword, validatePassword } from '@/libs/controls';
 import Logger from '@/classes/logger';
 
-const modulename = "serverSession # ";
+const modulename = "Users # ";
 const Version = "Users.js Dec 18 2025, 1.09";
 const DBExpirationDelay = 60;  // One hour expiration date for DBSession (msec )
 const CookieExpirationDelay = 1 * 24 * 60 * 60; // One day expiration date for Cookie (sec)
@@ -34,7 +34,7 @@ export async function register(formData) {
         const result = await sqlh.Insert(`insert into babouledb.users 
             (usr_email, usr_password, usr_firstname, usr_lastname, usr_created) 
             values ( ?, ?, ?, ?, now())`,  [mail, hashedPassword, firstname, lastname ], conn );
-        logger.info(`${modulename} User registered with id ${result.insertId}`);
+        console.info(`${modulename} User registered with id ${result.insertId}`);
         // Assign role
         if(roleanonymous.length > 0) {
             const { role_id } = roleanonymous[0];
@@ -48,7 +48,7 @@ export async function register(formData) {
         return { mail, password,hashedpassword: hashedPassword, firstname, lastname };
       }
     catch(error) {
-        logger.error(`${module} ${error}`);
+        console.error(`${module} ${error}`);
         if(error instanceof AppError) {
             throw error;      // Send this application error to the caller
         }
@@ -63,7 +63,7 @@ export async function register(formData) {
 // -----------------------------------------------------------------------------------------
 export async function login(email, password) {
 
-    logger.info(`Log as : ${email}/${password}`);
+    console.info(`Log as : ${email}/${password}`);
     try {
         const sqlh = new sqlHelper();
         let conn = await sqlh.startTransactionRW();
@@ -72,11 +72,11 @@ export async function login(email, password) {
                     where usr_email = ? ', email, conn);
         if(result.length > 0) {
             const { usr_id, usr_email, usr_password, usr_lastname, usr_firstname} = result[0];
-            logger.info(`Found ${usr_email}`);
+            console.info(`Found ${usr_email}`);
             await validatePassword(password, usr_password);
             // Good credentials, update the lastlogin column
             await sqlh.Update('update babouledb.users set usr_lastlogin = now() where usr_id = ?', [usr_id], conn);
-            revalidateTag("auth-session");  // gestion du cache NextJS
+            revalidateTag("auth-session", "max");  // gestion du cache NextJS
         }
         else {
             throw new AppError('Connexion rejetée'); // Unknown user
@@ -131,11 +131,11 @@ export async function deleteUserCookie() {
 // -----------------------------------------------------------------------------------------
 export async function logout() {
     try { 
-        revalidateTag("auth-session");  // gestion du cache NextJS
+        revalidateTag("auth-session", "max");  // gestion du cache NextJS
         return { success: true }
     }
     catch(error) {
-        logger.error(error);        
+        console.error(error);        
         throw error
     }
 }

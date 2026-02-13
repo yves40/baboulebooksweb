@@ -4,11 +4,11 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setAppStatus } from "@/redux/menuProperties"
 
-const modulename = 'Navbar.jsx # ';
 
 export default function NavbarBooks() {
-
+  
   const version = "NavbarBooks.jsx Jan 18 2026, 1.01";
+  const modulename = 'NavbarBooks.jsx # ';
   const menustate = useSelector((state) => state.menuProperties);
   const dispatch = useDispatch();
   
