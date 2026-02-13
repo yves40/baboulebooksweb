@@ -12,23 +12,24 @@ export const metadata = {
   title: "BabouleBooks",
   description: "Petit outil de vérification pour baboule",
 };
-const version = "Root Layout Jan 18 2026, 1.32";
+const version = "Root Layout Jan 31 2026, 1.33";
 /*--------------------------------------------------------------------------------------
   Section d'où tout se construit !
+  Et aussi dans providers.jsx on wrappe l'application avec le store redux
 --------------------------------------------------------------------------------------*/
 export default function RootLayout({ children }) {
 
   return (
     <html lang="fr">
-      <body className="body__container">
+      <body className="body__container" >
         {/* The redux store is available throughout the app, thanks to providers.jsx */}
         <Providers>
           <AppProvider>
             <AuthProvider>
               <Navbar />
-              <main className="page__container">
-                {children}
-              </main>
+                <main className="page__container">
+                  {children}
+                </main>
             </AuthProvider>
             <Footer />
           </AppProvider>
