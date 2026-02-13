@@ -18,19 +18,16 @@ export default class Session {
   //      P U B L I C 
   // ------------------------------------------------------------------------
   async createDBSession(userid) {
-        console.info(`createDBSession with userID : ${userid}`);
         this.sessionid = await createDBSession(userid);
         return this.sessionid;
   }
   // ------------------------------------------------------------------------
   async checkDBSession() {
-        console.info(`checkDBSession with sessionID : ${this.sessionid}`);
         const status = await checkDBSession(this.sessionid);
         return status;
   }
   // ------------------------------------------------------------------------
   async createSessionCookie(sessionid) {
-        console.info(`createSessionCookie  sessionID : ${sessionid}`);
         await createSessionCookie(sessionid);
   } 
   // ------------------------------------------------------------------------

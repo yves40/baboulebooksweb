@@ -32,8 +32,6 @@ export async function getBooksCount() {
 }
 export async function getSelectedBooks(criteria) {
 
-    console.info(`Search books with criteria: ${JSON.stringify(criteria)}`);
-
     if(!criteria) {
         throw new AppError('No criteria provided');
     }
@@ -45,7 +43,6 @@ export async function getSelectedBooks(criteria) {
     // title = title.charAt(0).toUpperCase() + title.slice(1);
     let author = criteria.author ? criteria.author.trim().toUpperCase() : '';
     let editor = criteria.editor ? criteria.editor.trim().toUpperCase() : '';
-    console.info(`Now search for books with these criterias : ${title} : ${author} : ${editor}`);
     /**
      // Build the query
      * SELECT * FROM `books` WHERE bk_title like '%AL%';

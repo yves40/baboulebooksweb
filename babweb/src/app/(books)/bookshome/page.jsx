@@ -35,9 +35,7 @@ export default function page() {
   // -----------------------------------------------------------------------------
   const getbooks = ( async () => {
     try {
-      console.info('Get total books count from server');
       const count = await getBooksCount();
-      console.info(`Total books count retrieved: ${count}`);
       setBookscount(count);
     }
     catch(error) {
@@ -61,17 +59,9 @@ export default function page() {
   // -----------------------------------------------------------------------------
   const getBookslist = ( async () => {
     const session = authcontext.getSession();
-    if(!session || !session.getSessionState()) {
-      console.info(`***** Anonymous user`);
-    }
-    else {
-      console.info(`***** Authenticated user with session ID : ${session.getSessionId()}`);
-    }
-    console.info(`Get books list with criterias: title=${booktitle}, author=${bookauthor}, editor=${bookeditor}`);
     try {
       results.current.innerText = `Recherche...`;
       const rows = await getSelectedBooks({title: booktitle, author: bookauthor, editor: bookeditor});
-      console.info(`Books found with criterias: ${rows.length}`);
       setSelectedbooks(rows);
       if(rows.length === 0) {
         results.current.innerText = `Pas de livre sélectionné.`;

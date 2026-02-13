@@ -9,14 +9,12 @@ import { NextResponse } from "next/server";
 import Logger from "@/classes/logger";
 
 export async function GET() {
-  console.info('GET request to check user session');
   try {
     const cookieStore = await cookies();
     const userid = cookieStore.get("userid")?.value;
     if(!userid) {
       return NextResponse.json({authorized: false, status:401});
     }
-    console.info(`******************* ${userid}`);
     /**
      * TODO
      * Check the user session on the DB
@@ -32,14 +30,12 @@ export async function GET() {
 
 export async function POST() {
   const logger = new Logger();
-  console.info('POST request to check user session');
   try {
     const cookieStore = await cookies();
     const userid = cookieStore.get("userid")?.value;
     if(!userid) {
       return NextResponse.json({authorized: false, status:401});
     }
-    console.info(`******************* ${userid}`);
     /**
      * TODO
      * Check the user session on the DB
