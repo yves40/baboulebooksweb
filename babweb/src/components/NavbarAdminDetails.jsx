@@ -12,7 +12,7 @@ export default function NavbarAdmin() {
  
   return (
     <>
-        <li><Link href="/adminbooks" onClick={() => dispatch(setAppStatus({appstatus: 'adminbookss'}))}>Gérer les livres</Link></li>
+        <li><Link href="/adminbooks" onClick={() => dispatch(setAppStatus({appstatus: 'adminbooks'}))}>Gérer les livres</Link></li>
         <li><Link href="/adminusers" onClick={() => dispatch(setAppStatus({appstatus: 'adminusers'}))}>Gérer les utilisateurs</Link></li>
       </>
   )

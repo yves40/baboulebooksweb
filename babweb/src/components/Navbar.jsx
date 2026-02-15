@@ -7,6 +7,7 @@ import { toggleMenuStatus, setActiveBreakpoint, setAppStatus } from "@/redux/men
 
 import Link from 'next/link';
 import NavbarAdmin from './NavbarAdmin';
+import NavbarAdminDetails from './NavbarAdminDetails'
 import NavbarBooks from './NavbarBooks';
 import NavbarLogged from './NavbarLogged';
 import NavbarNotLogged from './NavbarNotLogged';
@@ -98,16 +99,16 @@ export default function Navbar() {
             <li><Link href="/" onClick={() => dispatch(setAppStatus({appstatus: 'mainmenu'}))}>
                               <img className="svg-white32"  
                               src="/svg/house-solid.svg" alt=""/></Link></li>
-            <NavbarBooks />
             {menustate.logged && 
               <>
-                <NavbarAdmin />
+                <NavbarAdminDetails />
                 <NavbarLogged />
               </>
             } 
             {!menustate.logged && 
             <>
-                <NavbarNotLogged />
+              <NavbarBooks />
+              <NavbarNotLogged />
             </>
             }
           </ul>

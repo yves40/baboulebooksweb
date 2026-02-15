@@ -97,7 +97,7 @@ export default function page() {
   }
 
   return (
-    <div className='body__container page__container background-slate-500'>
+    <div className='body__container background-slate-500'>
       <h1 className='mb-10 text-2xl'>Se connecter</h1>
       <div className='w-3/4 md:w-1/2 border rounded shadow-md background-slate-900 text-left mx-auto
           m-4 p-4'>

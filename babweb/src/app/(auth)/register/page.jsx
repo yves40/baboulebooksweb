@@ -119,7 +119,7 @@ export default function page() {
     }
 
     return (
-        <div className='body__container page__container background-slate-500'>
+        <div className='body__container background-slate-500'>
             <h1 className='mb-4 text-2xl'>S'enregistrer</h1>
             <div className='w-7/8 
                     md:w-1/2 border rounded shadow-md background-slate-900 
