@@ -43,7 +43,7 @@ body {
     absolute
     top-0 left-0 
     ml-[-100%]
-    w-full h-[100vh]
+    w-full h-screen
     z-10
     backdrop-blur-xs
     /* Desktop */
@@ -60,7 +60,7 @@ body {
 .topmenu {
   @apply 
     /* Mobile  */
-    w-full h-[100vh] flex flex-row items-center justify-between
+    w-full h-screen flex flex-row items-center justify-between
     /* Desktop */
     lg:fixed 
     lg:w-full
@@ -74,10 +74,10 @@ body {
   @apply 
     /* Mobile  */
     fixed 
-    top-0 left-0 w-full h-[100vh]
+    top-0 left-0 w-full h-screen
     flex flex-col items-center justify-center
     /* Desktop */
-      lg:bg-[var(--menubackground)] 
+      lg:bg-(--menubackground) 
       lg:fixed
       lg:top-0
       lg:left-0
@@ -91,9 +91,9 @@ body {
 .nav-links ul {
   @apply 
     /* Mobile  */
-    bg-[var(--menubackground)] 
+    bg-(--menubackground) 
     items-center justify-center
-    flex flex-col p-[20px] min-w-fit
+    flex flex-col p-5 min-w-fit
     border-0 rounded-2xl
     /* Desktop */
       lg:flex
@@ -138,7 +138,7 @@ body {
   @apply 
       text-center p-4 mt-8 z-20
       w-full 
-      bg-[var(--menubackground)]
+      bg-(--menubackground)
       fixed
       bottom-0 left-0
       h-[calc(var(--footerheight))]
@@ -150,7 +150,7 @@ body {
   @apply 
    text-white
     lg:flex 
-    lg:flex-grow 
+    lg:grow 
     lg:justify-center 
     lg:items-center 
     lg:gap-8;
@@ -187,10 +187,10 @@ body {
   ------------------------------------------------------------------------*/
 .page__container {
   margin-top: var(--menuheight);
-  @apply mx-auto text-center w-[30rem]
-      sm:w-[40rem]
-      md:w-[50rem]
-      lg:w-[60rem];
+  @apply mx-auto text-center w-120
+      sm:w-160
+      md:w-200
+      lg:w-240;
 }
 .form__label {
   @apply flex mb-2 text-gray-700 font-semibold;
