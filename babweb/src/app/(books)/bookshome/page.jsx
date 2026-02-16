@@ -138,9 +138,11 @@ export default function page() {
 
 
   return (
-    <div className="page__container">
+    <div>
       <h1 className='my-4 font-bold'>Mes livres</h1>
-      <div className='text-left mx-8 mt-8'>
+      <div className='text-left mx-8 mt-8 w-[80%]
+                    md:w-[70%]
+                    lg:w-[50%]'>
         <p>Bienvenue dans la section livres. Ici, vous pouvez interroger votre collection de livres.</p>
         <p>Faire des recherches par titre, auteur, éditeur</p>
         <p className=' my-3 underline'>Quelques statistiques sur vos livres dans la base :</p>

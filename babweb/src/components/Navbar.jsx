@@ -8,6 +8,7 @@ import { toggleMenuStatus, setActiveBreakpoint, setAppStatus } from "@/redux/men
 import Link from 'next/link';
 import NavbarAdmin from './NavbarAdmin';
 import NavbarAdminDetails from './NavbarAdminDetails'
+import NavbarTop from './NavbarTop';
 import NavbarBooks from './NavbarBooks';
 import NavbarLogged from './NavbarLogged';
 import NavbarNotLogged from './NavbarNotLogged';
@@ -17,7 +18,7 @@ export default function Navbar() {
   
   const modulename = 'Navbar.jsx # ';
   const logtracker = 'APP # ';
-  const version = "Navbar.jsx Feb 13 2026, 1.39";
+  const version = "Navbar.jsx Feb 16 2026, 1.40";
 
   const menustate = useSelector((state) => state.menuproperties);
   const {isUserLogged} = useContext(AuthContext);
@@ -33,9 +34,7 @@ export default function Navbar() {
 
   // Show or hide menu based on menustatus in redux store
   useEffect(() => {    
-    if(menustate.activebreakpoint === 'mobile' || menustate.activebreakpoint == "sm" 
-      || menustate.activebreakpoint == 'md'
-    ) {
+    if( isMenuHidden()) {
       if(menustate.menustatus) {
         thenav.current.classList.remove("slide-right-out");
         thenav.current.classList.add("slide-right-in");
@@ -55,10 +54,10 @@ export default function Navbar() {
     function updateSize() {
       const breakpoint = getActiveBreakpoint();
       dispatch(setActiveBreakpoint({activebreakpoint: breakpoint}));
-      if(breakpoint !== 'mobile') {
-        dispatch(toggleMenuStatus({menuvisible: true}));    
+      if(isMenuHidden()) {
+        dispatch(toggleMenuStatus({menuvisible: false}));    
       }else {
-        dispatch(toggleMenuStatus({menuvisible: false}));  
+        dispatch(toggleMenuStatus({menuvisible: true}));  
       }
     }
     window.addEventListener('resize', updateSize);
@@ -68,30 +67,42 @@ export default function Navbar() {
   
   // Determine active breakpoint, based on tailwind standard definitions
   function getActiveBreakpoint() {
-    if (window.matchMedia('(min-width: 1280px)').matches) {
-        return 'xl';
-    } else if (window.matchMedia('(min-width: 1024px)').matches) {
-        return 'lg';
-    } else if (window.matchMedia('(min-width: 768px)').matches) {
-        return 'md';
-    } else if (window.matchMedia('(min-width: 640px)').matches) {
-        return 'sm';
-    } else {
-        return 'mobile';
+    if (typeof window !== 'undefined') {
+      if (window.matchMedia('(min-width: 1280px)').matches) {
+          return 'xl';
+      } else if (window.matchMedia('(min-width: 1024px)').matches) {
+          return 'lg';
+      } else if (window.matchMedia('(min-width: 768px)').matches) {
+          return 'md';
+      } else if (window.matchMedia('(min-width: 640px)').matches) {
+          return 'sm';
+      } else {
+          return 'mobile';
+      }
     }
   };
   
   // When clicking on a menu link or anywhere on screen, close the menu if in mobile mode
   function clickMenuLink(e) {
-    if(menustate.activebreakpoint === 'mobile') {
+    if( isMenuHidden()  ) {
       dispatch(toggleMenuStatus({menuvisible: false}));  
     }
   }
 
-  console.info(`${logtracker} Application status : ${menustate.appstatus} User logged : ${menustate.logged}`);
+  function isMenuHidden() {
+    return menustate.activebreakpoint === 'mobile' || menustate.activebreakpoint === 'sm'
+            || menustate.activebreakpoint === 'md';
+  }
+
+  console.info(`${logtracker} Application status : ${menustate.appstatus} User logged : ${menustate.logged} \
+    Screen mode : ${menustate.activebreakpoint}`);
   
   return (
     // Look in globals.css for classes definitions
+    <>
+    {isMenuHidden() &&
+      <NavbarTop/>
+    }
     <nav ref={thenav} className="nav" onClick={clickMenuLink}>
       <div className="topmenu">
         <div className="nav-links">
@@ -116,6 +127,7 @@ export default function Navbar() {
 
       </div>
     </nav>
+    </>
   )
 }
 

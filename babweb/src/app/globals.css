@@ -8,6 +8,7 @@
   --menutextsize: 1.6rem;
   --footerheight: 4rem;
   --footertextsize: 1rem;
+  --left100: -100%;
 }
 
 @theme inline {
@@ -36,7 +37,14 @@ body {
 }
 /* ------------------------------------------------------------------------
   The menu section  
-  ------------------------------------------------------------------------*/
+------------------------------------------------------------------------*/
+.navtop {
+  @apply 
+    top-0 left-0
+    w-full h-[calc(var(--menuheight))] flex flex-row items-center justify-between
+    z-10
+}
+
 .nav {
   @apply 
     /* Mobile  */
