@@ -17,7 +17,7 @@ export default function NavbarTop() {
   return (
     // Look in globals.css for classes definitions
     <nav className="navtop" onClick={clickMenuLink}>
-      <div className=' top-0 fixed bg-(--menubackground) w-full'>
+      <div className='nav-links-top'>
         <ul>
           <li className=' my-3 ml-3'><Link href="/" onClick={() => dispatch(setAppStatus({appstatus: 'mainmenu'}))}>
                             <img className="svg-white32"  

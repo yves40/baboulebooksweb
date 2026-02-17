@@ -40,9 +40,18 @@ body {
 ------------------------------------------------------------------------*/
 .navtop {
   @apply 
-    top-0 left-0
-    w-full h-[calc(var(--menuheight))] flex flex-row items-center justify-between
+    fixed
+    w-full h-[calc(var(--menuheight))] flex flex-row 
     z-10
+    ;
+}
+.nav-links-top {
+  @apply 
+    /* Mobile  */
+    w-full
+    flex flex-row items-center justify-between
+    h-[calc(var(--menuheight))]
+    bg-(--menubackground) ;
 }
 
 .nav {
@@ -74,7 +83,6 @@ body {
     lg:w-full
     lg:top-0 
     lg:left-0 
-    lg:h-[calc(var(--menuheight))]  
     lg:flex
     ;
 }
@@ -306,6 +314,6 @@ body {
   margin-left: 0;
 }
 .slide-right-out {
-  /* animation: slideRightOut 0.5s ease-in-out; */
+  animation: slideRightOut 0.5s ease-in-out;
   transition: all 0.6s ease-in-out;
 }
