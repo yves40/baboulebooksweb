@@ -46,17 +46,17 @@ body {
 }
 
 .nav {
+  margin-left: -100%;
   @apply 
     /* Mobile  */
     absolute
     top-0 left-0 
-    ml-[-100%]
     w-full h-screen
     z-10
     backdrop-blur-xs
     /* Desktop */
       lg:fixed 
-      lg:ml-[0%]
+      lg:ml-0
       lg:w-full
       lg:top-0 
       lg:left-0 
