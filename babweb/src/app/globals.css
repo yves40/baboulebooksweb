@@ -41,15 +41,14 @@ body {
 .navtop {
   @apply 
     fixed
-    w-full h-[calc(var(--menuheight))] flex flex-row 
+    w-full flex flex-row 
     z-10
     ;
 }
 .nav-links-top {
   @apply 
     /* Mobile  */
-    w-full
-    flex flex-row items-center justify-between
+    w-full flex flex-row items-center justify-between
     h-[calc(var(--menuheight))]
     bg-(--menubackground) ;
 }
