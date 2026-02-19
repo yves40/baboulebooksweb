@@ -46,11 +46,9 @@ body {
     ;
 }
 .nav-links-top {
-  @apply 
-    /* Mobile  */
-    w-full flex flex-row items-center justify-between
-    h-[calc(var(--menuheight))]
-    bg-(--menubackground) ;
+  @apply w-full flex flex-row items-center justify-between
+  h-[calc(var(--menuheight))]
+  bg-(--menubackground)
 }
 
 .nav {
