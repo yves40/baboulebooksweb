@@ -6,22 +6,18 @@ export default function NavbarTop() {
   
   const modulename = 'NavbarTop.jsx # ';
   const logtracker = 'APP # ';
-  const version = "NavbarTop.jsx Feb 16 2026, 1.00";
+  const version = "NavbarTop.jsx Feb 19 2026, 1.01";
 
   
-  // When clicking on a menu link or anywhere on screen, close the menu if in mobile mode
-  function clickMenuLink(e) {
-      dispatch(toggleMenuStatus({menuvisible: false}));  
-  }
-
   return (
     // Look in globals.css for classes definitions
-    <nav className="navtop" onClick={clickMenuLink}>
+    <nav className="navtop">
       <div className='nav-links-top'>
         <ul>
-          <li className=' my-3 ml-3'><Link href="/" onClick={() => dispatch(setAppStatus({appstatus: 'mainmenu'}))}>
-                            <img className="svg-white32"  
-                            src="/svg/house-solid.svg" alt=""/></Link></li>
+          <li className=' my-3 ml-3'>
+              <Link href="/" onClick={() => dispatch(setAppStatus({appstatus: 'mainmenu'}))}>
+                <img className="svg-white32"  src="/svg/house-solid.svg" alt=""/>
+              </Link></li>
         </ul>
       </div>
     </nav>
