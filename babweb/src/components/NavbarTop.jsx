@@ -11,8 +11,7 @@ export default function NavbarTop() {
   
   return (
     // Look in globals.css for classes definitions
-    <nav className="navtop">
-      <div className='nav-links-top'>
+      <div className='navtop'>
         <ul>
           <li className=' my-3 ml-3'>
               <Link href="/" onClick={() => dispatch(setAppStatus({appstatus: 'mainmenu'}))}>
@@ -20,8 +19,5 @@ export default function NavbarTop() {
               </Link></li>
         </ul>
       </div>
-    </nav>
   )
 }
-
-

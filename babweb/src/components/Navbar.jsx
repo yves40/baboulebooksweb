@@ -100,32 +100,30 @@ export default function Navbar() {
   return (
     // Look in globals.css for classes definitions
     <>
-    {isMenuHidden() &&
-      <NavbarTop/>
-    }
-    <nav ref={thenav} className="nav" onClick={clickMenuLink}>
-      <div className="topmenu">
-        <div className="nav-links">
-          <ul>
-            <li><Link href="/" onClick={() => dispatch(setAppStatus({appstatus: 'mainmenu'}))}>
-                              <img className="svg-white32"  
-                              src="/svg/house-solid.svg" alt=""/></Link></li>
-            {menustate.logged && 
+      <NavbarTop></NavbarTop>
+      <nav ref={thenav} className="nav" onClick={clickMenuLink}>
+        <div className="topmenu">
+          <div className="nav-links">
+            <ul>
+              <li><Link href="/" onClick={() => dispatch(setAppStatus({appstatus: 'mainmenu'}))}>
+                                <img className="svg-white32"  
+                                src="/svg/house-solid.svg" alt=""/></Link></li>
+              {menustate.logged && 
+                <>
+                  <NavbarAdminDetails />
+                  <NavbarLogged />
+                </>
+              } 
+              {!menustate.logged && 
               <>
-                <NavbarAdminDetails />
-                <NavbarLogged />
+                <NavbarBooks />
+                <NavbarNotLogged />
               </>
-            } 
-            {!menustate.logged && 
-            <>
-              <NavbarBooks />
-              <NavbarNotLogged />
-            </>
-            }
-          </ul>
+              }
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
     </>
   )
 }

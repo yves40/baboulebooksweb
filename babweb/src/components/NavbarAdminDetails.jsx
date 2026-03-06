@@ -5,9 +5,9 @@ import { useDispatch } from 'react-redux';
 import { setAppStatus } from "@/redux/menuProperties"
 
 
-export default function NavbarAdmin() {
+export default function NavbarAdminDetails() {
   
-  const version = "NavbarAdminDetails.jsx jan 22 2026, 1.03";
+  const version = "NavbarAdminDetails.jsx Feb 20 2026, 1.04";
   const dispatch = useDispatch();
  
   return (

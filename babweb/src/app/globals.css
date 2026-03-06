@@ -40,15 +40,13 @@ body {
 ------------------------------------------------------------------------*/
 .navtop {
   @apply 
-    fixed
-    w-full flex flex-row 
+    fixed top-0 left-0
+    w-full flex flex-row items-center justify-between
     z-10
-    ;
-}
-.nav-links-top {
-  @apply w-full flex flex-row items-center justify-between
-  h-[calc(var(--menuheight))]
-  bg-(--menubackground)
+    h-[calc(var(--menuheight))]
+    bg-(--menubackground)
+    /* Desktop */
+      lg:hidden
 }
 
 .nav {
