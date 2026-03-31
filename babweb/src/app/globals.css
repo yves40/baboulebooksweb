@@ -72,13 +72,14 @@ body {
 .topmenu {
   @apply 
     /* Mobile  */
-    w-full h-screen flex flex-row items-center justify-between
+    w-full flex flex-row items-center justify-between
     /* Desktop */
     lg:fixed 
     lg:w-full
     lg:top-0 
     lg:left-0 
     lg:flex
+    h-[calc(var(--menuheight))]
     ;
 }
 .nav-links {
