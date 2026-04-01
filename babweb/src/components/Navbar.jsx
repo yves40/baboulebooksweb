@@ -6,7 +6,6 @@ import { AuthContext } from '@/app/context/authContext';
 import { toggleMenuStatus, setActiveBreakpoint, setAppStatus } from "@/redux/menuProperties"
 
 import Link from 'next/link';
-import NavbarAdmin from './NavbarAdmin';
 import NavbarAdminDetails from './NavbarAdminDetails'
 import NavbarTop from './NavbarTop';
 import NavbarBooks from './NavbarBooks';
@@ -18,18 +17,24 @@ export default function Navbar() {
   
   const modulename = 'Navbar.jsx # ';
   const logtracker = 'APP # ';
-  const version = "Navbar.jsx Feb 16 2026, 1.40";
+  const version = "Navbar.jsx Apr 01 2026, 1.41";
 
   const menustate = useSelector((state) => state.menuproperties);
   const {isUserLogged} = useContext(AuthContext);
   const [userstatus, setUserstatus] = useState(false) // Not logged
   const thenav = useRef(null);
   const dispatch = useDispatch();
+  const [mounted, setMounted] = useState(false)
 
   // On component mount, check if user is logged
   useEffect(() => {
     const userstate = isUserLogged();
     setUserstatus(userstate);
+    // Used to avoid hydration errors when using client-side only features, such as localStorage, or window object, 
+    // which are not available during server-side rendering.
+    // Article here : 
+    // https://medium.com/@eric.burel/how-to-get-rid-of-window-is-not-defined-and-hydration-mismatch-errors-in-next-js-567cc51b4a17
+    setMounted(true)
   }, [])
 
   // Show or hide menu based on menustatus in redux store
@@ -67,7 +72,7 @@ export default function Navbar() {
   
   // Determine active breakpoint, based on tailwind standard definitions
   function getActiveBreakpoint() {
-    if (typeof window !== 'undefined') {
+    if (mounted) {
       if (window.matchMedia('(min-width: 1280px)').matches) {
           return 'xl';
       } else if (window.matchMedia('(min-width: 1024px)').matches) {
