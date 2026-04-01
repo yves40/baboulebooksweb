@@ -78,8 +78,6 @@ export default function page() {
       </div>
       <ul className='pagemenu'>
         <li>Ajouter un livre</li>
-        <li>Modifier un livre</li>
-        <li>Supprimer un livre</li>
       </ul>
     </div>
   )
