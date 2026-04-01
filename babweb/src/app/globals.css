@@ -86,6 +86,7 @@ body {
 .pagemenu {
   @apply 
     text-[calc(var(--menutextsize))] font-bold
+    text-left
 }
 .pagemenu li {
   @apply 
