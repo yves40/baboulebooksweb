@@ -27,7 +27,7 @@ export async function getAuthorsCount() {
         }   
     }
     catch(error) {
-        console.error(`${modulename} ${error}`);
+        console.log(`${modulename} ${error}`);
         throw new Error('Erreur lors de la récupération du nombre d\'auteurs');
     }   
 }
@@ -54,7 +54,7 @@ export async function getTopAuthors(limit) {
         }   
     }
     catch(error) {
-        console.error(`${modulename} ${error}`);
+        console.log(`${modulename} ${error}`);
         throw new Error('Erreur lors de la récupération des auteurs les plus lus');
     }   
 }

@@ -39,7 +39,7 @@ export default function page() {
       setBookscount(count);
     }
     catch(error) {
-      console.error(`Error in getbooks: ${error}`);
+      console.log(`Error in getbooks: ${error}`);
     } 
   })
   // -----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ export default function page() {
       setAuthorscount(count);
     }
     catch(error) {
-      console.error(`Error in getauthors: ${error}`);
+      console.log(`Error in getauthors: ${error}`);
     } 
   })
   // -----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ export default function page() {
       setEditorscount(count);
     }
     catch(error) {
-      console.error(`Error in geteditors: ${error}`);
+      console.log(`Error in geteditors: ${error}`);
     } 
   })
   // -----------------------------------------------------------------------------

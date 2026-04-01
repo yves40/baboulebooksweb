@@ -38,7 +38,7 @@ export default function page() {
   return (
     <div className="page__container">
       <h1 className='my-4 font-bold'>Top auteurs</h1>
-      <p className=' my-5'>Voici les auteurs que vous avez le plus lu</p>
+      <p className=' my-5'>Voici les {toplimit} auteurs que vous avez le plus lu</p>
       <div className=' border-t-2 mt-6 pt-4 mx-4 text-gray-500'>
         <p className=' border-b-2 text-gray-500 pb-6 w-full' ref={results}>Top {toplimit}</p>
         <div className=' mb-24'>

@@ -76,7 +76,7 @@ export default class sqlHelper {
           resolve(result) ;
         }
         catch(error) {
-          console.error(`INSERT ERROR ${error}`);
+          console.log(`INSERT ERROR ${error}`);
           reject(error);
         }
       })();
@@ -94,7 +94,7 @@ export default class sqlHelper {
           resolve(result) ;
         }
         catch(error) {
-          console.error(`DELETE ERROR ${error}`);
+          console.log(`DELETE ERROR ${error}`);
           reject(error);
         }
       })();
@@ -112,7 +112,7 @@ export default class sqlHelper {
           resolve(result) ;
         }
         catch(error) {
-          console.error(`UPDATE ERROR ${error}`);
+          console.log(`UPDATE ERROR ${error}`);
           reject(error);
         }
       })();

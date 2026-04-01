@@ -44,7 +44,7 @@ export default class Session {
         await closeDBSession(this.getSessionId()); // server method
       }
       catch(error) {
-        console.error(`Session logout failed: ${error}`);       
+        console.log(`Session logout failed: ${error}`);       
       }    
   }
   // ------------------------------------------------------------------------

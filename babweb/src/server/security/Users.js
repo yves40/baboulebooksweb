@@ -47,7 +47,7 @@ export async function register(formData) {
         return { mail, password,hashedpassword: hashedPassword, firstname, lastname };
       }
     catch(error) {
-        console.error(`${module} ${error}`);
+        console.log(`${module} ${error}`);
         if(error instanceof AppError) {
             throw error;      // Send this application error to the caller
         }
@@ -85,7 +85,7 @@ export async function login(email, password) {
       if(error instanceof AppError) {        
         throw error;   
       }
-      console.error(`Erreur sur le serveur: ${error.message}`);
+      console.log(`Erreur sur le serveur: ${error.message}`);
       throw new Error('Erreur durant le login');
     }
 }
@@ -132,7 +132,7 @@ export async function logout() {
         return { success: true }
     }
     catch(error) {
-        console.error(error);        
+        console.log(error);        
         throw error
     }
 }

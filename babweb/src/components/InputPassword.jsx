@@ -49,7 +49,7 @@ export default function InputPassword({componentid, label, parentHandler,
                 controlicon.current.src = "/png/cross-mark-32.png";
                 feedback.current.textContent = error.message;
                 feedback.current.hidden = false;
-                console.error(`*** ${module} ${error.message}`);
+                console.log(`*** ${module} ${error.message}`);
             }
         }, timeout);
     }

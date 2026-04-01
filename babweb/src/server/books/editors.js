@@ -27,7 +27,7 @@ export async function getEditorsCount() {
         }   
     }
     catch(error) {
-        console.error(`${modulename} ${error}`);
+        console.log(`${modulename} ${error}`);
         throw new Error('Erreur lors de la récupération du nombre d\'éditeurs');
     }   
 }
@@ -54,7 +54,7 @@ export async function getTopEditors(limit) {
         }   
     }
     catch(error) {
-        console.error(`${modulename} ${error}`);
+        console.log(`${modulename} ${error}`);
         throw new Error('Erreur lors de la récupération des éditeurs les plus lus');
     }
 }

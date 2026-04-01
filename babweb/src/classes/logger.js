@@ -57,7 +57,7 @@ export default class Logger {
         return;
     }
     error(mess) {
-        this.log(mess, Logger.ERROR);
+        this.log(mess, Logger.log);
         return;
     }
     fatal(mess) {
@@ -73,7 +73,7 @@ export default class Logger {
             case Logger.DEBUG: return 'DBG';
             case Logger.INFORMATIONAL: return 'INF';
             case Logger.WARNING: return 'WRN';
-            case Logger.ERROR: return 'ERR';
+            case Logger.log: return 'ERR';
             case Logger.FATAL: return 'FTL';
             default: return 'FTL';
         }

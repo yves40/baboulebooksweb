@@ -5,7 +5,8 @@
   --foreground: #171717;
   --menubackground: #1d293d;
   --menuheight: 6rem;
-  --menutextsize: 1.6rem;
+  --menutextsize: 1.4rem;
+  --menuemailtextsize: 0.8rem;
   --footerheight: 4rem;
   --footertextsize: 1rem;
   --left100: -100%;
@@ -81,6 +82,14 @@ body {
     lg:flex
     h-[calc(var(--menuheight))]
     ;
+}
+.pagemenu {
+  @apply 
+    text-[calc(var(--menutextsize))] font-bold
+}
+.pagemenu li {
+  @apply 
+    mx-4 my-2
 }
 .nav-links {
   @apply 

@@ -13,7 +13,7 @@ export default function NavbarLogged() {
     return (
         <>
             <li><Link href="/logout" onClick={() => dispatch(setAppStatus({appstatus: 'public'}))}>Déconnexion</Link></li>
-            <li><p>{getUser().email}</p></li>
+            <li><p className=" text-[calc(var(--menuemailtextsize))]">{getUser().email}</p></li>
         </>
     )
 }

@@ -23,7 +23,7 @@ export async function GET() {
     return NextResponse.json({authorized: true, status:200}); 
   }
   catch(error) {
-    console.error(`Error while validating session: ${error}`);
+    console.log(`Error while validating session: ${error}`);
     return NextResponse.json({authorized: false, status:500});
   }
 }
@@ -44,7 +44,7 @@ export async function POST() {
     return NextResponse.json({authorized: true, status:200});
   }
   catch(error) {
-    console.error(`Error while validating session: ${error}`);
+    console.log(`Error while validating session: ${error}`);
     return NextResponse.json({authorized: false, status:500});
   }
 }

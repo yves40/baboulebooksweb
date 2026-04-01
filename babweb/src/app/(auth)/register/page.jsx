@@ -66,7 +66,7 @@ export default function page() {
             }
         } 
         catch (error) {
-            console.error(`*** ${module} ${error.message}`);
+            console.log(`*** ${module} ${error.message}`);
             feedback.current.textContent = error.message;
             feedback.current.hidden = false;
             submitButton.current.disabled = true;

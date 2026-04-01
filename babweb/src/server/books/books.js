@@ -26,7 +26,7 @@ export async function getBooksCount() {
         }   
     }
     catch(error) {
-        console.error(`${modulename} ${error}`);
+        console.log(`${modulename} ${error}`);
         throw new Error('Erreur lors de la récupération du nombre de livres');
     }   
 }
