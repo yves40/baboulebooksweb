@@ -43,6 +43,13 @@ export default function page() {
   useEffect( () => {
     getBookslist();
   }, [booktitle]);
+    useEffect( () => {
+    getBookslist();
+  }, [bookauthor]);
+  useEffect( () => {
+    getBookslist();
+  }, [bookeditor]);
+
 
   return (
     <div>
@@ -53,8 +60,8 @@ export default function page() {
       ces actions ne sont pas réversibles.  
       </p>
       <InputText label="Filtrer par titre" name="booktitle" parentHandler={setBooktitle} timeout={2000}/>
-      <InputText label="Filtrer par auteur" name="bookauthor" />
-      <InputText label="Filtrer par éditeur" name="bookeditor" /> 
+      <InputText label="Filtrer par auteur" name="bookauthor" parentHandler={setBookauthor} timeout={2000}/>
+      <InputText label="Filtrer par éditeur" name="bookeditor" parentHandler={setBookeditor} timeout={2000}/> 
       <div className=' border-t-2 mt-6 pt-4 mx-4 text-gray-500'>
         <p className=' border-b-2 text-gray-500 pb-6 w-full' ref={results}>Résultats</p>
         <div className=' mb-24'>
