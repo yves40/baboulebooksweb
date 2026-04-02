@@ -95,9 +95,6 @@ export default function Navbar() {
             || menustate.activebreakpoint === 'md';
   }
 
-  console.log(menustate);
-  
-
   console.info(`${logtracker} Application status : ${menustate.appstatus} User logged : ${menustate.logged} \
     Screen mode : ${menustate.activebreakpoint}`);
   
