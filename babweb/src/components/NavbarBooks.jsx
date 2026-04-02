@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from 'react';
+import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux'
 import { setAppStatus } from "@/redux/menuProperties"
 
@@ -14,9 +14,9 @@ export default function NavbarBooks() {
   
   return (
     <>
-        <li><a href="/bookshome" onClick={() => dispatch(setAppStatus({appstatus: 'searchbooks'}))}>Livres</a></li>
-        <li><a href="/authors" onClick={() => dispatch(setAppStatus({appstatus: 'topauthors'}))}>Top auteurs</a></li>
-        <li><a href="/editors" onClick={() => dispatch(setAppStatus({appstatus: 'topeditors'}))}>Top éditeurs</a></li>
+        <li><Link href="/bookshome" onClick={() => dispatch(setAppStatus({appstatus: 'searchbooks'}))}>Livres</Link></li>
+        <li><Link href="/authors" onClick={() => dispatch(setAppStatus({appstatus: 'topauthors'}))}>Top auteurs</Link></li>
+        <li><Link href="/editors" onClick={() => dispatch(setAppStatus({appstatus: 'topeditors'}))}>Top éditeurs</Link></li>
     </>
   )
 }
