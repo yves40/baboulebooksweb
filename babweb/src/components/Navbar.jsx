@@ -17,7 +17,7 @@ export default function Navbar() {
   
   const modulename = 'Navbar.jsx # ';
   const logtracker = 'APP # ';
-  const version = "Navbar.jsx Apr 01 2026, 1.41";
+  const version = "Navbar.jsx Apr 02 2026, 1.43";
 
   const menustate = useSelector((state) => state.menuproperties);
   const {isUserLogged} = useContext(AuthContext);
@@ -29,14 +29,11 @@ export default function Navbar() {
   // On component mount, check if user is logged
   useEffect(() => {
     const userstate = isUserLogged();
-    setUserstatus(userstate);
-    // Used to avoid hydration errors when using client-side only features, such as localStorage, or window object, 
-    // which are not available during server-side rendering.
-    // Article here : 
-    // https://medium.com/@eric.burel/how-to-get-rid-of-window-is-not-defined-and-hydration-mismatch-errors-in-next-js-567cc51b4a17
+    setUserstatus(userstate);  
+    console.log('*************** Mounted');
     setMounted(true)
   }, [])
-
+  
   // Show or hide menu based on menustatus in redux store
   useEffect(() => {    
     if( isMenuHidden()) {
