@@ -4,8 +4,8 @@ const initialState =
     {
         logged : false,
         useremail : "",
-        menustatus: true,   // used to manage menu pop up on phones
-        appstatus: "mainmenu", // public, user, admin, admindetails, adminbooks, adminusers, ...
+        menustatus: true,       // used to manage menu pop up on phones
+        appstatus: "mainmenu",  // public, user, admin, admindetails, adminbooks, adminusers, ...
         activebreakpoint: "unknown",        
     }
     
