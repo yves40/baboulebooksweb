@@ -17,7 +17,7 @@ export default function Navbar() {
   
   const modulename = 'Navbar.jsx # ';
   const logtracker = 'APP # ';
-  const version = "Navbar.jsx Apr 02 2026, 1.43";
+  const version = "Navbar.jsx Apr 02 2026, 1.44";
 
   const menustate = useSelector((state) => state.menuproperties);
   const {isUserLogged} = useContext(AuthContext);
@@ -30,7 +30,6 @@ export default function Navbar() {
   useEffect(() => {
     const userstate = isUserLogged();
     setUserstatus(userstate);  
-    console.log('*************** Mounted');
     setMounted(true)
   }, [])
   
@@ -69,7 +68,7 @@ export default function Navbar() {
   
   // Determine active breakpoint, based on tailwind standard definitions
   function getActiveBreakpoint() {
-    if (mounted) {
+    if (window !== undefined) {
       if (window.matchMedia('(min-width: 1280px)').matches) {
           return 'xl';
       } else if (window.matchMedia('(min-width: 1024px)').matches) {
@@ -95,6 +94,9 @@ export default function Navbar() {
     return menustate.activebreakpoint === 'mobile' || menustate.activebreakpoint === 'sm'
             || menustate.activebreakpoint === 'md';
   }
+
+  console.log(menustate);
+  
 
   console.info(`${logtracker} Application status : ${menustate.appstatus} User logged : ${menustate.logged} \
     Screen mode : ${menustate.activebreakpoint}`);
