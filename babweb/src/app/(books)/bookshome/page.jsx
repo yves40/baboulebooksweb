@@ -148,7 +148,7 @@ export default function page() {
         <p className=' my-3 underline'>Quelques statistiques sur vos livres dans la base :</p>
         <div>
           <ul className='' hidden ref={stats} > 
-            <li className='gridcols511 mt-4'>
+            <li className='gridcols511 mt-4' key="TOTALBOOKS">
               <span className=' mx-4'>Nombre total de livres</span>
               <span className=' text-red-700 mx-4'>{bookscount}</span>
               <span className=' ml-4'><img className='svg-blue32' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleBookselector}/></span>
@@ -157,7 +157,7 @@ export default function page() {
               <InputText className=' mx-4' componentid="booktitle" label="Rechercher par le titre" parentHandler={setBooktitle} timeout={2000}> </InputText>
             </div>
 
-            <li  className='gridcols511 mt-4'>
+            <li  className='gridcols511 mt-4' key="TOTALAUTHORS">
               <span className=' mx-4 '>Nombre d'auteurs</span>
               <span className=' text-red-700 mx-4'>{authorscount}</span>
               <span className=' ml-4'><img className='svg-blue32' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleAuthorselector}/></span>             
@@ -166,7 +166,7 @@ export default function page() {
               <InputText componentid="bookauthor" label="Rechercher par l'auteur (nom de famille)"  parentHandler={setBookauthor} timeout={2000}> </InputText>
             </div>
 
-            <li  className='gridcols511 mt-4'>
+            <li  className='gridcols511 mt-4' key="TOTALEDITORS">
               <span className=' mx-4'>Nombre d'éditeurs</span>
               <span className=' text-red-700 mx-4'>{editorscount}</span>
               <span className=' ml-4'><img className='svg-blue32' src="svg/magnifying-glass-solid.svg" alt="" onClick={toggleEditorselector}/></span>
