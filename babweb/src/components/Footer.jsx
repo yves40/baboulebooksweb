@@ -21,8 +21,8 @@ function Footer() {
   return (
     <footer className="footer">
       <ul>
-        <li className="footer__version ml-4"><p >&copy;  {`${appctx.getVersion()}`}</p></li>
-        <li className="footer__pizzabox">
+        <li className="footer__version ml-4" key="VERSION"><p >&copy;  {`${appctx.getVersion()}`}</p></li>
+        <li className="footer__pizzabox" key="PIZZABOX">
             <img className="svg-white48" onClick={toggleMenu}
                   src="/svg/bars-solid.svg" alt="" />
         </li>        

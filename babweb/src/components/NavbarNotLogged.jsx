@@ -8,8 +8,8 @@ export default function NavbarNotLogged() {
 
   return (
     <>
-        <li ><Link className=' sm:block' href="/login" onClick={() => dispatch(setAppStatus({appstatus: 'login'}))}>Connexion</Link></li>
-        <li ><Link className=' sm:block' href="/register" onClick={() => dispatch(setAppStatus({appstatus: 'register'}))}>S'enregister</Link></li>
+        <li key="LOGIN"><Link className=' sm:block' href="/login" onClick={() => dispatch(setAppStatus({appstatus: 'login'}))}>Connexion</Link></li>
+        <li key="REGISTER"><Link className=' sm:block' href="/register" onClick={() => dispatch(setAppStatus({appstatus: 'register'}))}>S'enregister</Link></li>
     </>
 
 )

@@ -13,7 +13,7 @@ export default function NavbarTop() {
     // Look in globals.css for classes definitions
       <div className='navtop'>
         <ul>
-          <li className=' my-3 ml-3'>
+          <li className=' my-3 ml-3' key="NAVTOP">
               <Link href="/" onClick={() => dispatch(setAppStatus({appstatus: 'mainmenu'}))}>
                 <img className="svg-white32"  src="/svg/house-solid.svg" alt=""/>
               </Link></li>
