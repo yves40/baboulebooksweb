@@ -8,15 +8,21 @@ const handle = app.getRequestHandler();
 
 
 app.prepare().then(() => {
-  const server = express(); 
-    server.all('*', (req, res) => { 
+    console.log(`> Starting express server on http://localhost:${port}`);
+    const server = express(); 
+    server.all('/*path', (req, res) => { 
         return handle(req, res);    
+    });
+    server.get('/', (req,res) => {
+        // res.status(200).send("Hey, You are in my backend!!!");
+        res.redirect('/home');
     });
     server.listen(port, (err) => {
         if (err) throw err;
         console.log(`> Ready on http://localhost:${port}`);
     }); 
-}).catch((ex) => {
+})
+.catch((ex) => {
     console.error(ex.stack);
     process.exit(1);
 });
