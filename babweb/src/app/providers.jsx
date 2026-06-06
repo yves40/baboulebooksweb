@@ -10,7 +10,6 @@
  * can pass store to all children components.
  */
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 import { store } from '../store';
 
 export function Providers({ children }) {
